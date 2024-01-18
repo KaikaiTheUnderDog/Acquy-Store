@@ -1,0 +1,322 @@
+[
+    {
+        "name": "Nintendo DS Lite",
+        "price": 129,
+        "shortDescription": "Experience the joy of classic gaming with the Nintendo DS Lite, a compact and lightweight handheld console that offers a unique dual-screen gameplay. With its bright screens, vast game library, and Wi-Fi connectivity, it's a must-have for any gaming enthusiast.",
+        "LongDescription": "Step into the world of immersive gaming with the Nintendo DS Lite, a sleek and portable handheld console that brings your favorite games to life. Its dual-screen design, with two bright 3.12' TFT LCDs, offers a unique gameplay experience, letting you interact with games in ways you never thought possible. The DS Lite is more than just a gaming console. It’s a gateway to a universe of games, with backward compatibility with Game Boy Advance. Whether you’re a fan of action, adventure, puzzle, or sports games, the DS Lite has something for everyone. But the DS Lite isn’t just about playing games. With Wi-Fi connectivity, you can connect with friends, compete against players around the world, and download new content. It’s a social experience that brings people together. Under the hood, the DS Lite is powered by a 67 MHz ARM9 and 33 MHz ARM7 CPU, ensuring smooth and responsive gameplay. And with 4 MB of RAM, it can handle even the most demanding games. The DS Lite is designed for gaming on the go. Its compact and lightweight design makes it easy to take with you wherever you go. And with its robust build, it can handle the rigors of travel. So why wait? Step into the world of DS Lite and experience gaming like never before. With its unique features and vast game library, it's more than just a console. It’s your passport to a world of adventure. Order now and let the games begin!",
+        "rating": 4.3,
+        "images":            {
+                "public_id": "products/Nb8bK0rSlAEE2K9AWrB4FgHaGP",
+                "url": "https://th.bing.com/th/id/OIP.Nb8bK0rSlAEE2K9AWrB4FgHaGP?rs=1&pid=ImgDetMain"
+            }
+        ,
+        "info": {
+            "releaseDate": "March, 2nd, 2006",
+            "dimension": "13.3 * 7.4 * 2.15 (cm) ",
+            "weight": "218g",
+            "quanranty": "6 months",
+            "included": "Charger, Clear plastic case, replacable stylus, manual"
+        },
+        "category": "Handheld",
+        "stock": 23,
+        "numOfReviews": 0,
+        "reviews":[]
+    },
+    {
+        "name": "Nintendo DSi ",
+        "price": 139,
+        "shortDescription": "Experience the joy of gaming on the go with the Nintendo DSi. This handheld console features two digital cameras, supports internal and external content storage, and connects to an online store called the Nintendo DSi Shop. With a larger screen than its predecessor, the DSi is your perfect companion for portable gaming",
+        "LongDescription": " Step into the world of handheld gaming with the Nintendo DSi. As the third iteration of the Nintendo DS family, the DSi stands out with its unique features and sleek design. It boasts two digital cameras, allowing you to capture and share your favorite gaming moments. The DSi supports both internal and external content storage, ensuring you have enough space for all your games and media. The console connects to the Nintendo DSi Shop, an online store where you can explore and download a plethora of exclusive games1. The DSi's design is similar to that of the DS Lite, but it offers a larger screen for an enhanced gaming experience. Moreover, the DSi includes an app called Flipnote Studio, which allows players to create their own animated flipbooks3. This feature not only adds a creative twist to the console but also makes gaming more interactive and fun. The Nintendo DSi is more than just a gaming console; it’s a gateway to a world of entertainment. With its advanced features and user-friendly interface, the DSi offers a comprehensive gaming experience that both beginners and seasoned gamers will appreciate1. So why wait? Dive into the exciting world of handheld gaming with the Nintendo DSi today!",
+        "rating": 4.3,
+        "images": {
+            "public_id": "products/51sfvVW5CWL",
+            "url": "https://m.media-amazon.com/images/I/51sfvVW5CWL._SX522_.jpg"
+        },
+        "info": {
+            "releaseDate": "Novemver, 1st, 2008",
+            "dimension": "13.7 * 7.49 * 1.89 (cm) ",
+            "weight": "218g",
+            "quanranty": "6 months",
+            "included": "Charger, Clear plastic case, replacable stylus, manual"
+        },
+        "category": "Handheld",
+        "stock": 123,
+        "numOfReviews": 0,
+        "reviews":[]
+    },     
+    {
+        "name": "Nintendo 3DS",
+        "price": 189,
+        "shortDescription": "Step into the world of 3D gaming with the Nintendo 3DS. This handheld console offers a unique 3D gaming experience without the need for special glasses. It features a 3D Depth Slider, a Home button, wireless connectivity, and can play all Nintendo DS games.",
+        "LongDescription": "Experience the future of handheld gaming with the Nintendo 3DS. This innovative console is known for its ability to display stereoscopic 3D effects without the need for 3D glasses or additional accessories. With its dual screens, the upper one being a widescreen display with a resolution of 800 x 240 pixels, it offers a unique gaming experience. The 3DS comes with a 3D Depth Slider that lets you select the level of 3D you enjoy the most. It also has a Home button which brings you back to the main menu at any time. The console supports wireless connectivity, allowing you to connect with your friends or other players around the world. One of the greatest features of the Nintendo 3DS is its backward compatibility. It can play all Nintendo DS games, which means you can enjoy your old favorites on this new console. The Nintendo 3DS is more than just a gaming console; it’s a complete entertainment system that offers games, music, and more. With its advanced features and user-friendly interface, the 3DS offers a comprehensive gaming experience that both beginners and seasoned gamers will appreciate. So why wait? Dive into the exciting world of 3D gaming with the Nintendo 3DS today!",
+        "rating": 4.8,
+        "images": {
+            "public_id": "products/41Zq4K4razL",
+            "url": "https://m.media-amazon.com/images/I/41Zq4K4razL._SX300_SY300_QL70_FMwebp_.jpg"
+        },
+        "info": {
+            "releaseDate": "February, 26th, 2011",
+            "dimension": "14.2* 8.06 * 2.16 (cm) ",
+            "weight": "235g",
+            "quanranty": "6 months",
+            "included": "Charger, Clear plastic case, replacable stylus, manual"
+        },
+        "category": "Handheld",
+        "stock": 231,
+        "numOfReviews": 0,
+        "reviews":[]
+    },    
+    {
+        "name": "Nintendo 3DS",
+        "price": 169,
+        "shortDescription": " Dive into the world of handheld gaming with the Nintendo 2DS. This entry-level console maintains the hardware and functionality of the 3DS, but with a new slate design and without the 3D display. It’s compatible with all Nintendo DS and 3DS games, making it a versatile addition to your gaming collection.",
+        "LongDescription": "Experience the thrill of handheld gaming with the Nintendo 2DS. As an entry-level version of the Nintendo 3DS, the 2DS maintains identical hardware, similar functionality, and compatibility with software designed for the Nintendo DS and 3DS. The 2DS stands out with its unique slate form factor, differing from the clamshell design used by its predecessors. It lacks the Nintendo 3DS’s autostereoscopic 3D display, making it a great option for those who prefer 2D gaming. The console features a 3.53'' upper LCD and a 3.02'' lower resistive touchscreen LCD, offering clear and vibrant visuals. It also includes one user-facing and two forward-facing VGA cameras, adding a fun twist to your gaming experience. With its 2.4 GHz Wi-Fi connectivity, you can connect with friends or other players worldwide. The 2DS also comes with a 4 GB SD card included, providing ample storage for your games and media. The Nintendo 2DS is more than just a gaming console; it’s a gateway to a world of entertainment. With its advanced features and user-friendly interface, the 2DS offers a comprehensive gaming experience that both beginners and seasoned gamers will appreciate. So why wait? Dive into the exciting world of handheld gaming with the Nintendo 2DS today!",
+        "rating": 4.6,
+        "images": {
+            "public_id": "products/91FfhzSVThL",
+            "url": "https://m.media-amazon.com/images/I/91FfhzSVThL._SX522_.jpg"
+        },
+        "info": {
+            "releaseDate": "Octover, 13th, 2011",
+            "dimension": "14.4* 12.7 * 2.03 (cm) ",
+            "weight": "260g",
+            "quanranty": "6 months",
+            "included": "Charger, Clear plastic case, replacable stylus, manual"
+        },
+        "category": "Handheld",
+        "stock": 41,
+        "numOfReviews": 0,
+        "reviews":[]
+    },     
+ 
+    {
+        "name": "Nintendo DSi XL",
+        "price": 159,
+        "shortDescription": "Experience the joy of gaming on the go with the Nintendo DSi. This handheld console features two digital cameras, supports internal and external content storage, and connects to an online store called the Nintendo DSi Shop. With a larger screen than its predecessor, the DSi is your perfect companion for portable gaming",
+        "LongDescription": " Step into the world of handheld gaming with the Nintendo DSi. As the third iteration of the Nintendo DS family, the DSi stands out with its unique features and sleek design. It boasts two digital cameras, allowing you to capture and share your favorite gaming moments. The DSi supports both internal and external content storage, ensuring you have enough space for all your games and media. The console connects to the Nintendo DSi Shop, an online store where you can explore and download a plethora of exclusive games1. The DSi's design is similar to that of the DS Lite, but it offers a larger screen for an enhanced gaming experience. Moreover, the DSi includes an app called Flipnote Studio, which allows players to create their own animated flipbooks3. This feature not only adds a creative twist to the console but also makes gaming more interactive and fun. The Nintendo DSi is more than just a gaming console; it’s a gateway to a world of entertainment. With its advanced features and user-friendly interface, the DSi offers a comprehensive gaming experience that both beginners and seasoned gamers will appreciate1. So why wait? Dive into the exciting world of handheld gaming with the Nintendo DSi today!",
+        "rating": 4.3,
+        "images": {
+            "public_id": "products/51sfvVW5CWL",
+            "url": "https://m.media-amazon.com/images/I/51sfvVW5CWL._SX522_.jpg"
+        },
+        "info": {
+            "releaseDate": "Novemver, 21st, 2009",
+            "dimension": "16.1 * 91.4 * 2.12 (cm) ",
+            "weight": "318g",
+            "quanranty": "6 months",
+            "included": "Charger, Clear plastic case, replacable stylus, manual"
+        },
+        "category": "Handheld",
+        "stock": 123,
+        "numOfReviews": 0,
+        "reviews":[]
+    },
+    {
+        "name": "Nintendo Switch V1",
+        "price": 299,
+        "shortDescription": "Experience home console gaming on the go with the Nintendo Switch. This innovative gaming device seamlessly transitions from a mobile gaming device to a home game system, allowing you to play your favorite games wherever you are.",
+        "LongDescription": "The Nintendo Switch V1 is a versatile gaming console that offers a plethora of gaming options. You can use it as a handheld device and play on-the-go, or connect it to your television for a more traditional gaming experience. The Switch features a high-definition display and can be used to play games either through physical game cards or digital downloads. The console also supports online gaming through Nintendo's online service. The Nintendo Switch V1 comes with two Joy-Con controllers that can be used independently or attached to the console for handheld play. They can also attach to the Joy-Con grip to mimic a more traditional controller. With its unique design and versatile gaming options, the Nintendo Switch V1 offers an all-in-one gaming experience.",
+        "rating": 4.8,
+        "images": {
+            "public_id": "products/z0KU52d2gx8piMCGdwHaHa",
+            "url": "https://th.bing.com/th/id/OIP.yA5-z0KU52d2gx8piMCGdwHaHa?rs=1&pid=ImgDetMain"
+        },
+        "info": {
+            "releaseDate": "March, 3rd, 2017",
+            "dimension": "23.9 * 10.2 * 1.4 (cm)",
+            "weight": "398g",
+            "quanranty": "12 months",
+            "included": "Nintendo Switch console, Nintendo Switch dock, Joy-Con (L) and Joy-Con (R), Two Joy-Con strap accessories, One Joy-Con grip, HDMI cable, Nintendo Switch AC adapter"
+        },
+        "category": "Console",
+        "stock": 200,
+        "numOfReviews": 0,
+        "reviews": []
+    },
+    {
+        "name": "Nintendo Switch OLED Model",
+        "price": 349,
+        "shortDescription": "Experience the best in handheld gaming with the Nintendo Switch OLED Model. This version of the Nintendo Switch features a vibrant 7-inch OLED screen with vivid colors and sharp contrast.",
+        "LongDescription": "The Nintendo Switch OLED Model is the newest member of the Nintendo Switch family. It features a larger, vibrant 7-inch OLED screen with vivid colors and sharp contrast. The OLED Model also includes a wide adjustable stand for tabletop mode, a new dock with a wired LAN port, 64GB of internal storage, and enhanced audio for handheld and tabletop play. Enjoy the great handheld gaming experience with the Nintendo Switch OLED Model, or dock your system to enjoy HD gaming on your TV. The console also supports online gaming through Nintendo's online service. The Nintendo Switch OLED Model comes with two Joy-Con controllers that can be used independently or attached to the console for handheld play. They can also attach to the Joy-Con grip to mimic a more traditional controller. With its advanced features and user-friendly interface, the OLED Model offers a comprehensive gaming experience that both beginners and seasoned gamers will appreciate.",
+        "rating": 4.9,
+        "images": {
+            "public_id": "products/nintendo-switch-oled-model",
+            "url": "https://media.techeblog.com/images/nintendo-switch-oled-model.jpg"
+        },
+        "info": {
+            "releaseDate": "October, 8th, 2021",
+            "dimension": "24.1 * 10.2 * 1.4 (cm)",
+            "weight": "420g",
+            "quanranty": "12 months",
+            "included": "Nintendo Switch OLED Model console, Nintendo Switch dock, Joy-Con (L) and Joy-Con (R), Two Joy-Con strap accessories, One Joy-Con grip, HDMI cable, Nintendo Switch AC adapter"
+        },
+        "category": "Console",
+        "stock": 200,
+        "numOfReviews": 0,
+        "reviews": []
+    },
+    {
+        "name": "Nintendo DS Fat",
+        "price": 149,
+        "shortDescription": "Experience the original handheld gaming console with the Nintendo DS Fat. This device revolutionized portable gaming with its dual-screen design and touchscreen functionality.",
+        "LongDescription": "The Nintendo DS Fat, also known as the original Nintendo DS, is a dual-screen handheld gaming console by Nintendo. It features two LCD screens, with the bottom one being a touchscreen, providing innovative gameplay experiences. The console also includes a built-in microphone and supports wireless IEEE 802.11 (Wi-Fi) standards, allowing for multiplayer games with uniquely collaborative and competitive dynamics[^1^][1]. The Nintendo DS Fat is compatible with Nintendo DS and Game Boy Advance game cards[^2^][2]. Despite its size, the Nintendo DS Fat provides a comfortable and immersive gaming experience, making it a classic and memorable piece of gaming history.",
+        "rating": 4.1,
+        "images": {
+            "public_id": "products/n_42V1xR4B2iI6DCRwJHkAHaHd",
+            "url": "https://th.bing.com/th/id/OIP.n_42V1xR4B2iI6DCRwJHkAHaHd?w=594&h=599&rs=1&pid=ImgDetMain"
+        },
+        "info": {
+            "releaseDate": "November, 21st, 2004",
+            "dimension": "148.7 * 84.7 * 28.9 (cm)",
+            "weight": "275g",
+            "quanranty": "12 months",
+            "included": "Nintendo DS console, stylus, user manual"
+        },
+        "category": "Handheld",
+        "stock": 100,
+        "numOfReviews": 0,
+        "reviews": []
+    },
+    {
+        "name": "Nintendo Switch Joy-Con",
+        "price": 79.99,
+        "shortDescription": "The Joy-Con is the primary game controller for the Nintendo Switch video game console.",
+        "LongDescription": "The Joy-Con for the Nintendo Switch are one of many things that made the console revolutionary. They are a critical part of the Switch's ability to be a handheld or TV mode system and the many ways you can choose to handle the controllers gives a customizable feel[^1^][14].",
+        "rating": 4.3,
+        "images": {
+            "public_id": "products/000595517262",
+            "url": "https://i1.sndcdn.com/avatars-000595517262-uiolwd-t500x500.jpg"
+        },
+        "info": {
+            "releaseDate": "March 3, 2017",
+            "dimension": "102mm x 35.9mm x 28.4mm",
+            "weight": "49g (Joy-Con L), 52.1g (Joy-Con R)",
+            "quanranty": "12 months",
+            "included": "Joy-Con (L), Joy-Con (R)"
+        },
+        "category": "Controller",
+        "stock": 123,
+        "numOfReviews": 0,
+        "reviews":[]
+    },
+    {
+        "name": "Nintendo Switch Replacement Dock",
+        "price": 60,
+        "shortDescription": "The Nintendo Switch replacement dock allows you to display Nintendo Switch gameplay on your television.",
+        "LongDescription": "The Nintendo Switch replacement dock is a device that allows you to display Nintendo Switch gameplay on your television. It is designed to be an additional dock to easily move the Nintendo Switch between multiple televisions.",
+        "rating": 4.3,
+        "images": {
+            "public_id": "products/a74a5304d47bc9c298b314f3ca750d85",
+            "url": "https://th.bing.com/th/id/R.a74a5304d47bc9c298b314f3ca750d85?rik=OvRoFm4YqFAsaw&pid=ImgRaw&r=0"
+        },
+        "info": {
+            "releaseDate": "2019",
+            "dimension": "104mm x 175mm x 50mm",
+            "weight": "327g",
+            "quanranty": "12 months",
+            "included": "Dock, AC adapter, HDMI cable"
+        },
+        "category": "Accessories",
+        "stock": 123,
+        "numOfReviews": 0,
+        "reviews":[]
+    },
+    {
+        "name": "Nintendo GameCube",
+        "price": 260,
+        "shortDescription": "The Nintendo GameCube is a home video game console released by Nintendo in Japan and North America in 2001 and in the PAL territories in 2002.",
+        "LongDescription": "The Nintendo GameCube offers great graphics and good performance but few extras. It is the first Nintendo console to use optical discs as its primary storage medium. The discs are in a miniDVD-based format but the system was not designed to play full-sized DVDs or audio CDs unlike its competitors, and mainly focused on gaming instead.",
+        "rating": 4.3,
+        "images": {
+            "public_id": "products/4c0047f15ed8a85213232aa4aea1af45",
+            "url": "https://i.pinimg.com/736x/4c/00/47/4c0047f15ed8a85213232aa4aea1af45.jpg"
+        },
+        "info": {
+            "releaseDate": "September 14, 2001",
+            "dimension": "110mm x 150mm x 161mm",
+            "weight": "2.4kg",
+            "quanranty": "12 months",
+            "included": "GameCube console, 1 controller, power/av cables"
+        },
+        "category": "Console",
+        "stock": 123,
+        "numOfReviews": 0,
+        "reviews":[]
+    },
+    {
+        "name": "Nintendo Wii",
+        "price": 330,
+        "shortDescription": "The Nintendo Wii is a home video game console released by Nintendo in 2006.",
+        "LongDescription": "The Nintendo Wii is a home video game console that was innovative for its time with the introduction of motion-sensitive controllers. It also offered a range of games suitable for both casual and hardcore gamers.",
+        "rating": 4.3,
+        "images": {
+            "public_id": "products/Wii-console",
+            "url": "https://videogame911.com/wp-content/uploads/Wii-console-1.jpg"
+        },
+        "info": {
+            "releaseDate": "November 19, 2006",
+            "dimension": "44mm x 157mm x 215.4mm",
+            "weight": "1.2kg",
+            "quanranty": "12 months",
+            "included": "Wii console, Wii Remote, Nunchuk, Sensor Bar, Wii AV Cable, Wii AC Adapter"
+        },
+        "category": "Console",
+        "stock": 123,
+        "numOfReviews": 0,
+        "reviews":[]
+    },
+    {
+        "name": "Nintendo Wii U",
+        "price": 429,
+        "shortDescription": "The Nintendo Wii U is a home video game console released by Nintendo in 2012.",
+        "LongDescription": "The Nintendo Wii U is a home video game console that was innovative for its time with the introduction of a tablet-like controller called the Wii U GamePad. It also offered backward compatibility with all Wii software and accessories.",
+        "rating": 4.3,
+        "images": {
+            "public_id": "products/71OiAmWXRNL",
+            "url": "https://images-na.ssl-images-amazon.com/images/I/71OiAmWXRNL._AC_SL1500_.jpg"
+        },
+        "info": {
+            "releaseDate": "November 18, 2012",
+            "dimension": "44mm x 157mm x 215.4mm",
+            "weight": "1.5kg",
+            "quanranty": "12 months",
+            "included": "Wii U console, Wii U GamePad, Wii U AC Adapter, Wii U GamePad AC Adapter, High Speed HDMI Cable, Sensor Bar"
+        },
+        "category": "Console",
+        "stock": 123,
+        "numOfReviews": 0,
+        "reviews":[]
+    },
+    {
+        "name": "Pokemon Black 2",
+        "price": "350",
+        "shortDescription": "Pokemon Black 2 is a role-playing video game developed by Game Freak, published by The Pokémon Company and Nintendo for the Nintendo DS.",
+        "LongDescription": "Pokemon Black 2 is a direct sequel to 2010's best-selling game, Pokémon Black Version, and takes place in the series' Unova region, two years after the events of the first game. It features new legendary Pokémon, new areas to explore, and new Pokémon not available in the first game version.",
+        "rating": 4.3,
+        "images": {
+            "public_id": "products/8f891efca469d55c5f6800332a5fe73e",
+            "url": "https://th.bing.com/th/id/R.8f891efca469d55c5f6800332a5fe73e?rik=aAlfLpGzbFSKsw&pid=ImgRaw&r=0"
+        },
+        "info": {
+            "releaseDate": "7th, October 2012",
+            "dimension": "Not available",
+            "weight": "Not available",
+            "quanranty": "12 months",
+            "included": "Not available"
+        },
+        "category": "Game Card",
+        "stock": 123,
+        "numOfReviews": 0,
+        "reviews":[]
+    }
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+]
