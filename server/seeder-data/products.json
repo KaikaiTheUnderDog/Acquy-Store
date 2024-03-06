@@ -1,0 +1,162 @@
+[
+  {
+    "name": "Nintendo Switch",
+    "price": 299.99,
+    "description": "Nintendo Switch gaming console with versatile play modes for every gamer.",
+    "ratings": 4.5,
+    "images": [
+      {
+        "public_id": "nintendo-switch",
+        "url": "https://example.com/nintendo-switch.jpg"
+      }
+    ],
+    "category": "Consoles",
+    "stock": 150,
+    "numOfReviews": 230,
+    "reviews": []
+  },
+  {
+    "name": "The Legend of Zelda: Breath of the Wild",
+    "price": 59.99,
+    "description": "An open-world adventure game that offers an immersive gaming experience.",
+    "ratings": 4.8,
+    "images": [
+      {
+        "public_id": "zelda-breath-wild",
+        "url": "https://example.com/zelda-breath-wild.jpg"
+      }
+    ],
+    "category": "Games",
+    "stock": 85,
+    "numOfReviews": 320,
+    "reviews": []
+  },
+  {
+    "name": "Nintendo Switch Pro Controller",
+    "price": 69.99,
+    "description": "Enhance your gaming experience with the Nintendo Switch Pro Controller.",
+    "ratings": 4.6,
+    "images": [
+      {
+        "public_id": "switch-pro-controller",
+        "url": "https://example.com/switch-pro-controller.jpg"
+      }
+    ],
+    "category": "Accessories",
+    "stock": 200,
+    "numOfReviews": 150,
+    "reviews": []
+  },
+  {
+    "name": "Mario Kart 8 Deluxe",
+    "price": 59.99,
+    "description": "Race your friends or battle them in a revised battle mode on new and returning battle courses.",
+    "ratings": 4.7,
+    "images": [
+      {
+        "public_id": "mario-kart-8-deluxe",
+        "url": "https://example.com/mario-kart-8-deluxe.jpg"
+      }
+    ],
+    "category": "Games",
+    "stock": 120,
+    "numOfReviews": 280,
+    "reviews": []
+  },
+  {
+    "name": "Nintendo Switch Lite",
+    "price": 199.99,
+    "description": "Compact and lightweight with a sleek, unibody design, Nintendo Switch Lite is great for on-the-go gaming.",
+    "ratings": 4.3,
+    "images": [
+      {
+        "public_id": "switch-lite",
+        "url": "https://example.com/switch-lite.jpg"
+      }
+    ],
+    "category": "Consoles",
+    "stock": 90,
+    "numOfReviews": 190,
+    "reviews": []
+  },
+  {
+    "name": "Animal Crossing: New Horizons",
+    "price": 59.99,
+    "description": "Escape to a deserted island and create your own paradise as you explore, create, and customize in the Animal Crossing: New Horizons game.",
+    "ratings": 4.9,
+    "images": [
+      {
+        "public_id": "animal-crossing-new-horizons",
+        "url": "https://example.com/animal-crossing-new-horizons.jpg"
+      }
+    ],
+    "category": "Games",
+    "stock": 110,
+    "numOfReviews": 340,
+    "reviews": []
+  },
+  {
+    "name": "Nintendo Switch Joy-Con",
+    "price": 79.99,
+    "description": "The versatile Joy-Con offer multiple surprising new ways for players to have fun.",
+    "ratings": 4.4,
+    "images": [
+      {
+        "public_id": "switch-joy-con",
+        "url": "https://example.com/switch-joy-con.jpg"
+      }
+    ],
+    "category": "Accessories",
+    "stock": 220,
+    "numOfReviews": 130,
+    "reviews": []
+  },
+  {
+    "name": "Super Mario Odyssey",
+    "price": 59.99,
+    "description": "Join Mario on a massive, globe-trotting 3D adventure and use his incredible new abilities to collect Moons so you can power up your airship, the Odyssey.",
+    "ratings": 4.8,
+    "images": [
+      {
+        "public_id": "super-mario-odyssey",
+        "url": "https://example.com/super-mario-odyssey.jpg"
+      }
+    ],
+    "category": "Games",
+    "stock": 135,
+    "numOfReviews": 305,
+    "reviews": []
+  },
+  {
+    "name": "Nintendo Switch Carrying Case & Screen Protector",
+    "price": 19.99,
+    "description": "This case will protect the console when taking Nintendo Switch on the go, and the screen protector will help keep the screen free from scratches.",
+    "ratings": 4.5,
+    "images": [
+      {
+        "public_id": "switch-case-screen-protector",
+        "url": "https://example.com/switch-case-screen-protector.jpg"
+      }
+    ],
+    "category": "Accessories",
+    "stock": 150,
+    "numOfReviews": 75,
+    "reviews": []
+  },
+  {
+    "name": "Splatoon 2",
+    "price": 59.99,
+    "description": "Ink-splatting action is back and fresher than ever in Splatoon 2, a chaotic team-based shooter.",
+    "ratings": 4.6,
+    "images": [
+      {
+        "public_id": "splatoon-2",
+        "url": "https://example.com/splatoon-2.jpg"
+      }
+    ],
+    "category": "Games",
+    "stock": 100,
+    "numOfReviews": 210,
+    "reviews": []
+  }
+]

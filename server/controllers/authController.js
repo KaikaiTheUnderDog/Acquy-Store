@@ -4,8 +4,10 @@ const User = require('../models/user');
 
 const sendToken = require('../utils/jsonWebToken');
 const sendEmail = require('../utils/sendEmail');
+const Errors = require('../utils/errors');
+const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
-exports.registerUser = async (req, res, next) => {
+exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   const { userName, email, password, confirmedPassword } = req.body;
 
   if (password !== confirmedPassword) {
@@ -47,9 +49,9 @@ exports.registerUser = async (req, res, next) => {
       message: 'Internal Server Error',
     });
   }
-};
+});
 
-exports.verifyEmail = async (req, res, next) => {
+exports.verifyEmail = catchAsyncErrors(async (req, res, next) => {
   try {
     const hashedToken = crypto
       .createHash('sha256')
@@ -80,38 +82,38 @@ exports.verifyEmail = async (req, res, next) => {
   } catch (error) {
     return console.log(error.message);
   }
-};
+});
 
-exports.loginUser = async (req, res, next) => {
+exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   const { email, password } = req.body;
 
   // Check if email and password is entered by user
   if (!email || !password) {
-    return console.log('Please enter email & password');
+    return next(new Errors('Please enter email & password', 400));
   }
 
   // Find user in database
   const user = await User.findOne({ email }).select('+password');
 
   if (!user) {
-    return console.log('Invalid email or password');
+    return next(new Errors('Invalid email or password', 400));
   }
 
   // Check if password is correct
   const isPasswordMatch = await user.checkPassword(password);
 
   if (!isPasswordMatch) {
-    return console.log('Ivalid email or password');
+    return next(new Errors('Invalid email or password', 400));
   }
 
   sendToken(user, 200, res);
-};
+});
 
-exports.forgotPassword = async (req, res, next) => {
+exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    return console.log('Invalid email');
+    return next(new Errors('Invalid email', 404));
   }
 
   // Get reset token
@@ -127,7 +129,7 @@ exports.forgotPassword = async (req, res, next) => {
   try {
     await sendEmail({
       email: user.email,
-      subject: '(no-reply) Password Reset Nintendont account',
+      subject: '(no-reply) Password Reset Ryzel account',
       message,
     });
 
@@ -141,11 +143,11 @@ exports.forgotPassword = async (req, res, next) => {
 
     await user.save({ validateBeforeSave: false });
 
-    return console.log(error.message);
+    next(new Errors('Password reset token is invalid or expired', 400));
   }
-};
+});
 
-exports.resetPassword = async (req, res, next) => {
+exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   // Hash URL token
   const hashedToken = crypto
     .createHash('sha256')
@@ -158,11 +160,11 @@ exports.resetPassword = async (req, res, next) => {
   });
 
   if (!user) {
-    return console.log('Password reset token is invalid or expired');
+    next(new Errors('Password reset token is invalid or expired', 400));
   }
 
   if (req.body.password !== req.body.confirmedPassword) {
-    return console.log('Passwords do not match');
+    next(new Errors('Passwords do not match'), 400);
   }
 
   // Set new password
@@ -173,4 +175,4 @@ exports.resetPassword = async (req, res, next) => {
   await user.save();
 
   sendToken(user, 200, res);
-};
+});

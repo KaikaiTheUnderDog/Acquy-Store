@@ -39,26 +39,14 @@ const productSchema = new mongoose.Schema({
     required: [true, 'Please select category for product'],
     enum: {
       values: [
-        'Cameras',
-        'Electronics',
-        'Laptops',
+        'Games',
         'Accessories',
-        'Headphones',
-        'Clothes/Shoes',
-        'Beauty/Health',
-        'Food',
-        'Sports',
-        'Home',
-        'Outdoor',
-        'Books',
+        'Consoles',
+        'Merchandises',
+        'Alternatives',
       ],
       message: 'Please select a valid category',
     },
-  },
-  seller: {
-    type: String,
-    required: [true, 'Please enter seller name'],
-    trim: true,
   },
   stock: {
     type: Number,
@@ -92,10 +80,6 @@ const productSchema = new mongoose.Schema({
       },
     },
   ],
-  user: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User',
-  },
   createdAt: {
     type: Date,
     default: Date.now,
