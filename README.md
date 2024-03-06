@@ -7,6 +7,6 @@ Tiểu luận chuyên ngành - Khóa luận tốt nghiệp
   - Bùi Quang Huy - 20110492
   - Đoàn Văn Hiếu - 20110476
 
-# Cài đặt thư viện backend
+## Cài đặt thư viện backend
 
 npm install express mongoose dotenv crypto validator bcryptjs jsonwebtoken nodemailer cookie-parser body-parser
