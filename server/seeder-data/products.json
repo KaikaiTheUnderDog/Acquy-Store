@@ -13,7 +13,8 @@
     "category": "Consoles",
     "stock": 150,
     "numOfReviews": 230,
-    "reviews": []
+    "reviews": [],
+    "sold": 345
   },
   {
     "name": "The Legend of Zelda: Breath of the Wild",
@@ -29,7 +30,8 @@
     "category": "Games",
     "stock": 85,
     "numOfReviews": 320,
-    "reviews": []
+    "reviews": [],
+    "sold": 46
   },
   {
     "name": "Nintendo Switch Pro Controller",
@@ -45,7 +47,8 @@
     "category": "Accessories",
     "stock": 200,
     "numOfReviews": 150,
-    "reviews": []
+    "reviews": [],
+    "sold": 12
   },
   {
     "name": "Mario Kart 8 Deluxe",
@@ -61,7 +64,8 @@
     "category": "Games",
     "stock": 120,
     "numOfReviews": 280,
-    "reviews": []
+    "reviews": [],
+    "sold": 128
   },
   {
     "name": "Nintendo Switch Lite",
@@ -77,7 +81,8 @@
     "category": "Consoles",
     "stock": 90,
     "numOfReviews": 190,
-    "reviews": []
+    "reviews": [],
+    "sold": 609
   },
   {
     "name": "Animal Crossing: New Horizons",
@@ -93,7 +98,8 @@
     "category": "Games",
     "stock": 110,
     "numOfReviews": 340,
-    "reviews": []
+    "reviews": [],
+    "sold": 122
   },
   {
     "name": "Nintendo Switch Joy-Con",
@@ -109,7 +115,8 @@
     "category": "Accessories",
     "stock": 220,
     "numOfReviews": 130,
-    "reviews": []
+    "reviews": [],
+    "sold": 75
   },
   {
     "name": "Super Mario Odyssey",
@@ -125,7 +132,8 @@
     "category": "Games",
     "stock": 135,
     "numOfReviews": 305,
-    "reviews": []
+    "reviews": [],
+    "sold": 99
   },
   {
     "name": "Nintendo Switch Carrying Case & Screen Protector",
@@ -141,7 +149,8 @@
     "category": "Accessories",
     "stock": 150,
     "numOfReviews": 75,
-    "reviews": []
+    "reviews": [],
+    "sold": 0
   },
   {
     "name": "Splatoon 2",
@@ -157,6 +166,159 @@
     "category": "Games",
     "stock": 100,
     "numOfReviews": 210,
-    "reviews": []
+    "reviews": [],
+    "sold": 0
+  },
+  {
+    "name": "Nintendo Switch Screen Protector Glass",
+    "price": 9.99,
+    "description": "Highly durable, scratch-resistant screen protector for the Nintendo Switch console.",
+    "ratings": 4.6,
+    "images": [
+      {
+        "public_id": "switch-screen-protector-glass",
+        "url": "https://example.com/switch-screen-protector-glass.jpg"
+      }
+    ],
+    "category": "Accessories",
+    "stock": 300,
+    "numOfReviews": 150,
+    "reviews": [],
+    "sold": 189
+  },
+  {
+    "name": "Super Smash Bros. Ultimate",
+    "price": 59.99,
+    "description": "Join your favorite characters in the ultimate showdown with Super Smash Bros. Ultimate for Nintendo Switch.",
+    "ratings": 4.8,
+    "images": [
+      {
+        "public_id": "super-smash-bros-ultimate",
+        "url": "https://example.com/super-smash-bros-ultimate.jpg"
+      }
+    ],
+    "category": "Games",
+    "stock": 200,
+    "numOfReviews": 320,
+    "reviews": [],
+    "sold": 255
+  },
+  {
+    "name": "Nintendo Switch Dock Set",
+    "price": 89.99,
+    "description": "Includes a Nintendo Switch dock, a Nintendo Switch AC adapter, and an HDMI cable.",
+    "ratings": 4.4,
+    "images": [
+      {
+        "public_id": "switch-dock-set",
+        "url": "https://example.com/switch-dock-set.jpg"
+      }
+    ],
+    "category": "Accessories",
+    "stock": 150,
+    "numOfReviews": 90,
+    "reviews": [],
+    "sold": 110
+  },
+  {
+    "name": "Luigi's Mansion 3",
+    "price": 59.99,
+    "description": "Luigi's dream vacation turns into a ghostly—and gooey— nightmare in Luigi's Mansion 3 for Nintendo Switch.",
+    "ratings": 4.7,
+    "images": [
+      {
+        "public_id": "luigis-mansion-3",
+        "url": "https://example.com/luigis-mansion-3.jpg"
+      }
+    ],
+    "category": "Games",
+    "stock": 180,
+    "numOfReviews": 245,
+    "reviews": [],
+    "sold": 143
+  },
+  {
+    "name": "Pokémon Sword and Shield",
+    "price": 59.99,
+    "description": "Embark on a new adventure in the Galar region with the Pokémon Sword and Pokémon Shield games.",
+    "ratings": 4.5,
+    "images": [
+      {
+        "public_id": "pokemon-sword-shield",
+        "url": "https://example.com/pokemon-sword-shield.jpg"
+      }
+    ],
+    "category": "Games",
+    "stock": 220,
+    "numOfReviews": 310,
+    "reviews": [],
+    "sold": 175
+  },
+  {
+    "name": "Fire Emblem: Three Houses",
+    "price": 59.99,
+    "description": "Lead the students of one of three prestigious houses through their academic lives and in tactical, turn-based battles filled with new, strategic twists to overcome.",
+    "ratings": 4.9,
+    "images": [
+      {
+        "public_id": "fire-emblem-three-houses",
+        "url": "https://example.com/fire-emblem-three-houses.jpg"
+      }
+    ],
+    "category": "Games",
+    "stock": 85,
+    "numOfReviews": 320,
+    "reviews": [],
+    "sold": 210
+  },
+  {
+    "name": "Nintendo Switch Lite Flip Cover & Screen Protector",
+    "price": 39.99,
+    "description": "This flip cover and screen protector will keep your Nintendo Switch Lite console safe from scratches and dirt.",
+    "ratings": 4.5,
+    "images": [
+      {
+        "public_id": "switch-lite-flip-cover",
+        "url": "https://example.com/switch-lite-flip-cover.jpg"
+      }
+    ],
+    "category": "Accessories",
+    "stock": 150,
+    "numOfReviews": 80,
+    "reviews": [],
+    "sold": 65
+  },{
+    "name": "Nintendo Switch Adjustable Charging Stand",
+    "price": 19.99,
+    "description": "Play the Nintendo Switch system in tabletop mode at any angle while you charge.",
+    "ratings": 4.3,
+    "images": [
+      {
+        "public_id": "switch-adjustable-charging-stand",
+        "url": "https://example.com/switch-adjustable-charging-stand.jpg"
+      }
+    ],
+    "category": "Accessories",
+    "stock": 120,
+    "numOfReviews": 90,
+    "reviews": [],
+    "sold": 87
+  },
+  {
+    "name": "Pikmin 3 Deluxe",
+    "price": 59.99,
+    "description": "Command a capable crop of different types of Pikmin to strategically overcome obstacles, defeat creatures, and find food for your famished home planet!",
+    "ratings": 4.8,
+    "images": [
+      {
+        "public_id": "pikmin-3-deluxe",
+        "url": "https://example.com/pikmin-3-deluxe.jpg"
+      }
+    ],
+    "category": "Games",
+    "stock": 95,
+    "numOfReviews": 220,
+    "reviews": [],
+    "sold": 134
   }
 ]
