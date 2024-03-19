@@ -14,8 +14,6 @@ class APIFeatures {
         }
       : {};
 
-    console.log(keywords);
-
     this.query = this.query.find({ ...keywords });
     return this;
   }
@@ -23,13 +21,9 @@ class APIFeatures {
   filter() {
     const queryCopied = { ...this.queryString };
 
-    console.log(queryCopied);
-
     // Remove fields from the query
     const removeFields = ['keywords', 'limit', 'page'];
     removeFields.forEach((field) => delete queryCopied[field]);
-
-    console.log(queryCopied);
 
     // Advance filter for price, ratings, ...
     let queryString = JSON.stringify(queryCopied);
@@ -37,8 +31,6 @@ class APIFeatures {
       /\b(gt|gte|lt|lte)\b/g,
       (match) => `$${match}`
     );
-
-    console.log(queryString);
 
     this.query = this.query.find(JSON.parse(queryString));
     return this;
@@ -56,9 +48,6 @@ class APIFeatures {
     } else {
       this.query = this.query.limit(limit).skip(skip);
     }
-    console.log(`skip: ${skip}`);
-
-    console.log(`limit: ${limit}`);
 
     return this;
   }

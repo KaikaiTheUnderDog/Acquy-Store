@@ -19,10 +19,14 @@ app.use(cookieParser());
 const auth = require('./routers/authRouter');
 const product = require('./routers/productRouter');
 const profile = require('./routers/profileRouter');
+const order = require('./routers/orderRouter');
+const payment = require('./routers/paymentRouter');
 
 app.use('/api/v1', auth);
 app.use('/api/v1', product);
 app.use('/api/v1', profile);
+app.use('/api/v1', order);
+app.use('/api/v1', payment);
 
 // Middleware to handle errors
 app.use(errorHandler);

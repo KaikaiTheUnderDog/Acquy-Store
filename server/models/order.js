@@ -85,11 +85,11 @@ const orderSchema = new moongoose.Schema({
   },
   purchasedAt: {
     type: Date,
-    default: Date.now,
   },
   orderStatus: {
     type: String,
     required: true,
+    enum: ['Pending', 'Shipping', 'Delivered', 'Cancelled'],
     default: 'Pending',
   },
   deliveredAt: {

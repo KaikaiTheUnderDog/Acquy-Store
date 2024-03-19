@@ -43,7 +43,6 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     // Gọi sendToken sau khi gửi email thành công
     sendToken(user, 200, res);
   } catch (error) {
-    console.error(error.message);
     return res.status(500).json({
       success: false,
       message: 'Internal Server Error',
@@ -64,7 +63,7 @@ exports.verifyEmail = catchAsyncErrors(async (req, res, next) => {
     });
 
     if (!user) {
-      return console.log('Verification token is invalid or expired');
+      return next(new Errors('Verification token is invalid or expired', 400));
     }
 
     // Cập nhật isVerified và xóa thông tin token
@@ -80,7 +79,7 @@ exports.verifyEmail = catchAsyncErrors(async (req, res, next) => {
       message: 'Email verified successfully!',
     });
   } catch (error) {
-    return console.log(error.message);
+    return next(new Errors(error.message, 400));
   }
 });
 
