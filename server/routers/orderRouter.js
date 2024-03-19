@@ -8,6 +8,7 @@ const {
   getAllOrders,
   updatePendingOrders,
   deleteOrder,
+  cancelOrder,
 } = require('../controllers/orderController');
 
 const { isAuthenticatedUser } = require('../middlewares/authentication');
@@ -20,5 +21,6 @@ router
   .route('/admin/order/:id')
   .put(isAuthenticatedUser, updatePendingOrders)
   .delete(isAuthenticatedUser, deleteOrder);
+router.put('/order/:id/cancel', isAuthenticatedUser, cancelOrder);
 
 module.exports = router;

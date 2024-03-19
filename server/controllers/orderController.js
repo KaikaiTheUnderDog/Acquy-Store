@@ -136,7 +136,7 @@ exports.cancelOrder = catchAsyncErrors(async (req, res, next) => {
   }
 
   // Tính khoảng thời gian từ khi tạo đơn đến hiện tại
-  const timeElapsed = (Date.now() - order.purchasedAt.getTime()) / (1000 * 60); // Đổi ra phút
+  const timeElapsed = (Date.now() - order.orderAt) / (1000 * 60); // Đổi ra phút
 
   // Cho phép hủy nếu thời gian chưa vượt quá 30 phút
   if (timeElapsed > 30) {
