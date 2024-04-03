@@ -6,8 +6,20 @@
     "ratings": 4.5,
     "images": [
       {
-        "public_id": "nintendo-switch",
-        "url": "https://example.com/nintendo-switch.jpg"
+        "public_id": "nintendo-switch-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/My%20Nintendo%20Store/EN-US/Hardware/nintendo-switch-neon-blue-neon-red-joy-con-117972/117972-nintendo-switch-neon-blue-neon-red-package-front-1200x675"
+      },
+      {
+        "public_id": "nintendo-switch-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/hardware/nintendo-switch-red-blue/110478-nintendo-switch-neon-blue-neon-red-front-screen-on-1200x675"
+      },
+      {
+        "public_id": "nintendo-switch-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/My%20Nintendo%20Store/EN-US/Hardware/nintendo-switch-neon-blue-neon-red-joy-con-117972/117972-nintendo-switch-neon-blue-neon-red-package-front-1200x675"
+      },
+      {
+        "public_id": "nintendo-switch-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/My%20Nintendo%20Store/EN-US/Hardware/nintendo-switch-neon-blue-neon-red-joy-con-117972/117972-nintendo-switch-neon-blue-neon-red-package-front-1200x675"
       }
     ],
     "category": "Consoles",
@@ -23,8 +35,20 @@
     "ratings": 4.8,
     "images": [
       {
-        "public_id": "zelda-breath-wild",
-        "url": "https://example.com/zelda-breath-wild.jpg"
+        "public_id": "zelda-breath-wild-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000000025/7137262b5a64d921e193653f8aa0b722925abc5680380ca0e18a5cfd91697f58"
+      },
+      {
+        "public_id": "zelda-breath-wild-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000000025/0375d13a121f32ff06ef96aac1919b138f3ebe13e40cc0b2de7d39237b87fb86"
+      },
+      {
+        "public_id": "zelda-breath-wild-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000000025/37559b8fa80cf0708c8dcef23ef4fea9af26d997a7c6f981565bc50eeaa3cc0f"
+      },
+      {
+        "public_id": "zelda-breath-wild-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000000025/8f7854a3b7271d364e1e421aced946982235d22b420e1a0cec5296a62d97c225"
       }
     ],
     "category": "Games",
@@ -40,8 +64,20 @@
     "ratings": 4.6,
     "images": [
       {
-        "public_id": "switch-pro-controller",
-        "url": "https://example.com/switch-pro-controller.jpg"
+        "public_id": "switch-pro-controller-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_801/b_white/f_auto/q_auto/ncom/en_US/products/accessories/nintendo-switch/controllers/pro-controllers/nintendo-switch-pro-controller/104888-nintendo-switch-pro-controller-black-front-1200x675"
+      },
+      {
+        "public_id": "switch-pro-controller-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_700/ncom/en_US/products/accessories/nintendo-switch/controllers/pro-controllers/nintendo-switch-pro-controller/104888-nintendo-switch-pro-controller-black-angle-1200x675"
+      },
+      {
+        "public_id": "switch-pro-controller-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_700/ncom/en_US/products/accessories/nintendo-switch/controllers/pro-controllers/nintendo-switch-pro-controller/104888-nintendo-switch-pro-controller-black-back-1200x675"
+      },
+      {
+        "public_id": "switch-pro-controller-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_700/ncom/en_US/products/accessories/nintendo-switch/controllers/pro-controllers/nintendo-switch-pro-controller/104888-nintendo-switch-pro-controller-black-lifestyle-1200x675"
       }
     ],
     "category": "Accessories",
@@ -57,8 +93,20 @@
     "ratings": 4.7,
     "images": [
       {
-        "public_id": "mario-kart-8-deluxe",
-        "url": "https://example.com/mario-kart-8-deluxe.jpg"
+        "public_id": "mario-kart-8-deluxe-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000000153/de697f487a36d802dd9a5ff0341f717c8486221f2f1219b675af37aca63bc453"
+      },
+      {
+        "public_id": "mario-kart-8-deluxe-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000000153/3c221afd8c7a679e7130b8384dd17b0f81ea778681d9d977eafb43d91ea7650f"
+      },
+      {
+        "public_id": "mario-kart-8-deluxe-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000000153/8b68db89ebaec328ce0d4088c559043db1759140fb97f2f4d8eed8a61e4a4cc5"
+      },
+      {
+        "public_id": "mario-kart-8-deluxe-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000000153/f20149c14137e26b3622c42421230bc980a0cdf7e793dce9d1baaf3a74ff64d6"
       }
     ],
     "category": "Games",
@@ -74,8 +122,20 @@
     "ratings": 4.3,
     "images": [
       {
-        "public_id": "switch-lite",
-        "url": "https://example.com/switch-lite.jpg"
+        "public_id": "switch-lite-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/hardware/nintendo-switch-lite-gray/110672-nintendo-switch-lite-gray-edition-package-1200x675"
+      },
+      {
+        "public_id": "switch-lite-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/hardware/nintendo-switch-lite-gray/110672-nintendo-switch-lite-gray-front-1200x675"
+      },
+      {
+        "public_id": "switch-lite-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/hardware/nintendo-switch-lite-gray/110672-nintendo-switch-lite-gray-back-1200x675"
+      },
+      {
+        "public_id": "switch-lite-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/hardware/nintendo-switch-lite-gray/110672-nintendo-switch-lite-gray-top-bottom-1200x675"
       }
     ],
     "category": "Consoles",
@@ -91,8 +151,20 @@
     "ratings": 4.9,
     "images": [
       {
-        "public_id": "animal-crossing-new-horizons",
-        "url": "https://example.com/animal-crossing-new-horizons.jpg"
+        "public_id": "animal-crossing-new-horizons-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000027619/9989957eae3a6b545194c42fec2071675c34aadacd65e6b33fdfe7b3b6a86c3a"
+      },
+      {
+        "public_id": "animal-crossing-new-horizons-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000027619/340f6c4bc1d5d62bc1077bd1242c04d8b7be1d225aa23ed5ded865c480ccb07a"
+      },
+      {
+        "public_id": "animal-crossing-new-horizons-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000027619/39be0e9b4315ba4f412924c3ec4021ad918af2b3f702d8cacc13e199bd4627f2"
+      },
+      {
+        "public_id": "animal-crossing-new-horizons-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000027619/52fb6532952f444053114ee7b4182a52c65dd69fa71bb89635bfbdb1f821019f"
       }
     ],
     "category": "Games",
@@ -108,8 +180,20 @@
     "ratings": 4.4,
     "images": [
       {
-        "public_id": "switch-joy-con",
-        "url": "https://example.com/switch-joy-con.jpg"
+        "public_id": "switch-joy-con-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_700/ncom/en_US/products/accessories/nintendo-switch/controllers/joy-con-controllers/joy-con-neon-red-neon-blue/104882-nintendo-switch-joy-con-red-blue-package-1200x675"
+      },
+      {
+        "public_id": "switch-joy-con-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_801/b_white/f_auto/q_auto/ncom/en_US/products/accessories/nintendo-switch/controllers/joy-con-controllers/joy-con-neon-red-neon-blue/104882-nintendo-switch-joy-con-red-blue-1200x675"
+      },
+      {
+        "public_id": "switch-joy-con-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_801/b_white/f_auto/q_auto/ncom/en_US/products/accessories/nintendo-switch/controllers/joy-con-controllers/joy-con-neon-purple-neon-orange/110753-nintendo-switch-joy-con-purple-orange-1200x675"
+      },
+      {
+        "public_id": "switch-joy-con-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_801/b_white/f_auto/q_auto/ncom/My%20Nintendo%20Store/EN-US/Nintendo%20Switch%20Accessories/Controllers/joy-con-l-r-pastel-pink-pastel-yellow-117077/117077-nintendo-switch-joy-con-set-pastel-pink-l-pastel-yellow-r-1200x675"
       }
     ],
     "category": "Accessories",
@@ -125,8 +209,20 @@
     "ratings": 4.8,
     "images": [
       {
-        "public_id": "super-mario-odyssey",
-        "url": "https://example.com/super-mario-odyssey.jpg"
+        "public_id": "super-mario-odyssey-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000001130/c42553b4fd0312c31e70ec7468c6c9bccd739f340152925b9600631f2d29f8b5"
+      },
+      {
+        "public_id": "super-mario-odyssey-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000001130/d0510e4804381287c64dc3ab374ae9273419e263e9a732e72af3b39cd70f2b5f"
+      },
+      {
+        "public_id": "super-mario-odyssey-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000001130/1839d571921e3fb19ef48da64c145cb8ce573b07d7390c6350f15291b3905048"
+      },
+      {
+        "public_id": "super-mario-odyssey-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000001130/7db70ecd883f94d935f65b9f4454b8151b6f8be7c4be95543e87488e48e5a6b9"
       }
     ],
     "category": "Games",
@@ -142,8 +238,20 @@
     "ratings": 4.5,
     "images": [
       {
-        "public_id": "switch-case-screen-protector",
-        "url": "https://example.com/switch-case-screen-protector.jpg"
+        "public_id": "switch-case-screen-protector-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/system-cases-and-bags/nintendo-switch-carrying-case-screen-protector/114296-switch-carrying-case-black_silver-front-1200x675"
+      },
+      {
+        "public_id": "switch-case-screen-protector-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/system-cases-and-bags/nintendo-switch-carrying-case-screen-protector/114296-switch-carrying-case-screen-protector-on-console-white-1200x675"
+      },
+      {
+        "public_id": "switch-case-screen-protector-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/system-cases-and-bags/nintendo-switch-carrying-case-screen-protector/114296-switch-carrying-case-black_silver-front_switch-1200x675"
+      },
+      {
+        "public_id": "switch-case-screen-protector-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/system-cases-and-bags/nintendo-switch-carrying-case-screen-protector/114296-switch-carrying-case-screen-protector-on-console-neon-1200x675"
       }
     ],
     "category": "Accessories",
@@ -159,8 +267,20 @@
     "ratings": 4.6,
     "images": [
       {
-        "public_id": "splatoon-2",
-        "url": "https://example.com/splatoon-2.jpg"
+        "public_id": "splatoon-2-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000000529/b0b183a9860296016649fadb03b929411e7e5e0809af241e2e9652ebf0c5a715"
+      },
+      {
+        "public_id": "splatoon-2-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000000529/9cf33306052926c7d4b990905290784c9eab4932c767ab44f289ffca0e2f0187"
+      },
+      {
+        "public_id": "splatoon-2-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000000529/c089ca6b189a8027451c193907b92fb559789cdd0e56ae339b5b74ce9f2a9446"
+      },
+      {
+        "public_id": "splatoon-2-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000000529/5cf2ca13b6ff175a1bc77e2bd8e771554511b0469c4628c36c5ef79f57c9597d"
       }
     ],
     "category": "Games",
@@ -176,8 +296,20 @@
     "ratings": 4.6,
     "images": [
       {
-        "public_id": "switch-screen-protector-glass",
-        "url": "https://example.com/switch-screen-protector-glass.jpg"
+        "public_id": "switch-screen-protector-glass-1",
+        "url": "https://www.gadgets4geeks.com.au/WebRoot/Store/Shops/gadgets4geeks/618B/AFFC/3EB4/58C2/CFD9/6BBF/399A/341E/01-tempered-glass-screen-protector-for-nintendo-switch-oled-2021.jpg"
+      },
+      {
+        "public_id": "switch-screen-protector-glass-2",
+        "url": "https://www.bodyguardz.com/on/demandware.static/-/Sites-nlu_products/default/dwf90726fd/images/category/nintendo/bodyguardz-pure-tempered-glass-screen-protector-nintendo-switch-hero.jpg"
+      },
+      {
+        "public_id": "switch-screen-protector-glass-3",
+        "url": "https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/2e4c0c0cb9bd4bf18b114746e66fb574_Large.jpg"
+      },
+      {
+        "public_id": "switch-screen-protector-glass-4",
+        "url": "https://th.bing.com/th/id/R.2a24d5bcbb4268cc0dbf6b9d01fdd221?rik=gPswG0awB%2bvy4g&riu=http%3a%2f%2fwww.dobe-game.com%2fuploads%2fimage%2f20220302%2f1646206490.jpg&ehk=FXmVQ3tM5ksQoUjrtvySjiIHYg0pasUdthtYoOCBW18%3d&risl=&pid=ImgRaw&r=0"
       }
     ],
     "category": "Accessories",
@@ -193,8 +325,20 @@
     "ratings": 4.8,
     "images": [
       {
-        "public_id": "super-smash-bros-ultimate",
-        "url": "https://example.com/super-smash-bros-ultimate.jpg"
+        "public_id": "super-smash-bros-ultimate-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000012332/ac4d1fc9824876ce756406f0525d50c57ded4b2a666f6dfe40a6ac5c3563fad9"
+      },
+      {
+        "public_id": "super-smash-bros-ultimate-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000012332/8b42e00012633320624f3894179b5d6bec44c255998a58ceb54e07bd352df171"
+      },
+      {
+        "public_id": "super-smash-bros-ultimate-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000012332/0a381c9a157deda7997e47a40ebedf5d6357daa54eadb8747c85535247b5966a"
+      },
+      {
+        "public_id": "super-smash-bros-ultimate-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000012332/039c33416d22f81d72efa2f1646bb97627f2be0a0bfaea7f4a3638ce0ce73eba"
       }
     ],
     "category": "Games",
@@ -210,8 +354,16 @@
     "ratings": 4.4,
     "images": [
       {
-        "public_id": "switch-dock-set",
-        "url": "https://example.com/switch-dock-set.jpg"
+        "public_id": "switch-dock-set-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/docks-cables-and-chargers/dock/105663-nintendo-switch-dock-front-1200x675"
+      },
+      {
+        "public_id": "switch-dock-set-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/docks-cables-and-chargers/dock/105663-nintendo-switch-dock-front-angle-1200x675"
+      },
+      {
+        "public_id": "switch-dock-set-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/docks-cables-and-chargers/dock/105663-nintendo-switch-dock-back-open-1200x675"
       }
     ],
     "category": "Accessories",
@@ -227,8 +379,20 @@
     "ratings": 4.7,
     "images": [
       {
-        "public_id": "luigis-mansion-3",
-        "url": "https://example.com/luigis-mansion-3.jpg"
+        "public_id": "luigis-mansion-3-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000001620/2b166fb3197dacfde1d939acd6a976b9fbe3b1a32c54f9f0d2c8d23efb22412d"
+      },
+      {
+        "public_id": "luigis-mansion-3-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000001620/699b744e3e94cf49d336f5e7d96be966f8f4eb329a5a8277bf940e6271046ea3"
+      },
+      {
+        "public_id": "luigis-mansion-3-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000001620/95314d2808b22d90b87a55d369d950d5043ab64bcf666dbca72968551fa91009"
+      },
+      {
+        "public_id": "luigis-mansion-3-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000001620/4ed43984dd7de804af55d407df1d96e9c91cfa318d861956d34339ab35dcf214"
       }
     ],
     "category": "Games",
@@ -244,8 +408,20 @@
     "ratings": 4.5,
     "images": [
       {
-        "public_id": "pokemon-sword-shield",
-        "url": "https://example.com/pokemon-sword-shield.jpg"
+        "public_id": "pokemon-sword-shield-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000026262/4a7c422cd8270ae2de1ac4bf9d944137b8fe51d822694224de24ddda299615fb"
+      },
+      {
+        "public_id": "pokemon-sword-shield-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000026262/31ee74fe5360c4e76f72a6a4747c0771a4d6cd1a88d00690ea2f97caa9b16009"
+      },
+      {
+        "public_id": "pokemon-sword-shield-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000026262/ed2ec03e6aa1f54c7d1c809dfd345b18cc2bd35f5726080689d4eb818ddf0b06"
+      },
+      {
+        "public_id": "pokemon-sword-shield-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000026262/c49172b16b091d661750c2d2b9e70e263f29ce20abf47dda6bd78a8273cd7fa0"
       }
     ],
     "category": "Games",
@@ -261,8 +437,20 @@
     "ratings": 4.9,
     "images": [
       {
-        "public_id": "fire-emblem-three-houses",
-        "url": "https://example.com/fire-emblem-three-houses.jpg"
+        "public_id": "fire-emblem-three-houses-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000007606/c499fdc86779ca95e61daed1f94288a245d196360d278138e56d44097d1a3878"
+      },
+      {
+        "public_id": "fire-emblem-three-houses-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000007606/7df7cc79fe6950aa121c87b0f74fdaaa17f727feda31093d7fcad3ce665f493e"
+      },
+      {
+        "public_id": "fire-emblem-three-houses-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000007606/5feaf8b63474d05e568b61fc9dddf7ea4e50f374020e292ab415c661d0ec5760"
+      },
+      {
+        "public_id": "fire-emblem-three-houses-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000007606/cf6ecb357c922e819625c6b3ddad57978aa68f75cf173c33c7ae12b85915dd65"
       }
     ],
     "category": "Games",
@@ -278,8 +466,20 @@
     "ratings": 4.5,
     "images": [
       {
-        "public_id": "switch-lite-flip-cover",
-        "url": "https://example.com/switch-lite-flip-cover.jpg"
+        "public_id": "switch-lite-flip-cover-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/system-cases-and-bags/nintendo-switch-lite-flip-cover-screen-protector/110755-nintendo-switch-lite-flip-cover-screen-protector-open-empty-1200x675"
+      },
+      {
+        "public_id": "switch-lite-flip-cover-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/system-cases-and-bags/nintendo-switch-lite-flip-cover-screen-protector/110755-nintendo-switch-lite-flip-cover-screen-protector-open-switch-lite-1200x675"
+      },
+      {
+        "public_id": "switch-lite-flip-cover-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/system-cases-and-bags/nintendo-switch-lite-flip-cover-screen-protector/110755-nintendo-switch-lite-flip-cover-screen-protector-lifestyle-3-1200x675"
+      },
+      {
+        "public_id": "switch-lite-flip-cover-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/system-cases-and-bags/nintendo-switch-lite-flip-cover-screen-protector/110755-nintendo-switch-lite-flip-cover-screen-protector-lifestyle-1-1200x675"
       }
     ],
     "category": "Accessories",
@@ -287,15 +487,28 @@
     "numOfReviews": 80,
     "reviews": [],
     "sold": 65
-  },{
+  },
+  {
     "name": "Nintendo Switch Adjustable Charging Stand",
     "price": 19.99,
     "description": "Play the Nintendo Switch system in tabletop mode at any angle while you charge.",
     "ratings": 4.3,
     "images": [
       {
-        "public_id": "switch-adjustable-charging-stand",
-        "url": "https://example.com/switch-adjustable-charging-stand.jpg"
+        "public_id": "switch-adjustable-charging-stand-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/docks-cables-and-chargers/adjustable-charging-stand/108143_alt3"
+      },
+      {
+        "public_id": "switch-adjustable-charging-stand-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/docks-cables-and-chargers/adjustable-charging-stand/108143"
+      },
+      {
+        "public_id": "switch-adjustable-charging-stand-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/docks-cables-and-chargers/adjustable-charging-stand/108143_alt2"
+      },
+      {
+        "public_id": "switch-adjustable-charging-stand-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/en_US/products/accessories/nintendo-switch/docks-cables-and-chargers/adjustable-charging-stand/108143alt3"
       }
     ],
     "category": "Accessories",
@@ -311,8 +524,20 @@
     "ratings": 4.8,
     "images": [
       {
-        "public_id": "pikmin-3-deluxe",
-        "url": "https://example.com/pikmin-3-deluxe.jpg"
+        "public_id": "pikmin-3-deluxe-1",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000005302/a32f7ed0a032b291746ee878475521b685ef6c2b2de2caab3f8d40fec2d7ffce"
+      },
+      {
+        "public_id": "pikmin-3-deluxe-2",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000005302/ac5801e1ed46672a3a05af2d4551a833a9fb603fb61d8583bd82fdbe972c8238"
+      },
+      {
+        "public_id": "pikmin-3-deluxe-3",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000005302/a6260af9456f2e4a87b5b3e186678cf2780a3f367ba968d790ac3918e5e4b636"
+      },
+      {
+        "public_id": "pikmin-3-deluxe-4",
+        "url": "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.25/c_scale,w_1000/ncom/software/switch/70010000005302/8e26b2b5fbaa785806044caf66f77a61e6cb991a641fc8a820bab5fa4759448d"
       }
     ],
     "category": "Games",

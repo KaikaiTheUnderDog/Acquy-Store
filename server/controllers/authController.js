@@ -43,6 +43,8 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     // Gọi sendToken sau khi gửi email thành công
     sendToken(user, 200, res);
   } catch (error) {
+    console.log(error);
+
     return res.status(500).json({
       success: false,
       message: 'Internal Server Error',
