@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   clearErrors,
   getProducts,
+  resetProducts,
 } from '../../../redux/actions/productActions';
 import { FlatList } from 'react-native-gesture-handler';
 import { useRoute } from '@react-navigation/native';
@@ -30,11 +31,11 @@ const SearchResult = () => {
   );
 
   useEffect(() => {
+    setShowList([]);
     if (error) {
       //ToastAndroid.show(error.message, ToastAndroid.LONG);
       dispatch(clearErrors(error));
     }
-
     dispatch(getProducts(keyword, 1, [1, 9999999], '', 0));
   }, [error, keyword]);
 
@@ -42,17 +43,15 @@ const SearchResult = () => {
     if (productsFounded > 0) {
       const newProducts = products.filter(
         (product) =>
-          !showList.find(
-            (item) => item._id === product._id || !item.name.includes(keyword)
-          )
+          !showList.find((item) => item._id === product._id) &&
+          product.name.includes(keyword)
       );
-
       setShowList([...showList, ...newProducts]);
     }
   }, [products]);
 
   const fetchMoreProducts = async () => {
-    if (loadingMore || currentPage >= Math.ceil(filterdProductsCount / 4)) {
+    if (loadingMore || currentPage >= Math.ceil(productsFounded / 4)) {
       return;
     }
 
@@ -79,7 +78,7 @@ const SearchResult = () => {
         keyExtractor={(item) => item._id}
         //onEndReached={fetchMoreProducts}
         onTouchEnd={fetchMoreProducts}
-        onEndReachedThreshold={1}
+        onEndReachedThreshold={0.01}
         ListFooterComponent={loadingMore ? <Text>Loading...</Text> : null}
         numColumns={2}
         contentContainerStyle={styles.flatListContentContainer}

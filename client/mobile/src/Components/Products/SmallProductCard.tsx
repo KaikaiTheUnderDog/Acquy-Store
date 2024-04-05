@@ -3,16 +3,15 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const SmallProductCard = ({ product }) => {
-  let truncatedTitle = product.name;
+  let truncatedTitle =
+    product.name.length <= 20
+      ? product.name + '\n '
+      : product.name.length > 32
+      ? `${product.name.substring(0, 32)} ...`
+      : product.name;
   const navigation = useNavigation();
 
   //console.log(product.images[0].url);
-
-  if (product.name.length <= 20) {
-    truncatedTitle = product.name + '\n ';
-  } else if (product.name.length > 32) {
-    truncatedTitle = `${product.name.substring(0, 32)} ...`;
-  }
   return (
     <TouchableOpacity
       style={styles.smallCard}

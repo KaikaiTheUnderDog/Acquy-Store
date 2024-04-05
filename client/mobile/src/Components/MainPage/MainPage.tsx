@@ -26,7 +26,7 @@ const MainPage = () => {
   const [loadingMore, setLoadingMore] = useState(false);
   const [showList, setShowList] = useState([]);
 
-  const { products, error, totalProduct } = useSelector(
+  const { products, error, productsFounded } = useSelector(
     (state) => state.products
   );
 
@@ -40,7 +40,7 @@ const MainPage = () => {
   }, [error]);
 
   useEffect(() => {
-    if (totalProduct || totalProduct > 0) {
+    if (productsFounded || productsFounded > 0) {
       const newProducts = products.filter(
         (product) => !showList.find((item) => item._id === product._id)
       );
@@ -50,7 +50,7 @@ const MainPage = () => {
   }, [products]);
 
   const fetchMoreProducts = async () => {
-    if (loadingMore || currentPage >= Math.ceil(totalProduct / 4)) {
+    if (loadingMore || currentPage >= Math.ceil(productsFounded / 4)) {
       return;
     }
 
@@ -74,7 +74,7 @@ const MainPage = () => {
         renderItem={({ item }) => <SmallProductCard product={item} />}
         keyExtractor={(item) => item._id}
         onEndReached={fetchMoreProducts}
-        onEndReachedThreshold={1}
+        onEndReachedThreshold={0.01}
         ListFooterComponent={loadingMore ? <Text>Loading...</Text> : null}
         numColumns={2}
         contentContainerStyle={styles.flatListContentContainer}

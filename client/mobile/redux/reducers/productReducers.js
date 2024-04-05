@@ -32,6 +32,7 @@ import {
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_RESET,
   DELETE_REVIEW_FAILED,
+  RESET_PRODUCTS,
 } from '../constants/productConstants';
 
 export const productReducer = (state = { products: [] }, action) => {
@@ -60,6 +61,11 @@ export const productReducer = (state = { products: [] }, action) => {
       return {
         loading: false,
         error: action.payload,
+      };
+    case RESET_PRODUCTS:
+      return {
+        loading: true,
+        products: null,
       };
     case CLEAR_ERRORS:
       return {

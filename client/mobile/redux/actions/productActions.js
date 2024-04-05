@@ -62,6 +62,10 @@ export const getProducts =
     }
   };
 
+export const resetProducts = () => {
+  return { type: 'RESET_PRODUCTS' };
+};
+
 export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({
