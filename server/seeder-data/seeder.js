@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const connectDatabase = require('../config/database');
 
 const products = require('./products');
+const users = require('./users');
 
 // Setting dotenv file
 dotenv.config({ path: '../server/config/config.env' });
@@ -20,6 +21,9 @@ const seedProducts = async () => {
 
     await User.deleteMany();
     console.log('Users deleted successfully');
+
+    await User.create(users);
+    console.log('Users inserted successfully');
 
     process.exit();
   } catch (err) {

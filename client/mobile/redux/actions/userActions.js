@@ -56,19 +56,19 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
 
+    await AsyncStorage.setItem('token', data.token);
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: data.user,
     });
 
-    if (data.token) {
-      await AsyncStorage.setItem('token', data.token);
-    }
+    console.log(data.token + ' from login action');
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data.message);
     dispatch({
       type: LOGIN_FAILED,
-      payload: error.response.data.message,
+      payload: error.response?.data?.message || 'error',
     });
   }
 };
@@ -83,13 +83,14 @@ export const register = (userData) => async (dispatch) => {
 
     const { data } = await axios.post(`${apiURL}/register`, userData, config);
 
+    await AsyncStorage.setItem('token', data.token);
+
     dispatch({
       type: REGISTER_SUCCESS,
       payload: data.user,
     });
-
-    await AsyncStorage.setItem('token', data.token);
   } catch (error) {
+    console.log(error);
     dispatch({
       type: REGISTER_FAILED,
       payload: error.response.data.message,
@@ -102,15 +103,21 @@ export const loadUser = () => async (dispatch) => {
     dispatch({ type: LOAD_USER_REQUEST });
 
     const token = await AsyncStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token found');
+    }
+
+    console.log(token + ' from load user');
 
     const config = { headers: { Authorization: `Bearer ${token}` } };
 
-    const { data } = await axios.get(`${apiURL}/me`, config);
+    const { data } = await axios.get(`${apiURL}/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
     dispatch({
       type: LOAD_USER_SUCCESS,
       payload: data.user,
-      token,
     });
   } catch (error) {
     dispatch({
@@ -128,7 +135,7 @@ export const logout = () => async (dispatch) => {
       type: LOGOUT_SUCCESS,
     });
 
-    await AsyncStorage.removeItem('token');
+    AsyncStorage.setItem('token', '');
   } catch (error) {
     dispatch({
       type: LOGOUT_FAILED,

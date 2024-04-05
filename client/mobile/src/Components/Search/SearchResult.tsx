@@ -1,32 +1,31 @@
-import { useState, useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Header from '../Header/Header';
+import React, { useEffect, useState } from 'react';
 import {
-  Text,
-  ScrollView,
-  StyleSheet,
-  ToastAndroid,
   View,
-  FlatList,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
 } from 'react-native';
+import SmallProductCard from '../Products/SmallProductCard'; // Make sure to import SmallProductCard
 import LargeProductCard from '../Products/LargeProductCard';
-import SmallProductCard from '../Products/SmallProductCard';
-import BottomNavigationBar from '../Header/Navibar';
 import { useDispatch, useSelector } from 'react-redux';
-
 import {
   clearErrors,
   getProducts,
 } from '../../../redux/actions/productActions';
+import { FlatList } from 'react-native-gesture-handler';
+import { useRoute } from '@react-navigation/native';
 
-const MainPage = () => {
+const categories = ['Cate1', 'Cate2', 'Cate3', 'Cate4']; // Your category names
+
+const SearchResult = () => {
   const dispatch = useDispatch();
+  const { keyword } = useRoute().params;
   const [currentPage, setCurrentPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
   const [showList, setShowList] = useState([]);
 
-  const { products, error, totalProduct } = useSelector(
+  const { products, error, totalProduct, productsFounded } = useSelector(
     (state) => state.products
   );
 
@@ -36,13 +35,16 @@ const MainPage = () => {
       dispatch(clearErrors(error));
     }
 
-    dispatch(getProducts('', 1, [1, 9999999], '', 0));
-  }, [error]);
+    dispatch(getProducts(keyword, 1, [1, 9999999], '', 0));
+  }, [error, keyword]);
 
   useEffect(() => {
-    if (totalProduct || totalProduct > 0) {
+    if (productsFounded > 0) {
       const newProducts = products.filter(
-        (product) => !showList.find((item) => item._id === product._id)
+        (product) =>
+          !showList.find(
+            (item) => item._id === product._id || !item.name.includes(keyword)
+          )
       );
 
       setShowList([...showList, ...newProducts]);
@@ -50,14 +52,14 @@ const MainPage = () => {
   }, [products]);
 
   const fetchMoreProducts = async () => {
-    if (loadingMore || currentPage >= Math.ceil(totalProduct / 4)) {
+    if (loadingMore || currentPage >= Math.ceil(filterdProductsCount / 4)) {
       return;
     }
 
     setLoadingMore(true);
     const nextPage = currentPage + 1;
 
-    await dispatch(getProducts('', nextPage, [1, 9999999], '', 0));
+    await dispatch(getProducts(keyword, nextPage, [1, 9999999], '', 0));
 
     setCurrentPage(nextPage);
     setLoadingMore(false);
@@ -65,15 +67,18 @@ const MainPage = () => {
 
   return (
     <View style={styles.content}>
-      <View>
-        <LargeProductCard></LargeProductCard>
-      </View>
-      <Text style={styles.Title}>Our Products</Text>
+      <Text style={styles.Title}>
+        Result(s) for{' '}
+        <Text style={{ color: 'red', fontSize: 20, fontStyle: 'italic' }}>
+          "{keyword}"
+        </Text>
+      </Text>
       <FlatList
         data={showList}
         renderItem={({ item }) => <SmallProductCard product={item} />}
         keyExtractor={(item) => item._id}
-        onEndReached={fetchMoreProducts}
+        //onEndReached={fetchMoreProducts}
+        onTouchEnd={fetchMoreProducts}
         onEndReachedThreshold={1}
         ListFooterComponent={loadingMore ? <Text>Loading...</Text> : null}
         numColumns={2}
@@ -111,4 +116,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainPage;
+export default SearchResult;

@@ -1,9 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadUser } from '../../../redux/actions/userActions';
+import store from '../../../redux/store';
 
 const BottomNavigationBar = ({}) => {
   const navigation = useNavigation();
+
+  const { isAuthenticated, loading } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector((state) => state.cart);
 
   return (
     <View style={styles.navBar}>
@@ -18,7 +24,11 @@ const BottomNavigationBar = ({}) => {
         />
       </TouchableOpacity>
 
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Cart');
+        }}
+      >
         <Image
           source={{ uri: 'https://i.imgur.com/PXpeeFq.png' }}
           style={styles.icon}
@@ -34,7 +44,8 @@ const BottomNavigationBar = ({}) => {
 
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('Login');
+          if (isAuthenticated) navigation.navigate('UserProfile');
+          else navigation.navigate('Login');
         }}
       >
         <Image

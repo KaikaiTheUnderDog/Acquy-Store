@@ -5,6 +5,6 @@ const { getUserProfile } = require('../controllers/profileController');
 
 const { isAuthenticatedUser } = require('../middlewares/authentication');
 
-router.route('/me').get(getUserProfile, isAuthenticatedUser);
+router.route('/me').get(isAuthenticatedUser, getUserProfile);
 
 module.exports = router;

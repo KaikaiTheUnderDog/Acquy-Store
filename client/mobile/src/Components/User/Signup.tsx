@@ -7,9 +7,16 @@ import {
   TouchableOpacity,
   StyleSheet,
   ToastAndroid,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { register, clearErrors } from '../../../redux/actions/userActions';
+import {
+  register,
+  clearErrors,
+  loadUser,
+} from '../../../redux/actions/userActions';
+import { ScrollView } from 'react-native-gesture-handler';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 type Props = {
   navigation: any;
@@ -29,11 +36,12 @@ const Signup = ({ navigation }: Props) => {
   useEffect(() => {
     if (isAuthenticated) {
       navigation.navigate('MainPage');
+      dispatch(loadUser());
     }
 
     if (error) {
       ToastAndroid.show(error, ToastAndroid.LONG);
-      clearErrors(error)(dispatch);
+      dispatch(clearErrors(error));
     }
   }, [error, isAuthenticated]);
 
@@ -49,7 +57,10 @@ const Signup = ({ navigation }: Props) => {
       user.confirmedPassword === ''
     )
       ToastAndroid.show('Please fill the all fields', ToastAndroid.LONG);
-    else register({ userName, email, password, confirmedPassword })(dispatch);
+
+    if (user.password !== user.confirmedPassword)
+      ToastAndroid.show('Password does not match', ToastAndroid.LONG);
+    else dispatch(register({ userName, email, password }));
   };
 
   const onChange = (name, value) => {
@@ -57,59 +68,65 @@ const Signup = ({ navigation }: Props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>SIGN UP</Text>
-      <TextInput
-        placeholder="USERNAME"
-        style={styles.inputField}
-        value={userName}
-        onChangeText={(value) => onChange('userName', value)}
-      />
-      <TextInput
-        placeholder="EMAIL"
-        style={styles.inputField}
-        value={email}
-        onChangeText={(value) => onChange('email', value)}
-        keyboardType="email-address"
-      />
-      <TextInput
-        placeholder="PASSWORD"
-        style={styles.inputField}
-        value={password}
-        onChangeText={(value) => onChange('password', value)}
-        secureTextEntry
-      />
-      <TextInput
-        placeholder="CONFIRM PASSWORD"
-        style={styles.inputField}
-        value={confirmedPassword}
-        onChangeText={(value) => onChange('confirmedPassword', value)}
-        secureTextEntry
-      />
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <TouchableOpacity style={styles.signInButton} onPress={submitHandler}>
-          <Text style={styles.signInButtonText}>SIGN UP</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>
-          Already have an account?{' '}
-          <Text
-            style={styles.signUpText}
-            onPress={() => {
-              navigation.navigate('Login');
-            }}
-          >
-            Sign in
+    <KeyboardAwareScrollView
+      style={styles.container}
+      extraScrollHeight={200}
+      enableOnAndroid={true}
+    >
+      <ScrollView>
+        <Text style={styles.title}>SIGN UP</Text>
+        <TextInput
+          placeholder="USERNAME"
+          style={styles.inputField}
+          value={userName}
+          onChangeText={(value) => onChange('userName', value)}
+        />
+        <TextInput
+          placeholder="EMAIL"
+          style={styles.inputField}
+          value={email}
+          onChangeText={(value) => onChange('email', value)}
+          keyboardType="email-address"
+        />
+        <TextInput
+          placeholder="PASSWORD"
+          style={styles.inputField}
+          value={password}
+          onChangeText={(value) => onChange('password', value)}
+          secureTextEntry
+        />
+        <TextInput
+          placeholder="CONFIRM PASSWORD"
+          style={styles.inputField}
+          value={confirmedPassword}
+          onChangeText={(value) => onChange('confirmedPassword', value)}
+          secureTextEntry
+        />
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <TouchableOpacity style={styles.signInButton} onPress={submitHandler}>
+            <Text style={styles.signInButtonText}>SIGN UP</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>
+            Already have an account?{' '}
+            <Text
+              style={styles.signUpText}
+              onPress={() => {
+                navigation.navigate('Login');
+              }}
+            >
+              Sign in
+            </Text>
           </Text>
-        </Text>
-      </View>
-    </View>
+        </View>
+      </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 

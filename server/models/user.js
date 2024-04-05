@@ -31,6 +31,11 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  role: {
+    type: String,
+    default: 'user',
+    enum: ['user', 'admin'],
+  },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   registerToken: String,
@@ -52,7 +57,7 @@ userSchema.methods.checkPassword = async function (password) {
 userSchema.methods.getJSONWebToken = function () {
   return jsonWebToken.sign(
     {
-      id: this.id,
+      id: this._id,
       name: this.name,
       email: this.email,
       role: this.role,

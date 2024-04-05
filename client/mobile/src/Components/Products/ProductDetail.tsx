@@ -20,58 +20,92 @@ import {
 
 const Tab = createMaterialTopTabNavigator();
 
-const secondaryImages = [
-  'https://help.rangeme.com/hc/article_attachments/360006928633/what_makes_a_good_product_image.jpg',
-  'https://th.bing.com/th/id/OIP.Jsbri5DW0kEIy3hfadjPaQHaFF?rs=1&pid=ImgDetMain',
-  'https://images.unsplash.com/photo-1506058774676-6360aa0c1584?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fHBob3RvJTIwc2hvb3R8ZW58MHx8MHx8&w=1000&q=80',
-];
 // Dummy components for each tab
 const Overview = () => {
   const { product } = useRoute().params;
+  const [mainImage, setMainImage] = useState('');
+  const [secondaryImages, setSecondaryImages] = useState([]);
+
+  useEffect(() => {
+    if (product && product.images && product.images.length > 0) {
+      setMainImage(product.images[0].url);
+      const secondary = product.images.slice(1).map((image) => image.url);
+      setSecondaryImages(secondary);
+    }
+  }, [product]);
 
   return (
     <ScrollView style={styles.container}>
       <TouchableOpacity
         style={{ justifyContent: 'center', alignItems: 'center' }}
       >
-        <Image
-          source={{
-            uri: `${product.images[0].url}`,
-          }}
-          style={styles.mainImage}
-        />
+        {product && product.images && product.images.length > 0 && (
+          <Image
+            source={{
+              uri: mainImage,
+            }}
+            style={styles.mainImage}
+          />
+        )}
       </TouchableOpacity>
       <View style={styles.thumbnailContainer}>
-        {secondaryImages.map((image, index) => (
-          <TouchableOpacity key={index} style={styles.thumbnailTouchable}>
-            <Image source={{ uri: image }} style={styles.thumbnail} />
-          </TouchableOpacity>
-        ))}
+        {secondaryImages.length > 0 &&
+          secondaryImages.map((image, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.thumbnailTouchable}
+              onPress={() => {
+                const altSecondaryImages = secondaryImages;
+
+                const index = altSecondaryImages.indexOf(image);
+                altSecondaryImages[index] = mainImage;
+                setMainImage(image);
+                setSecondaryImages(altSecondaryImages);
+              }}
+            >
+              <Image source={{ uri: image }} style={styles.thumbnail} />
+            </TouchableOpacity>
+          ))}
       </View>
+      <Text style={styles.Name}>{product.name}</Text>
+      <Text style={styles.reviewTxt}>({product.numOfReviews} reviews)</Text>
       <Text style={styles.description}>{product.description}</Text>
     </ScrollView>
   );
 };
 
-const data = [
-  { title: 'Title 1', info: 'Info 1' },
-  { title: 'Title 2', info: 'Info 2' },
-  { title: 'Title 3', info: 'Info 3' },
-  { title: 'Title 4', info: 'Info 4' },
-];
+const Specification = () => {
+  const { product } = useRoute().params;
 
-const Specification = () => (
-  <ScrollView style={styles.tabContent}>
-    <View style={styles.container}>
-      {data.map((item, index) => (
-        <View key={index} style={styles.item}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.info}>{item.info}</Text>
-        </View>
-      ))}
-    </View>
-  </ScrollView>
-);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    if (product)
+      setData([
+        { title: 'Product', info: product.name },
+        { title: 'Price', info: `$ ${product.price}` },
+        { title: 'Category', info: product.category },
+        { title: 'Sold', info: product.sold },
+        {
+          title: 'Released Date',
+          info: new Date(product.createdAt).toLocaleDateString('vi-VN'),
+        },
+      ]);
+  }, [product]);
+
+  return (
+    <ScrollView style={styles.tabContent}>
+      <View style={styles.container}>
+        {data.map((item, index) => (
+          <View key={index} style={styles.item}>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.info}>{item.info}</Text>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
+  );
+};
 
 const reviews = [
   {
@@ -144,12 +178,11 @@ const ProductDetailsScreen = ({ id }) => {
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    getProductDetails(id)(dispatch);
-    console.log('hello');
+    dispatch(getProductDetails(id));
 
     if (error) {
-      ToastAndroid.show(error.message, ToastAndroid.LONG);
-      clearErrors()(dispatch);
+      //ToastAndroid.show(error.message, ToastAndroid.LONG);
+      dispatch(clearErrors());
     }
   }, [dispatch, error, id]); // Include `id` as a dependency
 
@@ -184,13 +217,17 @@ const ProductDetailsScreen = ({ id }) => {
     );
 
   return (
-    <Tab.Navigator>
+    <Tab.Navigator style={{ marginBottom: 15 }}>
       <Tab.Screen
         name="Overview"
         component={Overview}
         initialParams={{ product }}
       />
-      <Tab.Screen name="Specification" component={Specification} />
+      <Tab.Screen
+        name="Specification"
+        component={Specification}
+        initialParams={{ product }}
+      />
       <Tab.Screen name="Reviews" component={Reviews} />
     </Tab.Navigator>
   );
@@ -213,11 +250,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 13,
   },
   info: {
     color: '#333',
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: 'bold',
+    width: '70%',
+    textAlign: 'right',
   },
   mainImage: {
     marginBottom: 10,
@@ -308,6 +348,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
+  },
+  Name: {
+    fontWeight: 'bold',
+    fontSize: 28,
+    paddingLeft: 10,
+    paddingTop: 10,
+    color: 'black',
+    width: '90%',
+  },
+  reviewTxt: {
+    fontSize: 14,
+    paddingLeft: 20,
+    marginTop: 5,
+    color: '#138B5F',
   },
 });
 

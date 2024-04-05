@@ -23,13 +23,19 @@ import UserProfileScreen from './src/Components/User/UserDetail';
 import ProductDetailsScreen from './src/Components/Products/ProductDetail';
 import Product from './src/Components/Products/Product';
 import CategoryProductGrid from './src/Components/Products/Grid';
-import SearchResult from './src/Components/Products/SearchResult';
+import SearchResult from './src/Components/Search/SearchResult';
+import Cart from './src/Components/Products/Cart';
 import store from './redux/store';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
+import { loadUser } from './redux/actions/userActions';
 
 const Stack = createStackNavigator();
 
 const App = () => {
+  React.useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   return (
     <Provider store={store}>
       <SafeAreaView style={styles.container}>
@@ -39,6 +45,7 @@ const App = () => {
             initialRouteName="MainPage"
             screenOptions={{
               headerTitle: '',
+              headerStyle: { height: 30 },
             }}
           >
             <Stack.Screen
@@ -51,6 +58,9 @@ const App = () => {
             <Stack.Screen name="Signup" component={Signup} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Product" component={Product} />
+            <Stack.Screen name="UserProfile" component={UserProfileScreen} />
+            <Stack.Screen name="Cart" component={Cart} />
+            <Stack.Screen name="Search" component={SearchResult} />
           </Stack.Navigator>
           <BottomNavigationBar />
         </NavigationContainer>

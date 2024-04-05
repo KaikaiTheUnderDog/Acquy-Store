@@ -1,22 +1,45 @@
-import React from 'react';
-import { StyleSheet, View, TextInput, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 
 const Header = () => {
+  const navigation = useNavigation();
+  const [keyword, setKeyword] = useState('');
+
+  const searchHandler = () => {
+    console.log('Keyword:', keyword);
+
+    if (keyword) {
+      navigation.navigate('Search', { keyword: keyword });
+    }
+  };
   return (
     <View style={styles.header}>
       {/* Logo */}
-      <Image source={{ uri: "https://i.imgur.com/zVcI6Nl.png"}} style={styles.logo} />
-      {/* to be changing to a back button on navigate to other pages*/}
-      {/* Search Input */}
+      <Image
+        source={{ uri: 'https://i.imgur.com/zVcI6Nl.png' }}
+        style={styles.logo}
+      />
       <TextInput
         style={styles.searchInput}
+        value={keyword}
         placeholder="Search product"
         placeholderTextColor="#000"
-       
+        onChangeText={(value) => setKeyword(value)}
       />
 
-      {/* Search Icon - Assuming you're using a png image for the icon */}
-      <Image source={{ uri: "https://i.imgur.com/0wbQk7s.png"}} style={styles.icon} />
+      <TouchableOpacity onPress={searchHandler}>
+        <Image
+          source={{ uri: 'https://i.imgur.com/0wbQk7s.png' }}
+          style={styles.icon}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -46,7 +69,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     resizeMode: 'contain',
-  }
+  },
 });
 
 export default Header;

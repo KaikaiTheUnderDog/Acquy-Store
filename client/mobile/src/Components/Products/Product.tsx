@@ -12,11 +12,19 @@ import {
 } from 'react-native';
 
 import ProductDetailsScreen from '../Products/ProductDetail';
+import { useDispatch } from 'react-redux';
+import { addItemToCart } from '../../../redux/actions/cartActions';
 
 const Stack = createStackNavigator();
 
 const Product = () => {
   const { id } = useRoute().params;
+  const dispatch = useDispatch();
+
+  const addToCart = () => {
+    dispatch(addItemToCart(id, 1));
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -26,13 +34,14 @@ const Product = () => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            height: 52,
+            position: 'absolute', // Đặt view này trên cùng của stack
+            bottom: 0, // Đặt view này ở phía dưới cùng của màn hình
+            left: 0, // Đặt view này cân đối ở bên trái
+            right: 0, // Đặt view này cân đối ở bên phải
+            backgroundColor: 'rgba(255, 255, 255, 0.5)',
           }}
         >
-          <TouchableOpacity
-            style={styles.Cart_BTN}
-            onPress={() => console.log(id)}
-          >
+          <TouchableOpacity style={styles.Cart_BTN} onPress={addToCart}>
             <Text style={styles.Buy_Txt}>Add to Cart</Text>
           </TouchableOpacity>
         </View>
@@ -44,9 +53,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
+    backgroundColor: '#FFFFFFF',
   },
   content: {
     height: '100%',
+    backgroundColor: '#FFFFFF',
     flex: 1, // Cho phép phần nội dung mở rộng
   },
   Cart_BTN: {
@@ -59,6 +70,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     marginLeft: 10,
     height: '100%',
+    marginTop: 13,
   },
   Buy_Txt: {
     fontSize: 18,

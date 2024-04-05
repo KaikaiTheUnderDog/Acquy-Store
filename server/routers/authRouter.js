@@ -7,10 +7,14 @@ const {
   forgotPassword,
   resetPassword,
   verifyEmail,
+  logoutUser,
 } = require('../controllers/authController');
+
+const { isAuthenticatedUser } = require('../middlewares/authentication');
 
 router.route('/register').post(registerUser);
 router.route('/login').post(loginUser);
+router.route('/logout').get(logoutUser);
 router.route('/password/forgot').post(forgotPassword);
 router.route('/password/reset/:token').put(resetPassword);
 router.route('/verify/:token').put(verifyEmail);

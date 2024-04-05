@@ -14,6 +14,7 @@ import {
   clearErrors,
   loadUser,
 } from '../../../redux/actions/userActions';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type Props = {
   navigation: any;
@@ -28,23 +29,25 @@ const Login = ({ navigation }: Props) => {
 
   useEffect(() => {
     if (error) {
-      ToastAndroid.show('Email and password not matching!', ToastAndroid.LONG);
-      clearErrors(error)(dispatch);
+      ToastAndroid.show('Email or password is invalid!', ToastAndroid.LONG);
+      dispatch(clearErrors(error));
     }
     if (isAuthenticated) {
-      loadUser()(dispatch);
       navigation.navigate('MainPage');
       ToastAndroid.show('Login successful!', ToastAndroid.LONG);
+      console.log(isAuthenticated + ' from login');
     }
-  }, [isAuthenticated, error]);
+  }, [isAuthenticated, error, dispatch, navigation]);
 
   const signInHandler = (e) => {
     e.preventDefault();
-    login(email, password)(dispatch);
+    dispatch(login(email, password));
+
+    console.log(isAuthenticated);
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>SIGN IN</Text>
       <TextInput
         placeholder="EMAIL"
@@ -83,7 +86,7 @@ const Login = ({ navigation }: Props) => {
         <View style={styles.separator} />
         <Text style={styles.footerText}>Forgot your password?</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

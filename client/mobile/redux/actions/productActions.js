@@ -33,7 +33,7 @@ import {
 import { apiURL } from '../apiURL';
 
 export const getProducts =
-  (keywords = '', currentPage = 1, price, category, ratings) =>
+  (keywords, currentPage = 1, price, category, ratings) =>
   async (dispatch) => {
     try {
       dispatch({

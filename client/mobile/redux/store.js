@@ -24,6 +24,7 @@ import {
   allOrdersReducer,
   orderReducer,
 } from './reducers/orderReducers';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const reducer = combineReducers({
   products: productReducer,
@@ -46,23 +47,39 @@ const reducer = combineReducers({
   productReviews: productReviewsReducer,
 });
 
-let initialState = {
-  /* cartItems: localStorage.getItem('cartItems')
-    ? JSON.parse(localStorage.getItem('cartItems'))
-    : [],
-  shippingInfo: localStorage.getItem('shippingInfo')
-    ? JSON.parse(localStorage.getItem('shippingInfo'))
-    : {}, */
-};
-
 const store = configureStore({
   reducer: reducer,
-  initialState: initialState,
+  preloadedState: {
+    cart: {
+      cartItems: [],
+    },
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       immutableCheck: false,
       serializableCheck: false,
     }),
 });
+
+// Asynchronously load cart items and update the store
+const loadCartItems = async () => {
+  try {
+    const cartItemsString = await AsyncStorage.getItem('cartItems');
+    if (cartItemsString && cartItemsString !== '[]') {
+      const cartItems = JSON.parse(cartItemsString);
+      // Dispatch an action to update the cart items in the store
+      // You need to have an action in your cart reducer to handle this
+      store.dispatch({
+        type: 'cart/setCartItems',
+        payload: cartItems,
+      });
+    }
+  } catch (error) {
+    console.error('Error loading cart items:', error);
+  }
+};
+
+// Call the function to load the cart items
+loadCartItems();
 
 export default store;

@@ -1,4 +1,6 @@
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {
   ADD_TO_CART,
   REMOVE_ITEM_CART,
@@ -20,8 +22,14 @@ export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
       quantity,
     },
   });
+  try {
+    const cartItems = getState().cart.cartItems;
+    await AsyncStorage.setItem('cartItems', JSON.stringify(cartItems));
+  } catch (error) {
+    console.error('Error saving cart items:', error);
+  }
 
-  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+  console.log(id);
 };
 
 export const removeItemFromCart = (id) => async (dispatch, getState) => {
@@ -30,7 +38,7 @@ export const removeItemFromCart = (id) => async (dispatch, getState) => {
     payload: id,
   });
 
-  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+  AsyncStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 
 export const saveShippingInfo = (data) => async (dispatch) => {
@@ -39,5 +47,5 @@ export const saveShippingInfo = (data) => async (dispatch) => {
     payload: data,
   });
 
-  localStorage.setItem('shippingInfo', JSON.stringify(data));
+  AsyncStorage.setItem('shippingInfo', JSON.stringify(data));
 };

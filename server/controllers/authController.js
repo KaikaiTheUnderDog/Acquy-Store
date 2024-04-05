@@ -8,14 +8,7 @@ const Errors = require('../utils/errors');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
-  const { userName, email, password, confirmedPassword } = req.body;
-
-  if (password !== confirmedPassword) {
-    return res.status(400).json({
-      success: false,
-      message: 'Passwords do not match',
-    });
-  }
+  const { userName, email, password } = req.body;
 
   try {
     const user = await User.create({
@@ -108,6 +101,18 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   }
 
   sendToken(user, 200, res);
+});
+
+exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
+  res.cookie('token', null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: 'Logged out successfully',
+  });
 });
 
 exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
