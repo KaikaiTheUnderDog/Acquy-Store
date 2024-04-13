@@ -33,12 +33,13 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
 
 // Get 10 best seller products -> /api/v1/products/bestsellers
 exports.getBestSellers = catchAsyncErrors(async (req, res, next) => {
-  const products = await Product.find({}).sort({ sold: -1 }).limit(10).exec();
+  const bestSellers = await Product.find({}).sort({ sold: -1 }).limit(5).exec();
+  console.log(bestSellers.length);
 
   res.status(200).json({
     success: true,
     message: 'This route will show best seller in database',
-    products,
+    bestSellers,
   });
 });
 

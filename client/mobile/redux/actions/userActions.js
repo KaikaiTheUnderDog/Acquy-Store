@@ -107,10 +107,6 @@ export const loadUser = () => async (dispatch) => {
       throw new Error('No token found');
     }
 
-    console.log(token + ' from load user');
-
-    const config = { headers: { Authorization: `Bearer ${token}` } };
-
     const { data } = await axios.get(`${apiURL}/me`, {
       headers: { Authorization: `Bearer ${token}` },
     });

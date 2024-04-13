@@ -1,3 +1,3 @@
-const apiURL = 'http://172.16.12.188:8000/api/v1';
+const apiURL = 'http://192.168.1.225:8000/api/v1';
 
 export { apiURL };

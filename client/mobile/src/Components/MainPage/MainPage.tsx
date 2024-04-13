@@ -9,16 +9,18 @@ import {
   ToastAndroid,
   View,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import LargeProductCard from '../Products/LargeProductCard';
 import SmallProductCard from '../Products/SmallProductCard';
-import BottomNavigationBar from '../Header/Navibar';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
   clearErrors,
+  getBestSellers,
   getProducts,
 } from '../../../redux/actions/productActions';
+import BestSellers from '../Products/BestSellers';
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -26,14 +28,14 @@ const MainPage = () => {
   const [loadingMore, setLoadingMore] = useState(false);
   const [showList, setShowList] = useState([]);
 
-  const { products, error, productsFounded } = useSelector(
+  const { products, error, productsFounded, loading } = useSelector(
     (state) => state.products
   );
 
   useEffect(() => {
     if (error) {
       //ToastAndroid.show(error.message, ToastAndroid.LONG);
-      dispatch(clearErrors(error));
+      dispatch(clearErrors());
     }
 
     dispatch(getProducts('', 1, [1, 9999999], '', 0));
@@ -65,16 +67,16 @@ const MainPage = () => {
 
   return (
     <View style={styles.content}>
-      <View>
-        <LargeProductCard></LargeProductCard>
-      </View>
+      <Text style={styles.bestSeller}>Best Seller</Text>
+      <BestSellers />
+
       <Text style={styles.Title}>Our Products</Text>
       <FlatList
         data={showList}
         renderItem={({ item }) => <SmallProductCard product={item} />}
         keyExtractor={(item) => item._id}
         onEndReached={fetchMoreProducts}
-        onEndReachedThreshold={0.01}
+        onEndReachedThreshold={0.1}
         ListFooterComponent={loadingMore ? <Text>Loading...</Text> : null}
         numColumns={2}
         contentContainerStyle={styles.flatListContentContainer}
@@ -108,6 +110,13 @@ const styles = StyleSheet.create({
   flatListContentContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  bestSeller: {
+    marginTop: 10,
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    paddingBottom: 0,
+    fontSize: 18,
   },
 });
 

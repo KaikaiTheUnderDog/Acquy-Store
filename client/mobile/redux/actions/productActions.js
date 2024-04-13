@@ -29,6 +29,9 @@ import {
   DELETE_REVIEW_REQUEST,
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_FAILED,
+  BEST_SELLERS_REQUEST,
+  BEST_SELLERS_SUCCESS,
+  BEST_SELLERS_FAILED,
 } from '../constants/productConstants';
 import { apiURL } from '../apiURL';
 
@@ -48,8 +51,6 @@ export const getProducts =
 
       const { data } = await axios.get(link);
 
-      console.log(link);
-
       dispatch({
         type: ALL_PRODUCTS_SUCCESS,
         payload: data,
@@ -62,8 +63,28 @@ export const getProducts =
     }
   };
 
-export const resetProducts = () => {
-  return { type: 'RESET_PRODUCTS' };
+export const getBestSellers = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: BEST_SELLERS_REQUEST,
+    });
+
+    const { data } = await axios.get(`${apiURL}/products/bestsellers`);
+
+    if (data) {
+      console.log('có best sellers');
+    }
+
+    dispatch({
+      type: BEST_SELLERS_SUCCESS,
+      payload: data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BEST_SELLERS_FAILED,
+      payload: err.response.data.message,
+    });
+  }
 };
 
 export const getProductDetails = (id) => async (dispatch) => {
@@ -74,7 +95,6 @@ export const getProductDetails = (id) => async (dispatch) => {
 
     const { data } = await axios.get(`${apiURL}/product/${id}`);
 
-    console.log('hello from action');
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data.product,
@@ -182,6 +202,8 @@ export const updateProduct = (id, productData) => async (dispatch) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
+        //.hbhhvvgvgvvbhbhbbnnn
+        //njbh
       },
     };
 

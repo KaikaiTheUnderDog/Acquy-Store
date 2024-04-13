@@ -7,8 +7,10 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import CartItem from './Cart-item';
-import { removeItemFromCart } from '../../../redux/actions/cartActions';
+import {
+  addItemToCart,
+  removeItemFromCart,
+} from '../../../redux/actions/cartActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
@@ -20,12 +22,42 @@ const Cart = () => {
     dispatch(removeItemFromCart(id));
   };
 
+  const increaseQty = (id, quantity, stock) => {
+    const newQty = quantity + 1;
+
+    if (newQty > stock) return;
+
+    dispatch(addItemToCart(id, newQty));
+  };
+
+  const decreaseQty = (id, quantity) => {
+    const newQty = quantity - 1;
+
+    if (newQty <= 0) {
+      removeCartItemHandler(id);
+      return;
+    }
+
+    dispatch(addItemToCart(id, newQty));
+  };
+
   const { cartItems } = useSelector((state) => state.cart);
 
-  console.log(cartItems[1] + 'from super cart');
+  //console.log(cartItems[1] + 'from super cart');
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <Text
+        style={{
+          fontWeight: 'bold',
+          color: 'black',
+          fontSize: 20,
+          marginTop: 5,
+          marginLeft: 35,
+        }}
+      >
+        Total items: {cartItems.length}
+      </Text>
       <ScrollView contentContainerStyle={styles.productGrid}>
         {cartItems &&
           cartItems.length > 0 &&
@@ -50,13 +82,33 @@ const Cart = () => {
                 }}
               >
                 <Text style={styles.productName}>
-                  {item.name.length > 42
-                    ? `${item.name.substring(0, 42)}...`
+                  {item.name.length > 34
+                    ? `${item.name.substring(0, 34)}...`
                     : item.name}
                 </Text>
-                <Text style={styles.productInfo}>
-                  Quantity: {item.quantity}
-                </Text>
+
+                <View style={styles.quantityContainer}>
+                  <Text style={styles.productQuantity}>Quantity: </Text>
+                  <TouchableOpacity
+                    style={styles.quantityButton}
+                    onPress={() => decreaseQty(item.product, item.quantity)}
+                  >
+                    <Text style={{ color: 'white', fontWeight: 'bold' }}>
+                      -
+                    </Text>
+                  </TouchableOpacity>
+                  <Text style={styles.productQuantity}>{item.quantity}</Text>
+                  <TouchableOpacity
+                    style={styles.quantityButton}
+                    onPress={() =>
+                      increaseQty(item.product, item.quantity, item.stock)
+                    }
+                  >
+                    <Text style={{ color: 'white', fontWeight: 'bold' }}>
+                      +
+                    </Text>
+                  </TouchableOpacity>
+                </View>
                 <Text style={styles.productInfo}>Price: ${item.price}</Text>
               </View>
               <TouchableOpacity
@@ -87,7 +139,10 @@ const Cart = () => {
             color: 'black',
           }}
         >
-          Totals: 150$
+          Totals: $
+          {cartItems
+            .reduce((acc, item) => acc + item.quantity * item.price, 0)
+            .toFixed(2)}
         </Text>
         <TouchableOpacity style={styles.Cart_BTN}>
           <Text style={styles.Buy_Txt}>Check out</Text>
@@ -118,6 +173,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     padding: 24,
+    paddingTop: 0,
     marginBottom: 40,
   },
   latestSearchesTitle: {
@@ -156,13 +212,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    elevation: 5, // for Android shadow
+    elevation: 10, // for Android shadow
   },
   productName: {
     fontSize: 18,
     fontWeight: 'bold',
     width: '100%',
     color: 'red',
+    marginBottom: 7,
   },
   productImage: {
     width: 80,
@@ -189,6 +246,27 @@ const styles = StyleSheet.create({
   productInfo: {
     color: 'black',
     marginTop: 7,
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: 140, // Điều chỉnh chiều rộng nếu cần
+    backgroundColor: 'white',
+    borderRadius: 5, // Tạo góc tròn cho container
+  },
+  quantityButton: {
+    width: 20, // Điều chỉnh chiều rộng nếu cần
+    height: 20, // Điều chỉnh chiều cao nếu cần
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red', // Màu nền cho nút
+    borderRadius: 5, // Góc tròn cho nút
+  },
+  productQuantity: {
+    color: 'black',
     fontSize: 13,
     fontWeight: '600',
   },
