@@ -32,10 +32,6 @@ import {
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_RESET,
   DELETE_REVIEW_FAILED,
-  RESET_PRODUCTS,
-  BEST_SELLERS_REQUEST,
-  BEST_SELLERS_FAILED,
-  BEST_SELLERS_SUCCESS,
 } from '../constants/productConstants';
 
 export const productReducer = (state = { products: [] }, action) => {
@@ -54,6 +50,7 @@ export const productReducer = (state = { products: [] }, action) => {
         totalProduct: action.payload.totalProduct,
         resPerPage: action.payload.resPerPage,
         productsFounded: action.payload.productsFounded,
+        bestSellers: action.payload.bestSellers,
       };
     case ADMIN_PRODUCTS_SUCCESS:
       return {
@@ -72,33 +69,6 @@ export const productReducer = (state = { products: [] }, action) => {
         error: null,
       };
 
-    default:
-      return state;
-  }
-};
-
-export const bestSellersReducer = (state = { bestSellers: [] }, action) => {
-  switch (action.type) {
-    case BEST_SELLERS_REQUEST:
-      return {
-        loading: true,
-        bestSellers: [],
-      };
-    case BEST_SELLERS_SUCCESS:
-      return {
-        loading: false,
-        bestSellers: action.payload.bestSellers,
-      };
-    case BEST_SELLERS_FAILED:
-      return {
-        loading: false,
-        error: action.payload,
-      };
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
-      };
     default:
       return state;
   }

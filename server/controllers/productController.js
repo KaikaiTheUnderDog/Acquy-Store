@@ -21,6 +21,8 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
   apiFeatures.pagination(resPerPage);
   products = await apiFeatures.query.clone();
 
+  const bestSellers = await Product.find({}).sort({ sold: -1 }).limit(5).exec();
+
   res.status(200).json({
     success: true,
     message: 'This route will show all products in database',
@@ -28,17 +30,6 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
     totalProduct: productCount,
     resPerPage: resPerPage,
     products,
-  });
-});
-
-// Get 10 best seller products -> /api/v1/products/bestsellers
-exports.getBestSellers = catchAsyncErrors(async (req, res, next) => {
-  const bestSellers = await Product.find({}).sort({ sold: -1 }).limit(5).exec();
-  console.log(bestSellers.length);
-
-  res.status(200).json({
-    success: true,
-    message: 'This route will show best seller in database',
     bestSellers,
   });
 });

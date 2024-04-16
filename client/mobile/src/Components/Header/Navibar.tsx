@@ -1,15 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadUser } from '../../../redux/actions/userActions';
-import store from '../../../redux/store';
+import { useSelector } from 'react-redux';
 
 const BottomNavigationBar = ({}) => {
   const navigation = useNavigation();
 
   const { isAuthenticated, loading } = useSelector((state) => state.auth);
-  const { cartItems } = useSelector((state) => state.cart);
 
   return (
     <View style={styles.navBar}>

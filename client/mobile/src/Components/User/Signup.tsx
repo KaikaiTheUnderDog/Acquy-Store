@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ToastAndroid,
   KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -41,26 +42,31 @@ const Signup = ({ navigation }: Props) => {
 
     if (error) {
       ToastAndroid.show(error, ToastAndroid.LONG);
-      dispatch(clearErrors(error));
+      dispatch(clearErrors());
     }
   }, [error, isAuthenticated]);
 
   const { userName, email, password, confirmedPassword } = user;
 
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const submitHandler = () => {
+    Keyboard.dismiss();
 
     if (
       user.userName === '' ||
       user.password === '' ||
       user.email === '' ||
       user.confirmedPassword === ''
-    )
+    ) {
       ToastAndroid.show('Please fill the all fields', ToastAndroid.LONG);
+      return;
+    }
 
-    if (user.password !== user.confirmedPassword)
+    if (user.password !== user.confirmedPassword) {
       ToastAndroid.show('Password does not match', ToastAndroid.LONG);
-    else dispatch(register({ userName, email, password }));
+      return;
+    }
+
+    dispatch(register({ userName, email, password }));
   };
 
   const onChange = (name, value) => {
@@ -70,7 +76,7 @@ const Signup = ({ navigation }: Props) => {
   return (
     <KeyboardAwareScrollView
       style={styles.container}
-      extraScrollHeight={200}
+      extraScrollHeight={300}
       enableOnAndroid={true}
     >
       <ScrollView>

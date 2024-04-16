@@ -11,13 +11,11 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import LargeProductCard from '../Products/LargeProductCard';
 import SmallProductCard from '../Products/SmallProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
   clearErrors,
-  getBestSellers,
   getProducts,
 } from '../../../redux/actions/productActions';
 import BestSellers from '../Products/BestSellers';
@@ -28,18 +26,18 @@ const MainPage = () => {
   const [loadingMore, setLoadingMore] = useState(false);
   const [showList, setShowList] = useState([]);
 
-  const { products, error, productsFounded, loading } = useSelector(
+  const { products, error, productsFounded, bestSellers } = useSelector(
     (state) => state.products
   );
 
   useEffect(() => {
     if (error) {
-      //ToastAndroid.show(error.message, ToastAndroid.LONG);
+      ToastAndroid.show(error.message, ToastAndroid.LONG);
       dispatch(clearErrors());
     }
 
-    dispatch(getProducts('', 1, [1, 9999999], '', 0));
-  }, [error]);
+    dispatch(getProducts('', 1, [0, 9999999], '', 0));
+  }, []);
 
   useEffect(() => {
     if (productsFounded || productsFounded > 0) {
@@ -68,7 +66,7 @@ const MainPage = () => {
   return (
     <View style={styles.content}>
       <Text style={styles.bestSeller}>Best Seller</Text>
-      <BestSellers />
+      <BestSellers bestSellers={bestSellers} />
 
       <Text style={styles.Title}>Our Products</Text>
       <FlatList
@@ -76,7 +74,7 @@ const MainPage = () => {
         renderItem={({ item }) => <SmallProductCard product={item} />}
         keyExtractor={(item) => item._id}
         onEndReached={fetchMoreProducts}
-        onEndReachedThreshold={0.1}
+        onEndReachedThreshold={0.0001}
         ListFooterComponent={loadingMore ? <Text>Loading...</Text> : null}
         numColumns={2}
         contentContainerStyle={styles.flatListContentContainer}

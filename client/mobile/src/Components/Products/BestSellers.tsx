@@ -6,13 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
-  ToastAndroid,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  getBestSellers,
-  clearErrors,
-} from '../../../redux/actions/productActions';
 import { useNavigation } from '@react-navigation/native';
 
 const LargeProductCard = ({ product }) => {
@@ -37,33 +31,18 @@ const LargeProductCard = ({ product }) => {
   );
 };
 
-const BestSellers = () => {
-  const dispatch = useDispatch();
+const BestSellers = ({ bestSellers }) => {
   const [currentBestSellerIndex, setCurrentBestSellerIndex] = useState(0);
-  const { bestSellers, error, loading } = useSelector(
-    (state) => state.bestSellers
-  );
 
   useEffect(() => {
-    const fetch = async () => {
-      if (bestSellers) return;
-
-      await dispatch(getBestSellers());
-    };
-    fetch();
-  }, [error, currentBestSellerIndex]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
+    let interval = setInterval(() => {
       setCurrentBestSellerIndex((prevIndex) => (prevIndex + 1) % 5);
     }, 5000);
-
-    console.log('i caused ' + bestSellers);
 
     return () => clearInterval(interval);
   });
 
-  if (loading || bestSellers === undefined) {
+  if (bestSellers === undefined) {
     return <ActivityIndicator size="large"></ActivityIndicator>;
   }
 
@@ -75,7 +54,6 @@ const BestSellers = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   largeCard: {
     borderRadius: 10,

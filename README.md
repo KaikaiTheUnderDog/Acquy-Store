@@ -12,6 +12,14 @@ Thành viên nhóm:
 
 npm install express mongoose dotenv crypto validator bcryptjs jsonwebtoken nodemailer cookie-parser body-parser stripe
 
-## Chạy server
+## Chạy Server
 
 npm run dev
+
+## Chạy Client
+
+npm start
+
+\*\* Lưu ý trước khi chạy client với localhost cần mở Terminal để tiến hành mapping port localhost trên thiết bị debug với port localhost trên mobile
+
+adb reverse tcp:8163 tcp:8163

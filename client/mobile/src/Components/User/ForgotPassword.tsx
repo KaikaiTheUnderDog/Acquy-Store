@@ -1,30 +1,72 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  ToastAndroid,
+  Keyboard,
+  ActivityIndicator,
+} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  clearErrors,
+  forgotPassword,
+} from '../../../redux/actions/userActions';
 
 const ForgotPassword = () => {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
+
+  const { error, loading, message } = useSelector(
+    (state) => state.forgotPassword
+  );
+
+  useEffect(() => {
+    if (error) {
+      ToastAndroid.show(error, ToastAndroid.LONG);
+      dispatch(clearErrors());
+    }
+
+    if (message) {
+      ToastAndroid.show(message, ToastAndroid.LONG);
+    }
+  }, [dispatch, error, message]);
+
+  const handleSubmit = () => {
+    Keyboard.dismiss();
+    dispatch(forgotPassword(email));
+  };
+
+  if (loading) {
+    return <ActivityIndicator size="large"></ActivityIndicator>;
+  }
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
-        <Image source={ {uri: 'https://i.imgur.com/n3dQYrr.png'}} style={styles.backButton}/>
-      </TouchableOpacity>
       <Text style={styles.title}>Forgot Password</Text>
       <TextInput
         placeholder="EMAIL"
+        value={email}
         style={styles.inputField}
+        onChangeText={(value) => setEmail(value)}
         keyboardType="email-address"
       />
-      <TouchableOpacity style={styles.signInButton}>
-        <Text style={styles.signInButtonText}>SEND EMAIL</Text>
-      </TouchableOpacity>
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>
-          Already have an account?{' '}
-          <Text style={styles.signUpText}>Sign in</Text>
-        </Text>
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <TouchableOpacity style={styles.signInButton} onPress={handleSubmit}>
+          <Text style={styles.signInButtonText}>SEND EMAIL</Text>
+        </TouchableOpacity>
       </View>
     </View>
-    );
-  };
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -32,11 +74,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: 'white',
-  },
-  backButton: {
-    marginBottom: 20,
-    width: 48,
-    height: 48,
   },
   backText: {
     fontSize: 20,
@@ -59,7 +96,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#E4000F',
     borderRadius: 5,
     padding: 16,
+    width: 250,
     alignItems: 'center',
+    marginTop: 20,
     marginBottom: 20,
   },
   signInButtonText: {

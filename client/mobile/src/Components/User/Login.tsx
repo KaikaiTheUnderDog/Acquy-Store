@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ToastAndroid,
+  Keyboard,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -39,8 +40,8 @@ const Login = ({ navigation }: Props) => {
     }
   }, [isAuthenticated, error, dispatch, navigation]);
 
-  const signInHandler = (e) => {
-    e.preventDefault();
+  const signInHandler = () => {
+    Keyboard.dismiss();
     dispatch(login(email, password));
 
     console.log(isAuthenticated);
@@ -84,7 +85,9 @@ const Login = ({ navigation }: Props) => {
           </Text>
         </Text>
         <View style={styles.separator} />
-        <Text style={styles.footerText}>Forgot your password?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+          <Text style={styles.footerText}>Forgot your password?</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -106,11 +109,6 @@ const styles = StyleSheet.create({
     height: 10,
     backgroundColor: '#E4000F',
     width: '100%',
-  },
-  backButton: {
-    marginBottom: 20,
-    width: 48,
-    height: 48,
   },
   backText: {
     fontSize: 20,

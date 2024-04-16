@@ -8,7 +8,6 @@ import {
   updateProductReducer,
   reviewReducer,
   productReviewsReducer,
-  bestSellersReducer,
 } from './reducers/productReducers';
 import {
   authReducer,
@@ -30,7 +29,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const reducer = combineReducers({
   products: productReducer,
   productDetails: productDetailsReducer,
-  bestSellers: bestSellersReducer,
   auth: authReducer,
   user: userReducer,
   forgotPassword: forgotPasswordReducer,

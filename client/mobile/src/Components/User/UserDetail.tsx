@@ -10,7 +10,6 @@ import {
   ToastAndroid,
 } from 'react-native';
 
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../redux/actions/userActions';
 

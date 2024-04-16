@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   clearErrors,
   getProducts,
-  resetProducts,
 } from '../../../redux/actions/productActions';
 import { FlatList } from 'react-native-gesture-handler';
 import { useRoute } from '@react-navigation/native';

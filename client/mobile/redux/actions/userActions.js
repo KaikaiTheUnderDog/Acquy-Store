@@ -65,7 +65,7 @@ export const login = (email, password) => async (dispatch) => {
 
     console.log(data.token + ' from login action');
   } catch (error) {
-    console.log(error.response.data.message);
+    console.log(error.response.data.errMessage);
     dispatch({
       type: LOGIN_FAILED,
       payload: error.response?.data?.message || 'error',
@@ -90,10 +90,9 @@ export const register = (userData) => async (dispatch) => {
       payload: data.user,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: REGISTER_FAILED,
-      payload: error.response.data.message,
+      payload: error.response.data.errMessage,
     });
   }
 };
@@ -118,7 +117,7 @@ export const loadUser = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LOAD_USER_FAILED,
-      payload: error.response.data.message,
+      payload: error.response.data.errMessage,
     });
   }
 };
@@ -135,7 +134,7 @@ export const logout = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LOGOUT_FAILED,
-      payload: error.response.data.message,
+      payload: error.response.data.errMessage,
     });
   }
 };
@@ -159,7 +158,7 @@ export const updateProfile = (userData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_PROFILE_FAILED,
-      payload: error.response.data.message,
+      payload: error.response.data.errMessage,
     });
   }
 };
@@ -187,8 +186,10 @@ export const updatePassword = (password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_PASSWORD_FAILED,
-      payload: error.response.data.message,
+      payload: error.response.data.errMessage,
     });
+
+    console.log(error.response.data.errMessage);
   }
 };
 
@@ -202,9 +203,11 @@ export const forgotPassword = (email) => async (dispatch) => {
       },
     };
 
+    const emailData = { email };
+
     const { data } = await axios.post(
       `${apiURL}/password/forgot`,
-      email,
+      emailData,
       config
     );
 
@@ -212,11 +215,15 @@ export const forgotPassword = (email) => async (dispatch) => {
       type: FORGOT_PASSWORD_SUCCESS,
       payload: data.message,
     });
+
+    console.log(data.message);
   } catch (error) {
     dispatch({
       type: FORGOT_PASSWORD_FAILED,
-      payload: error.response.data.message,
+      payload: error.response.data.errMessage,
     });
+
+    //console.log(error.response.data.errMessage);
   }
 };
 
@@ -243,7 +250,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: NEW_PASSWORD_FAILED,
-      payload: error.response.data.message,
+      payload: error.response.data.errMessage,
     });
   }
 };
@@ -261,7 +268,7 @@ export const allUsers = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ALL_USERS_FAILED,
-      payload: error.response.data.message,
+      payload: error.response.data.errMessage,
     });
   }
 };
@@ -289,7 +296,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_USER_FAILED,
-      payload: error.response.data.message,
+      payload: error.response.data.errMessage,
     });
   }
 };
@@ -307,7 +314,7 @@ export const getUserDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_DETAILS_FAILED,
-      payload: error.response.data.message,
+      payload: error.response.data.errMessage,
     });
   }
 };
@@ -325,7 +332,7 @@ export const deleteUser = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DELETE_USER_FAILED,
-      payload: error.response.data.message,
+      payload: error.response.data.errMessage,
     });
   }
 };

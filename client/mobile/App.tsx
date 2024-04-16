@@ -22,12 +22,12 @@ import ResetPassword from './src/Components/User/ResetPassword';
 import UserProfileScreen from './src/Components/User/UserDetail';
 import ProductDetailsScreen from './src/Components/Products/ProductDetail';
 import Product from './src/Components/Products/Product';
-import CategoryProductGrid from './src/Components/Products/Grid';
+
 import SearchResult from './src/Components/Search/SearchResult';
 import Cart from './src/Components/Products/Cart';
-import store from './redux/store';
 import { Provider, useDispatch } from 'react-redux';
 import { loadUser } from './redux/actions/userActions';
+import store from './redux/store';
 
 const Stack = createStackNavigator();
 
@@ -61,6 +61,7 @@ const App = () => {
             <Stack.Screen name="UserProfile" component={UserProfileScreen} />
             <Stack.Screen name="Cart" component={Cart} />
             <Stack.Screen name="Search" component={SearchResult} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           </Stack.Navigator>
           <BottomNavigationBar />
         </NavigationContainer>
