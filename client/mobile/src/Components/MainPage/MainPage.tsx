@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     paddingLeft: 35,
     fontWeight: 'bold',
     fontSize: 18,
+    color: '#191919',
   },
   navBar: {
     height: 60, // Đặt chiều cao cố định cho thanh điều hướng, điều chỉnh tùy ý
@@ -117,7 +118,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
     paddingBottom: 0,
-    fontSize: 18,
+    color: '#191919',
+    fontSize: 21,
   },
   largeCard: {
     borderRadius: 10,

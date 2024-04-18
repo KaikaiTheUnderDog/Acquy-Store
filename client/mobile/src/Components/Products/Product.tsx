@@ -1,20 +1,10 @@
 import { useState } from 'react';
-import { NavigationContainer, useRoute } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  TextInput,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import ProductDetailsScreen from '../Products/ProductDetail';
 import { useDispatch } from 'react-redux';
 import { addItemToCart } from '../../../redux/actions/cartActions';
+import { useRoute } from '@react-navigation/native';
 
 const Product = () => {
   const { id } = useRoute().params;

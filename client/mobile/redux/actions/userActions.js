@@ -62,13 +62,10 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: data.user,
     });
-
-    console.log(data.token + ' from login action');
   } catch (error) {
-    console.log(error.response.data.errMessage);
     dispatch({
       type: LOGIN_FAILED,
-      payload: error.response?.data?.message || 'error',
+      payload: error.response.data.errMessage || 'error',
     });
   }
 };
@@ -143,11 +140,7 @@ export const updateProfile = (userData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_PROFILE_REQUEST });
 
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    };
+    const config = { headers: { 'Content-Type': 'application/json' } };
 
     const { data } = await axios.put(`${apiURL}/me/update`, userData, config);
 

@@ -70,7 +70,6 @@ export const getBestSellers = () => async (dispatch) => {
     });
 
     const { data } = await axios.get(`${apiURL}/products/bestsellers`);
-    console.log(data);
 
     dispatch({
       type: BEST_SELLERS_SUCCESS,

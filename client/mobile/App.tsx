@@ -8,6 +8,7 @@ import MainPage from './src/Components/MainPage/MainPage';
 import Login from './src/Components/User/Login';
 import Signup from './src/Components/User/Signup';
 import ForgotPassword from './src/Components/User/ForgotPassword';
+import ChangePassword from './src/Components/User/ChangePassword';
 import UserProfileScreen from './src/Components/User/UserDetail';
 import Product from './src/Components/Products/Product';
 
@@ -50,6 +51,7 @@ const App = () => {
             <Stack.Screen name="Cart" component={Cart} />
             <Stack.Screen name="Search" component={SearchResult} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            <Stack.Screen name="ChangePassword" component={ChangePassword} />
           </Stack.Navigator>
           <BottomNavigationBar />
         </NavigationContainer>

@@ -43,7 +43,27 @@ const Cart = () => {
 
   const { cartItems } = useSelector((state) => state.cart);
 
-  //console.log(cartItems[1] + 'from super cart');
+  if (cartItems.length === 0 || !cartItems) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: 'white',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+      >
+        <Text style={styles.Title}>You have selected no items.</Text>
+
+        <TouchableOpacity
+          style={styles.goShopping_BTN}
+          onPress={() => navigation.navigate('MainPage')}
+        >
+          <Text style={styles.Buy_Txt}>Go Shopping</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
@@ -139,7 +159,7 @@ const Cart = () => {
             color: 'black',
           }}
         >
-          Totals: $
+          Total: $
           {cartItems
             .reduce((acc, item) => acc + item.quantity * item.price, 0)
             .toFixed(2)}
@@ -158,6 +178,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     backgroundColor: '#fff',
     paddingTop: 10,
+  },
+  Title: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 20,
+    marginTop: 10,
   },
   categoryTabActive: {
     borderBottomWidth: 3,
@@ -195,8 +221,17 @@ const styles = StyleSheet.create({
     marginRight: 40,
     height: 50,
   },
+  goShopping_BTN: {
+    width: '40%',
+    paddingTop: 15,
+    paddingBottom: 15,
+    borderRadius: 15,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    height: 60,
+  },
   Buy_Txt: {
-    fontSize: 17,
+    fontSize: 18,
     fontWeight: '500',
     color: '#FFF',
   },

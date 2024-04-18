@@ -69,7 +69,10 @@ const UserProfileScreen = () => {
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>EDIT INFORMATION</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('ChangePassword')}
+        >
           <Text style={styles.buttonText}>CHANGE PASSWORD</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.Signout_button} onPress={logoutHandler}>

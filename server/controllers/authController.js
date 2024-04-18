@@ -36,8 +36,6 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     // Gọi sendToken sau khi gửi email thành công
     sendToken(user, 200, res);
   } catch (error) {
-    console.log(error);
-
     return res.status(500).json({
       success: false,
       message: 'Internal Server Error',
@@ -149,7 +147,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
     await user.save({ validateBeforeSave: false });
 
-    next(new Errors('Password reset token is invalid or expired', 400));
+    return next(new Errors('Password reset token is invalid or expired', 400));
   }
 });
 
@@ -166,11 +164,11 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   });
 
   if (!user) {
-    next(new Errors('Password reset token is invalid or expired', 400));
+    return next(new Errors('Password reset token is invalid or expired', 400));
   }
 
   if (req.body.password !== req.body.confirmedPassword) {
-    next(new Errors('Passwords do not match'), 400);
+    return next(new Errors('Passwords do not match'), 400);
   }
 
   // Set new password
@@ -178,6 +176,22 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   user.resetPasswordToken = undefined;
   user.resetPasswordExpires = undefined;
 
+  await user.save();
+
+  sendToken(user, 200, res);
+});
+
+// Change password -> /api/v1/password/update
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.body.user._id).select('+password');
+
+  // Check old user's password
+  const isMatched = await user.checkPassword(req.body.currentPassword);
+  if (!isMatched) {
+    return next(new Errors('Invalid current password', 400));
+  }
+
+  user.password = req.body.password;
   await user.save();
 
   sendToken(user, 200, res);
