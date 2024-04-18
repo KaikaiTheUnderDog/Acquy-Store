@@ -48,3 +48,14 @@ exports.getSingleProduct = catchAsyncErrors(async (req, res, next) => {
     product,
   });
 });
+
+// Get 5 best seller products -> /api/v1/products/bestsellers
+exports.getBestSellers = catchAsyncErrors(async (req, res, next) => {
+  const bestSellers = await Product.find({}).sort({ sold: -1 }).limit(5).exec();
+
+  res.status(200).json({
+    success: true,
+    message: 'This route will show best seller in database',
+    bestSellers,
+  });
+});

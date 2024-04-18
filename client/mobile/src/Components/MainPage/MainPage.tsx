@@ -1,10 +1,6 @@
-import { useState, useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Header from '../Header/Header';
+import { useState, useEffect, memo } from 'react';
 import {
   Text,
-  ScrollView,
   StyleSheet,
   ToastAndroid,
   View,
@@ -20,13 +16,13 @@ import {
 } from '../../../redux/actions/productActions';
 import BestSellers from '../Products/BestSellers';
 
-const MainPage = () => {
+const ProductList = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
   const [showList, setShowList] = useState([]);
 
-  const { products, error, productsFounded, bestSellers } = useSelector(
+  const { products, error, productsFounded } = useSelector(
     (state) => state.products
   );
 
@@ -57,31 +53,38 @@ const MainPage = () => {
     setLoadingMore(true);
     const nextPage = currentPage + 1;
 
-    await dispatch(getProducts('', nextPage, [1, 9999999], '', 0));
+    await dispatch(getProducts('', nextPage, [0, 9999999], '', 0));
 
     setCurrentPage(nextPage);
     setLoadingMore(false);
   };
 
   return (
+    <FlatList
+      data={showList}
+      renderItem={({ item }) => <SmallProductCard product={item} />}
+      keyExtractor={(item) => item._id}
+      onEndReached={fetchMoreProducts}
+      onEndReachedThreshold={0.1}
+      ListFooterComponent={loadingMore ? <Text>Loading...</Text> : null}
+      numColumns={2}
+      contentContainerStyle={styles.flatListContentContainer}
+    />
+  );
+};
+
+const MainPage = () => {
+  return (
     <View style={styles.content}>
       <Text style={styles.bestSeller}>Best Seller</Text>
-      <BestSellers bestSellers={bestSellers} />
+      <BestSellers />
 
       <Text style={styles.Title}>Our Products</Text>
-      <FlatList
-        data={showList}
-        renderItem={({ item }) => <SmallProductCard product={item} />}
-        keyExtractor={(item) => item._id}
-        onEndReached={fetchMoreProducts}
-        onEndReachedThreshold={0.0001}
-        ListFooterComponent={loadingMore ? <Text>Loading...</Text> : null}
-        numColumns={2}
-        contentContainerStyle={styles.flatListContentContainer}
-      />
+      <ProductList />
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -115,6 +118,36 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingBottom: 0,
     fontSize: 18,
+  },
+  largeCard: {
+    borderRadius: 10,
+    margin: 25,
+    width: '85%',
+    alignSelf: 'center',
+    backgroundColor: '#FFF',
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 5,
+    backgroundColor: '#E7625F',
+    marginTop: 10,
+  },
+  productName: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    color: '#FFFFFF',
+  },
+  productImage: {
+    width: '100%',
+    height: 130,
+    resizeMode: 'contain',
+  },
+  buyNow: {
+    color: 'white',
+    marginTop: 8,
+    fontSize: 20,
+    fontWeight: '600',
   },
 });
 

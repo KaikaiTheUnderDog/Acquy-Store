@@ -2,25 +2,13 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Header from './src/Components/Header/Header';
-import SearchScreen from './src/Components/Search/Search'; // Màn hình tìm kiếm
-import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import LargeProductCard from './src/Components/Products/LargeProductCard';
-import SmallProductCard from './src/Components/Products/SmallProductCard';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import BottomNavigationBar from './src/Components/Header/Navibar';
 import MainPage from './src/Components/MainPage/MainPage';
 import Login from './src/Components/User/Login';
 import Signup from './src/Components/User/Signup';
 import ForgotPassword from './src/Components/User/ForgotPassword';
-import ResetPassword from './src/Components/User/ResetPassword';
 import UserProfileScreen from './src/Components/User/UserDetail';
-import ProductDetailsScreen from './src/Components/Products/ProductDetail';
 import Product from './src/Components/Products/Product';
 
 import SearchResult from './src/Components/Search/SearchResult';

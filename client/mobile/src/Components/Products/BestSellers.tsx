@@ -6,8 +6,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  ToastAndroid,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBestSellers } from '../../../redux/actions/productActions';
 
 const LargeProductCard = ({ product }) => {
   let truncatedTitle =
@@ -31,8 +34,23 @@ const LargeProductCard = ({ product }) => {
   );
 };
 
-const BestSellers = ({ bestSellers }) => {
+const BestSellers = () => {
+  const dispatch = useDispatch();
   const [currentBestSellerIndex, setCurrentBestSellerIndex] = useState(0);
+  const { bestSellers, error, loading } = useSelector(
+    (state) => state.bestSellers
+  );
+
+  useEffect(() => {
+    if (error) {
+      ToastAndroid.show(error, ToastAndroid.LONG);
+    }
+
+    const fetch = async () => {
+      await dispatch(getBestSellers());
+    };
+    fetch();
+  }, [error]);
 
   useEffect(() => {
     let interval = setInterval(() => {
@@ -42,7 +60,7 @@ const BestSellers = ({ bestSellers }) => {
     return () => clearInterval(interval);
   });
 
-  if (bestSellers === undefined) {
+  if (loading || bestSellers === undefined) {
     return <ActivityIndicator size="large"></ActivityIndicator>;
   }
 

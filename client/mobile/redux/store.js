@@ -8,6 +8,7 @@ import {
   updateProductReducer,
   reviewReducer,
   productReviewsReducer,
+  bestSellersReducer,
 } from './reducers/productReducers';
 import {
   authReducer,
@@ -45,6 +46,7 @@ const reducer = combineReducers({
   userDetails: userDetailsReducer,
   review: reviewReducer,
   productReviews: productReviewsReducer,
+  bestSellers: bestSellersReducer,
 });
 
 const store = configureStore({

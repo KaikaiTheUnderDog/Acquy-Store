@@ -29,6 +29,9 @@ import {
   DELETE_REVIEW_REQUEST,
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_FAILED,
+  BEST_SELLERS_REQUEST,
+  BEST_SELLERS_SUCCESS,
+  BEST_SELLERS_FAILED,
 } from '../constants/productConstants';
 import { apiURL } from '../apiURL';
 
@@ -59,6 +62,27 @@ export const getProducts =
       });
     }
   };
+
+export const getBestSellers = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: BEST_SELLERS_REQUEST,
+    });
+
+    const { data } = await axios.get(`${apiURL}/products/bestsellers`);
+    console.log(data);
+
+    dispatch({
+      type: BEST_SELLERS_SUCCESS,
+      payload: data,
+    });
+  } catch (err) {
+    dispatch({
+      type: BEST_SELLERS_FAILED,
+      payload: err.response.data.errMessage,
+    });
+  }
+};
 
 export const getProductDetails = (id) => async (dispatch) => {
   try {
