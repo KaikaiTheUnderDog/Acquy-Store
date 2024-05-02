@@ -38,6 +38,9 @@ import {
   DELETE_USER_FAILED,
   DELETE_USER_SUCCESS,
   DELETE_USER_REQUEST,
+  ADD_SHIPPING_INFO_REQUEST,
+  ADD_SHIPPING_INFO_FAILED,
+  ADD_SHIPPING_INFO_SUCCESS,
 } from '../constants/userConstants';
 import { apiURL } from '../apiURL';
 
@@ -75,7 +78,6 @@ export const register = (userData) => async (dispatch) => {
     dispatch({
       type: REGISTER_REQUEST,
     });
-
     const config = { headers: { 'Content-Type': 'application/json' } };
 
     const { data } = await axios.post(`${apiURL}/register`, userData, config);
@@ -89,6 +91,28 @@ export const register = (userData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: REGISTER_FAILED,
+      payload: error.response.data.errMessage,
+    });
+  }
+};
+export const addShippingInfo = (shippingData) => async (dispatch) => {
+  try {
+    dispatch({ type: ADD_SHIPPING_INFO_REQUEST });
+
+    console.log('called ' + shippingData);
+
+    const config = { headers: { 'Content-Type': 'application/json' } };
+
+    const { data } = await axios.put(
+      `${apiURL}/shipping/add`,
+      shippingData,
+      config
+    );
+
+    dispatch({ type: ADD_SHIPPING_INFO_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({
+      type: ADD_SHIPPING_INFO_FAILED,
       payload: error.response.data.errMessage,
     });
   }
@@ -181,8 +205,6 @@ export const updatePassword = (password) => async (dispatch) => {
       type: UPDATE_PASSWORD_FAILED,
       payload: error.response.data.errMessage,
     });
-
-    console.log(error.response.data.errMessage);
   }
 };
 
@@ -208,15 +230,11 @@ export const forgotPassword = (email) => async (dispatch) => {
       type: FORGOT_PASSWORD_SUCCESS,
       payload: data.message,
     });
-
-    console.log(data.message);
   } catch (error) {
     dispatch({
       type: FORGOT_PASSWORD_FAILED,
       payload: error.response.data.errMessage,
     });
-
-    //console.log(error.response.data.errMessage);
   }
 };
 

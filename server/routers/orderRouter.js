@@ -21,6 +21,6 @@ router
   .route('/admin/order/:id')
   .put(isAuthenticatedUser, updatePendingOrders)
   .delete(isAuthenticatedUser, deleteOrder);
-router.put('/order/:id/cancel', isAuthenticatedUser, cancelOrder);
+router.route('/order/:id/cancel').put(isAuthenticatedUser, cancelOrder);
 
 module.exports = router;

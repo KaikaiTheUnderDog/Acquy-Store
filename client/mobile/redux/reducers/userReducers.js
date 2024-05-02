@@ -39,6 +39,10 @@ import {
   DELETE_USER_SUCCESS,
   DELETE_USER_FAILED,
   DELETE_USER_RESET,
+  ADD_SHIPPING_INFO_REQUEST,
+  ADD_SHIPPING_INFO_SUCCESS,
+  ADD_SHIPPING_INFO_FAILED,
+  ADD_SHIPPING_INFO_RESET,
 } from '../constants/userConstants';
 
 export const authReducer = (state = { user: {} }, action) => {
@@ -95,11 +99,15 @@ export const authReducer = (state = { user: {} }, action) => {
     case CLEAR_ERRORS:
       return {
         ...state,
+        loading: false,
         error: null,
       };
 
     default:
-      return state;
+      return {
+        ...state,
+        loading: false,
+      };
   }
 };
 
@@ -109,6 +117,7 @@ export const userReducer = (state = {}, action) => {
     case UPDATE_PASSWORD_REQUEST:
     case UPDATE_USER_REQUEST:
     case DELETE_USER_REQUEST:
+    case ADD_SHIPPING_INFO_REQUEST:
       return {
         ...state,
         loading: true,
@@ -117,6 +126,7 @@ export const userReducer = (state = {}, action) => {
     case UPDATE_PROFILE_SUCCESS:
     case UPDATE_PASSWORD_SUCCESS:
     case UPDATE_USER_SUCCESS:
+    case ADD_SHIPPING_INFO_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -133,6 +143,7 @@ export const userReducer = (state = {}, action) => {
     case UPDATE_PROFILE_RESET:
     case UPDATE_PASSWORD_RESET:
     case UPDATE_USER_RESET:
+    case ADD_SHIPPING_INFO_RESET:
       return {
         ...state,
         isUpdated: false,
@@ -148,6 +159,7 @@ export const userReducer = (state = {}, action) => {
     case UPDATE_PASSWORD_FAILED:
     case UPDATE_USER_FAILED:
     case DELETE_USER_FAILED:
+    case ADD_SHIPPING_INFO_FAILED:
       return {
         ...state,
         loading: false,
@@ -157,11 +169,15 @@ export const userReducer = (state = {}, action) => {
     case CLEAR_ERRORS:
       return {
         ...state,
+        loading: false,
         error: null,
       };
 
     default:
-      return state;
+      return {
+        ...state,
+        loading: false,
+      };
   }
 };
 
@@ -199,6 +215,7 @@ export const forgotPasswordReducer = (state = {}, action) => {
     case CLEAR_ERRORS:
       return {
         ...state,
+        loading: false,
         error: null,
       };
 
@@ -232,6 +249,7 @@ export const allUsersReducer = (state = { users: [] }, action) => {
     case CLEAR_ERRORS:
       return {
         ...state,
+        loading: false,
         error: null,
       };
 
@@ -265,6 +283,8 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
     case CLEAR_ERRORS:
       return {
         ...state,
+        loading: false,
+
         error: null,
       };
 

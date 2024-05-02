@@ -23,6 +23,37 @@ const userSchema = new mongoose.Schema({
     minlength: [6, 'Your password must be at least 6 characters long'],
     select: false,
   },
+  dob: {
+    type: Date,
+  },
+  shippingInfo: [
+    {
+      receiver: {
+        type: String,
+        required: true,
+      },
+      address: {
+        type: String,
+        required: true,
+      },
+      city: {
+        type: String,
+        required: true,
+      },
+      phoneNo: {
+        type: String,
+        required: true,
+      },
+      postalCode: {
+        type: String,
+        required: true,
+      },
+      country: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,

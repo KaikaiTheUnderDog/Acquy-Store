@@ -41,7 +41,11 @@ const ForgotPassword = () => {
   };
 
   if (loading) {
-    return <ActivityIndicator size="large"></ActivityIndicator>;
+    return (
+      <View style={{ alignItems: 'center' }}>
+        <ActivityIndicator size="large"></ActivityIndicator>
+      </View>
+    );
   }
 
   return (
@@ -49,6 +53,7 @@ const ForgotPassword = () => {
       <Text style={styles.title}>Forgot Password</Text>
       <TextInput
         placeholder="EMAIL"
+        placeholderTextColor="#999999"
         value={email}
         style={styles.inputField}
         onChangeText={(value) => setEmail(value)}
@@ -91,6 +96,8 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
     marginBottom: 20,
+    fontWeight: '600',
+    color: 'black',
   },
   signInButton: {
     backgroundColor: '#E4000F',

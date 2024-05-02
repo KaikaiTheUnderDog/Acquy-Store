@@ -1,20 +1,32 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+} from 'react-native';
 
 const ResetPassword = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity>
-        <Image source={ {uri: 'https://i.imgur.com/n3dQYrr.png'}} style={styles.backButton}/>
+        <Image
+          source={{ uri: 'https://i.imgur.com/n3dQYrr.png' }}
+          style={styles.backButton}
+        />
       </TouchableOpacity>
       <Text style={styles.title}>Reset Password</Text>
       <TextInput
         placeholder="PASSWORD"
+        placeholderTextColor="#999999"
         style={styles.inputField}
         secureTextEntry
       />
       <TextInput
         placeholder="CONFIRM PASSWORD"
+        placeholderTextColor="#999999"
         style={styles.inputField}
         secureTextEntry
       />
@@ -28,8 +40,8 @@ const ResetPassword = () => {
         </Text>
       </View>
     </View>
-    );
-  };
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -59,6 +71,8 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
     marginBottom: 20,
+    fontWeight: '600',
+    color: 'black',
   },
   signInButton: {
     backgroundColor: '#E4000F',

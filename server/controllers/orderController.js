@@ -4,6 +4,7 @@ const Product = require('../models/product');
 
 const Errors = require('../utils/errors');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
+const sendToken = require('../utils/jsonWebToken');
 
 // Create a new Order --> /api/v1/order/new
 exports.createOrder = catchAsyncErrors(async (req, res, next) => {

@@ -78,11 +78,15 @@ const Cart = () => {
       >
         Total items: {cartItems.length}
       </Text>
-      <ScrollView contentContainerStyle={styles.productGrid}>
+      <ScrollView
+        contentContainerStyle={styles.productGrid}
+        showsVerticalScrollIndicator={false}
+      >
         {cartItems &&
           cartItems.length > 0 &&
           cartItems.map((item) => (
             <TouchableOpacity
+              key={item.product}
               style={styles.largeCard}
               onPress={() =>
                 navigation.navigate('Product', { id: item.product })
@@ -164,7 +168,12 @@ const Cart = () => {
             .reduce((acc, item) => acc + item.quantity * item.price, 0)
             .toFixed(2)}
         </Text>
-        <TouchableOpacity style={styles.Cart_BTN}>
+        <TouchableOpacity
+          style={styles.Cart_BTN}
+          onPress={() =>
+            navigation.navigate('Checkout', { orderList: cartItems })
+          }
+        >
           <Text style={styles.Buy_Txt}>Check out</Text>
         </TouchableOpacity>
       </View>
@@ -176,7 +185,7 @@ const styles = StyleSheet.create({
   categoryContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: '#fff',
+    backgroundColor: '#f7f7f7',
     paddingTop: 10,
   },
   Title: {

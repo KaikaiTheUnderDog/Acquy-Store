@@ -9,6 +9,7 @@ import {
   ToastAndroid,
   KeyboardAvoidingView,
   Keyboard,
+  ActivityIndicator,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -30,9 +31,14 @@ const Signup = ({ navigation }: Props) => {
     password: '',
     confirmedPassword: '',
   });
+  const [passwordError, setPasswordError] = useState(false);
+  const [userNameError, setUserNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
   const dispatch = useDispatch();
 
-  const { error, isAuthenticated } = useSelector((state) => state.auth);
+  const { error, isAuthenticated, loading } = useSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -44,28 +50,33 @@ const Signup = ({ navigation }: Props) => {
       ToastAndroid.show(error, ToastAndroid.LONG);
       dispatch(clearErrors());
     }
-  }, [error, isAuthenticated]);
+  }, [error, isAuthenticated, loading]);
 
   const { userName, email, password, confirmedPassword } = user;
 
   const submitHandler = () => {
     Keyboard.dismiss();
+    setPasswordError(false);
+    setEmailError(false);
+    setUserNameError(false);
 
-    if (
-      user.userName === '' ||
-      user.password === '' ||
-      user.email === '' ||
-      user.confirmedPassword === ''
-    ) {
+    if (user.userName === '' || user.email === '') {
       ToastAndroid.show('Please fill the all fields', ToastAndroid.LONG);
-      return;
-    }
+      if (user.userName === '') {
+        setUserNameError(true);
+      }
+      if (user.email === '') {
+        setEmailError(true);
+        return;
+      }
 
-    if (user.password !== user.confirmedPassword) {
-      ToastAndroid.show('Password does not match', ToastAndroid.LONG);
-      return;
+      if (user.password !== user.confirmedPassword) {
+        ToastAndroid.show('Password does not match', ToastAndroid.LONG);
+        onChange('password', '');
+        onChange('confirmedPassword', '');
+        return;
+      }
     }
-
     dispatch(register({ userName, email, password }));
   };
 
@@ -73,37 +84,66 @@ const Signup = ({ navigation }: Props) => {
     setUser({ ...user, [name]: value });
   };
 
+  if (loading) {
+    return (
+      <View style={{ alignContent: 'center', flexDirection: 'column' }}>
+        <ActivityIndicator size="large"></ActivityIndicator>
+      </View>
+    );
+  }
+
   return (
     <KeyboardAwareScrollView
       style={styles.container}
       extraScrollHeight={300}
       enableOnAndroid={true}
+      showsVerticalScrollIndicator={false}
     >
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>SIGN UP</Text>
         <TextInput
           placeholder="USERNAME"
-          style={styles.inputField}
+          placeholderTextColor="#999999"
+          style={
+            !userNameError
+              ? styles.inputField
+              : [styles.inputField, { borderColor: 'red' }]
+          }
           value={userName}
           onChangeText={(value) => onChange('userName', value)}
         />
         <TextInput
           placeholder="EMAIL"
-          style={styles.inputField}
+          placeholderTextColor="#999999"
+          style={
+            !emailError
+              ? styles.inputField
+              : [styles.inputField, { borderColor: 'red' }]
+          }
           value={email}
           onChangeText={(value) => onChange('email', value)}
           keyboardType="email-address"
         />
         <TextInput
           placeholder="PASSWORD"
-          style={styles.inputField}
+          placeholderTextColor="#999999"
+          style={
+            !passwordError
+              ? styles.inputField
+              : [styles.inputField, { borderColor: 'red' }]
+          }
           value={password}
           onChangeText={(value) => onChange('password', value)}
           secureTextEntry
         />
         <TextInput
           placeholder="CONFIRM PASSWORD"
-          style={styles.inputField}
+          placeholderTextColor="#999999"
+          style={
+            !passwordError
+              ? styles.inputField
+              : [styles.inputField, { borderColor: 'red' }]
+          }
           value={confirmedPassword}
           onChangeText={(value) => onChange('confirmedPassword', value)}
           secureTextEntry
@@ -165,6 +205,8 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
     marginBottom: 20,
+    fontWeight: '600',
+    color: 'black',
   },
   signInButton: {
     backgroundColor: '#E4000F',

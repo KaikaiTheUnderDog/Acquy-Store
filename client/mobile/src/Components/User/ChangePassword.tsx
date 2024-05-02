@@ -16,18 +16,17 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { UPDATE_PASSWORD_RESET } from '../../../redux/constants/userConstants';
 
-const ResetPassword = () => {
+const ChangePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [confirmcurrentPasswordError, setConfirmcurrentPasswordError] =
+  const [confirmCurrentPasswordError, setConfirmCurrentPasswordError] =
     useState(false);
   const [currentPasswordError, setCurrentPasswordError] = useState(false);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const { error, isUpdated, loading } = useSelector((state) => state.user);
-  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (error) {
@@ -52,19 +51,19 @@ const ResetPassword = () => {
   }, [error, isUpdated]);
 
   const submitHandler = () => {
-    setConfirmcurrentPasswordError(false);
+    setConfirmCurrentPasswordError(false);
 
     if (password !== confirmPassword) {
       ToastAndroid.show(
         'Password and confirm password does not match',
         ToastAndroid.LONG
       );
-      setConfirmcurrentPasswordError(true);
+      setConfirmCurrentPasswordError(true);
 
       return;
     }
 
-    dispatch(updatePassword({ user, currentPassword, password }));
+    dispatch(updatePassword({ currentPassword, password }));
   };
 
   return (
@@ -73,8 +72,11 @@ const ResetPassword = () => {
 
       <TextInput
         placeholder="CURRENT PASSWORD"
+        placeholderTextColor="#999999"
         style={
-          !currentPasswordError ? styles.inputField : styles.errorInputField
+          !currentPasswordError
+            ? styles.inputField
+            : [styles.inputField, { borderColor: 'red' }]
         }
         secureTextEntry
         value={currentPassword}
@@ -82,10 +84,11 @@ const ResetPassword = () => {
       />
       <TextInput
         placeholder="PASSWORD"
+        placeholderTextColor="#999999"
         style={
-          !confirmcurrentPasswordError
+          !confirmCurrentPasswordError
             ? styles.inputField
-            : styles.errorInputField
+            : [styles.inputField, { borderColor: 'red' }]
         }
         secureTextEntry
         value={password}
@@ -93,10 +96,11 @@ const ResetPassword = () => {
       />
       <TextInput
         placeholder="CONFIRM PASSWORD"
+        placeholderTextColor="#999999"
         style={
-          !confirmcurrentPasswordError
+          !confirmCurrentPasswordError
             ? styles.inputField
-            : styles.errorInputField
+            : [styles.inputField, { borderColor: 'red' }]
         }
         secureTextEntry
         value={confirmPassword}
@@ -144,14 +148,8 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
     marginBottom: 20,
-  },
-  errorInputField: {
-    borderWidth: 1,
-    borderColor: 'red',
-    borderRadius: 5,
-    padding: 10,
-    fontSize: 16,
-    marginBottom: 20,
+    fontWeight: '600',
+    color: 'black',
   },
   signInButton: {
     backgroundColor: '#E4000F',
@@ -186,4 +184,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ResetPassword;
+export default ChangePassword;

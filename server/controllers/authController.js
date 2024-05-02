@@ -183,7 +183,8 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 
 // Change password -> /api/v1/password/update
 exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
-  const user = await User.findById(req.body.user._id).select('+password');
+  console.log(req.user.id);
+  const user = await User.findById(req.user.id).select('+password');
 
   // Check old user's password
   const isMatched = await user.checkPassword(req.body.currentPassword);

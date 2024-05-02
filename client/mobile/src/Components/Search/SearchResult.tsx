@@ -7,7 +7,6 @@ import {
   ScrollView,
 } from 'react-native';
 import SmallProductCard from '../Products/SmallProductCard'; // Make sure to import SmallProductCard
-import LargeProductCard from '../Products/LargeProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   clearErrors,
@@ -25,14 +24,14 @@ const SearchResult = () => {
   const [loadingMore, setLoadingMore] = useState(false);
   const [showList, setShowList] = useState([]);
 
-  const { products, error, totalProduct, productsFounded } = useSelector(
+  const { products, error, productsFounded } = useSelector(
     (state) => state.products
   );
 
   useEffect(() => {
     setShowList([]);
     if (error) {
-      //ToastAndroid.show(error.message, ToastAndroid.LONG);
+      ToastAndroid.show(error, ToastAndroid.LONG);
       dispatch(clearErrors(error));
     }
     dispatch(getProducts(keyword, 1, [1, 9999999], '', 0));
@@ -67,20 +66,36 @@ const SearchResult = () => {
     <View style={styles.content}>
       <Text style={styles.Title}>
         Result(s) for{' '}
-        <Text style={{ color: 'red', fontSize: 20, fontStyle: 'italic' }}>
+        <Text
+          style={{
+            color: 'red',
+            fontWeight: 'bold',
+            fontSize: 20,
+            fontStyle: 'italic',
+          }}
+        >
           "{keyword}"
+        </Text>
+        <Text
+          style={{
+            fontSize: 13,
+            fontStyle: 'italic',
+          }}
+        >
+          {'      '}({productsFounded} found)
         </Text>
       </Text>
       <FlatList
         data={showList}
         renderItem={({ item }) => <SmallProductCard product={item} />}
         keyExtractor={(item) => item._id}
-        //onEndReached={fetchMoreProducts}
+        onEndReached={fetchMoreProducts}
         onTouchEnd={fetchMoreProducts}
         onEndReachedThreshold={0.01}
         ListFooterComponent={loadingMore ? <Text>Loading...</Text> : null}
         numColumns={2}
         contentContainerStyle={styles.flatListContentContainer}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
@@ -89,6 +104,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
+    backgroundColor: '#f7f7f7',
   },
   content: {
     flex: 1, // Cho phép phần nội dung mở rộng

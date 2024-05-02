@@ -69,6 +69,7 @@ const ProductList = () => {
       ListFooterComponent={loadingMore ? <Text>Loading...</Text> : null}
       numColumns={2}
       contentContainerStyle={styles.flatListContentContainer}
+      showsVerticalScrollIndicator={false}
     />
   );
 };

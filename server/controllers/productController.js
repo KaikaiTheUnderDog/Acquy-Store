@@ -9,8 +9,6 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
   const resPerPage = 4;
   const productCount = await Product.countDocuments();
 
-  console.log(req.query);
-
   const apiFeatures = new APIFeatures(Product.find(), req.query)
     .search()
     .filter();
@@ -21,8 +19,6 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
   apiFeatures.pagination(resPerPage);
   products = await apiFeatures.query.clone();
 
-  const bestSellers = await Product.find({}).sort({ sold: -1 }).limit(5).exec();
-
   res.status(200).json({
     success: true,
     message: 'This route will show all products in database',
@@ -30,7 +26,6 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
     totalProduct: productCount,
     resPerPage: resPerPage,
     products,
-    bestSellers,
   });
 });
 

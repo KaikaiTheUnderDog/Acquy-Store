@@ -46,7 +46,7 @@ const Product = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#f7f7f7',
   },
   footer: {
     flexDirection: 'row',

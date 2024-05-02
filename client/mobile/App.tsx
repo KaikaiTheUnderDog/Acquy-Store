@@ -17,6 +17,8 @@ import Cart from './src/Components/Products/Cart';
 import { Provider, useDispatch } from 'react-redux';
 import { loadUser } from './redux/actions/userActions';
 import store from './redux/store';
+import Checkout1 from './src/Components/Checkout/CheckOut1';
+import Shipping from './src/Components/Checkout/Shipping';
 
 const Stack = createStackNavigator();
 
@@ -34,7 +36,7 @@ const App = () => {
             initialRouteName="MainPage"
             screenOptions={{
               headerTitle: '',
-              headerStyle: { height: 30 },
+              headerStyle: { height: 30, backgroundColor: '#f7f7f7' },
             }}
           >
             <Stack.Screen
@@ -52,6 +54,8 @@ const App = () => {
             <Stack.Screen name="Search" component={SearchResult} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="ChangePassword" component={ChangePassword} />
+            <Stack.Screen name="Checkout" component={Checkout1} />
+            <Stack.Screen name="Shipping" component={Shipping} />
           </Stack.Navigator>
           <BottomNavigationBar />
         </NavigationContainer>
@@ -64,28 +68,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
-  },
-  content: {
-    flex: 1,
-  },
-  navBar: {
-    height: 60, // Đặt chiều cao cố định cho thanh điều hướng, điều chỉnh tùy ý
-    justifyContent: 'center',
-  },
-  Buy_BTN: {
-    width: '100%',
-    padding: 15,
-    borderRadius: 5,
-    backgroundColor: '#E4000F',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-    elevation: 5,
-  },
-  Buy_Txt: {
-    fontSize: 18,
-    fontWeight: '500',
-    color: '#FFF',
   },
 });
 

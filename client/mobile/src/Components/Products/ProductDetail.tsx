@@ -6,7 +6,6 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  ToastAndroid,
   ActivityIndicator,
 } from 'react-native';
 import { NavigationContainer, useRoute } from '@react-navigation/native';
@@ -35,21 +34,23 @@ const Overview = () => {
   }, [product]);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <TouchableOpacity
         style={{ justifyContent: 'center', alignItems: 'center' }}
       >
-        {product && product.images && product.images.length > 0 && (
+        {product && product.images && product.images.length > 0 ? (
           <Image
             source={{
               uri: mainImage,
             }}
             style={styles.mainImage}
           />
+        ) : (
+          <ActivityIndicator size="large"></ActivityIndicator>
         )}
       </TouchableOpacity>
       <View style={styles.thumbnailContainer}>
-        {secondaryImages.length > 0 &&
+        {secondaryImages.length > 0 ? (
           secondaryImages.map((image, index) => (
             <TouchableOpacity
               key={index}
@@ -65,7 +66,10 @@ const Overview = () => {
             >
               <Image source={{ uri: image }} style={styles.thumbnail} />
             </TouchableOpacity>
-          ))}
+          ))
+        ) : (
+          <ActivityIndicator size="large"></ActivityIndicator>
+        )}
       </View>
       <Text style={styles.Name}>{product.name}</Text>
       <Text style={styles.reviewTxt}>({product.numOfReviews} reviews)</Text>
@@ -94,7 +98,7 @@ const Specification = () => {
   }, [product]);
 
   return (
-    <ScrollView style={styles.tabContent}>
+    <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         {data.map((item, index) => (
           <View key={index} style={styles.item}>
@@ -129,7 +133,7 @@ const review_Stats = [
 ];
 
 const Reviews = () => (
-  <ScrollView style={styles.tabContent}>
+  <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
     <View style={styles.container}>
       <View style={styles.reviewStats}>
         {review_Stats.map((review, index) => (
@@ -209,15 +213,10 @@ const ProductDetailsScreen = ({ id }) => {
     setQuantity(qty);
   }; */
 
-  if (loading)
-    return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
+  if (loading) return <ActivityIndicator size="large" />;
 
   return (
-    <Tab.Navigator style={{ marginBottom: 15 }}>
+    <Tab.Navigator style={{ marginBottom: 15, backgroundColor: '#f7f7f7' }}>
       <Tab.Screen
         name="Overview"
         component={Overview}

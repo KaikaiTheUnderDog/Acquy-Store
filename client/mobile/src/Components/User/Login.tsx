@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ToastAndroid,
   Keyboard,
+  ActivityIndicator,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -24,43 +25,64 @@ type Props = {
 const Login = ({ navigation }: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState(false);
 
   const dispatch = useDispatch();
-  const { error, isAuthenticated } = useSelector((state) => state.auth);
+  const { error, isAuthenticated, loading } = useSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
     if (error) {
       ToastAndroid.show('Email or password is invalid!', ToastAndroid.LONG);
-      dispatch(clearErrors(error));
+      dispatch(clearErrors());
+      setPassword('');
+      setLoginError(true);
     }
     if (isAuthenticated) {
       navigation.navigate('MainPage');
       ToastAndroid.show('Login successful!', ToastAndroid.LONG);
-      console.log(isAuthenticated + ' from login');
     }
-  }, [isAuthenticated, error, dispatch, navigation]);
+  }, [isAuthenticated]);
 
   const signInHandler = () => {
     Keyboard.dismiss();
-    dispatch(login(email, password));
 
-    console.log(isAuthenticated);
+    dispatch(login(email, password));
   };
 
+  if (loading) {
+    return (
+      <View style={{ alignItems: 'center' }}>
+        <ActivityIndicator size="large"></ActivityIndicator>
+      </View>
+    );
+  }
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Text style={styles.title}>SIGN IN</Text>
       <TextInput
         placeholder="EMAIL"
+        placeholderTextColor="#999999"
         value={email}
-        style={styles.inputField}
+        style={
+          !loginError
+            ? styles.inputField
+            : [styles.inputField, { borderColor: 'red' }]
+        }
         onChangeText={(value) => setEmail(value)}
         keyboardType="email-address"
       />
       <TextInput
         placeholder="PASSWORD"
+        placeholderTextColor="#999999"
         value={password}
-        style={styles.inputField}
+        style={
+          !loginError
+            ? styles.inputField
+            : [styles.inputField, { borderColor: 'red' }]
+        }
         onChangeText={(value) => setPassword(value)}
         secureTextEntry
       />
@@ -126,6 +148,8 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
     marginBottom: 20,
+    color: 'black',
+    fontWeight: '600',
   },
   signInButton: {
     backgroundColor: '#E4000F',
