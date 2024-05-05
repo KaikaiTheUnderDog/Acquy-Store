@@ -19,6 +19,8 @@ import {
   DELETE_ORDER_SUCCESS,
   DELETE_ORDER_FAILED,
 } from '../constants/orderConstants';
+import { apiURL } from '../apiURL';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import axios from 'axios';
 
@@ -32,7 +34,9 @@ export const createOrder = (order) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post('/api/v1/order/new', order, config);
+    const { data } = await axios.post(`${apiURL}/order/new`, order, config);
+
+    AsyncStorage.setItem('cartItems', '');
 
     dispatch({
       type: CREATE_ORDER_SUCCESS,

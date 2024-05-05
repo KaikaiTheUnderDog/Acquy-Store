@@ -191,7 +191,7 @@ const Shipping = () => {
             fontSize: 16,
             fontWeight: '600',
           }}
-        ></Dropdown>
+        />
         <TextInput
           placeholder="CITY"
           placeholderTextColor="#999999"
@@ -226,6 +226,7 @@ const Shipping = () => {
           onChangeText={(value) => onChange('postalCode', value)}
           keyboardType="number-pad"
         />
+
         <View
           style={{
             alignItems: 'center',

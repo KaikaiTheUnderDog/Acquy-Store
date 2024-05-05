@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
-  Image,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  Image,
 } from 'react-native';
-import { NavigationContainer, useRoute } from '@react-navigation/native';
+
+import { useRoute } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Rating } from 'react-native-ratings';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,7 +20,6 @@ import {
 
 const Tab = createMaterialTopTabNavigator();
 
-// Dummy components for each tab
 const Overview = () => {
   const { product } = useRoute().params;
   const [mainImage, setMainImage] = useState('');

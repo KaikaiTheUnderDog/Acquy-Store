@@ -170,9 +170,7 @@ const Cart = () => {
         </Text>
         <TouchableOpacity
           style={styles.Cart_BTN}
-          onPress={() =>
-            navigation.navigate('Checkout', { orderList: cartItems })
-          }
+          onPress={() => navigation.navigate('Checkout')}
         >
           <Text style={styles.Buy_Txt}>Check out</Text>
         </TouchableOpacity>

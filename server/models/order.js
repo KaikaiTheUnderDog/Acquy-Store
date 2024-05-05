@@ -53,14 +53,17 @@ const orderSchema = new moongoose.Schema({
       },
     },
   ],
+  paymentMethod: {
+    type: String,
+    required: true,
+    enum: ['Stripe', 'COD'],
+  },
   paymentInfo: {
     id: {
       type: String,
-      required: true,
     },
     status: {
       type: String,
-      required: true,
     },
   },
   itemsPrice: {
