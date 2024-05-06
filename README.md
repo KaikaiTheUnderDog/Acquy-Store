@@ -10,7 +10,18 @@ Thành viên nhóm:
 
 ## Cài đặt thư viện backend
 
-npm install express mongoose dotenv crypto validator bcryptjs jsonwebtoken nodemailer cookie-parser body-parser stripe
+cd server
+npm install
+
+## Cài đặt thư viện frontend (mobile)
+
+cd client/mobile
+npm install
+
+## Cài đặt thư viện frontend (web)
+
+cd client/web
+npm install
 
 ## Chạy Server
 
@@ -22,4 +33,4 @@ npm start
 
 \*\* Lưu ý trước khi chạy client với localhost cần mở Terminal để tiến hành mapping port localhost trên thiết bị debug với port localhost trên mobile
 
-adb reverse tcp:8163 tcp:8163
+adb reverse tcp:8000 tcp:8000
