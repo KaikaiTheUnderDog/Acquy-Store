@@ -22,6 +22,10 @@ const orderSchema = new moongoose.Schema({
       type: String,
       required: true,
     },
+    receiver: {
+      type: String,
+      required: true,
+    },
   },
   user: {
     type: moongoose.Schema.Types.ObjectId,

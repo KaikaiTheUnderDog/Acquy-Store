@@ -13,6 +13,7 @@ import Checkout_ItemCard from './Checkout_ItemCard';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../../../redux/actions/orderActions';
+import { loadUser } from '../../../redux/actions/userActions';
 
 const paymentOptions = [
   {
@@ -41,8 +42,13 @@ const Checkout1 = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [data, setData] = useState([]);
 
-  const { user, loading } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const { isAdded } = useSelector((state) => state.user);
   const { cartItems } = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    dispatch(loadUser());
+  }, [isAdded]);
 
   useEffect(() => {
     if (user && user.shippingInfo && user.shippingInfo.length > 0) {
@@ -52,7 +58,17 @@ const Checkout1 = () => {
       }));
       setData(newData);
     }
-    setItemsPrice(
+  }, [user]);
+
+  useEffect(() => {
+    if (user && user.shippingInfo && user.shippingInfo.length > 0) {
+      const newData = user.shippingInfo.map((info) => ({
+        label: `${info.phoneNo}, ${info.receiver} - ${info.address}, ${info.city}, ${info.country}`,
+        value: info,
+      }));
+      setData(newData);
+    }
+    setTotalPrice(
       cartItems
         .reduce((acc, item) => acc + item.quantity * item.price, 0)
         .toFixed(2)
@@ -110,32 +126,38 @@ const Checkout1 = () => {
   };
 
   return (
-    <ScrollView style={styles.container} nestedScrollEnabled={true}>
-      <View>
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: 'bold',
-            marginTop: 10,
-            marginBottom: 10,
-          }}
-        >
-          Order Info
-        </Text>
-        <ScrollView
-          style={{ height: '20%', elevation: 400, marginBottom: 15 }}
-          showsVerticalScrollIndicator={false}
-          nestedScrollEnabled={true}
-        >
-          {cartItems &&
-            cartItems.length > 0 &&
-            cartItems.map((cartItem) => (
-              <View key={cartItem.product}>
-                <Checkout_ItemCard item={cartItem}></Checkout_ItemCard>
-              </View>
-            ))}
-        </ScrollView>
-      </View>
+    <ScrollView style={styles.container} nestedScrollEnabled>
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: 'bold',
+          marginTop: 10,
+          marginBottom: 10,
+        }}
+      >
+        Order Info
+      </Text>
+      <ScrollView
+        style={[
+          cartItems.length > 1 ? { height: '20%' } : { height: '15%' },
+          {
+            marginBottom: 15,
+            backgroundColor: 'red',
+            borderRadius: 10,
+          },
+        ]}
+        showsVerticalScrollIndicator={false}
+        nestedScrollEnabled
+      >
+        {cartItems &&
+          cartItems.length > 0 &&
+          cartItems.map((cartItem) => (
+            <Checkout_ItemCard
+              key={cartItem.product}
+              item={cartItem}
+            ></Checkout_ItemCard>
+          ))}
+      </ScrollView>
       <Text
         style={{
           fontSize: 20,
@@ -149,7 +171,7 @@ const Checkout1 = () => {
       <View>
         <Dropdown
           style={
-            !shippingInfoError
+            !paymentMethodError
               ? [styles.inputField, isFocus && { borderColor: 'blue' }]
               : [styles.inputField, { borderColor: 'red' }]
           }
@@ -162,7 +184,7 @@ const Checkout1 = () => {
             fontSize: 16,
             fontWeight: '600',
           }}
-          onBlur={() => setIsFocus(false)}
+          onBlur={() => setIsPaymentFocus(false)}
           onChange={(item) => {
             setPaymentMethod(item.value);
             setIsPaymentFocus(false);
@@ -192,7 +214,7 @@ const Checkout1 = () => {
             <View
               style={{
                 paddingLeft: 10,
-                borderColor: 'black',
+                borderColor: 'green',
                 borderWidth: 2,
                 borderRadius: 10,
                 marginBottom: 20,
@@ -206,6 +228,8 @@ const Checkout1 = () => {
                 >
                   {shippingInfo.receiver}
                 </Text>
+              </View>
+              <View style={styles.shippingInfoRow}>
                 <Text style={styles.shippingInfoLabel}>Phone No. :</Text>
                 <Text
                   style={[styles.shippingInfoValue, { flex: 4 }]}
@@ -285,11 +309,14 @@ const Checkout1 = () => {
           <View style={{ height: '15%', marginBottom: 10 }}>
             <TouchableOpacity
               style={{ alignSelf: 'flex-end' }}
-              onPress={() => navigation.navigate('Shipping')}
+              onPress={() => {
+                navigation.navigate('Shipping');
+                dispatch({ type: 'ADD_SHIPPING_INFO_REQUEST' });
+              }}
             >
               <Text
                 style={{
-                  color: 'red',
+                  color: 'green',
                   fontWeight: 'bold',
                   textDecorationLine: 'underline',
                 }}
@@ -329,7 +356,6 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 0,
     paddingBottom: 0,
-    backgroundColor: '#fff',
   },
   shippingPrice: {
     color: 'black',
@@ -352,11 +378,12 @@ const styles = StyleSheet.create({
     width: '40%',
     paddingTop: 15,
     paddingBottom: 15,
+    marginBottom: 50,
     borderRadius: 15,
     backgroundColor: '#E4000F',
     alignItems: 'center',
     elevation: 5,
-    marginLeft: 210,
+    alignSelf: 'flex-end',
   },
   Buy_Txt: {
     fontSize: 18,

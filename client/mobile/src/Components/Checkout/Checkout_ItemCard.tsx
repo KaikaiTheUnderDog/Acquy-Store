@@ -12,7 +12,9 @@ const Checkout_ItemCard = ({ item }) => {
             : item.name}
         </Text>
         <Text style={styles.Quantity}>Quantity: {item.quantity}</Text>
-        <Text style={styles.Price}>${item.price}</Text>
+        <Text style={styles.Price}>
+          ${(item.price * item.quantity).toFixed(2)}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -21,7 +23,8 @@ const Checkout_ItemCard = ({ item }) => {
 const styles = StyleSheet.create({
   largeCard: {
     borderRadius: 10,
-    margin: 15,
+    margin: 10,
+    marginVertical: 10,
     height: 80,
     backgroundColor: '#FFF',
     flexDirection: 'row',

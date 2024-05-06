@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   clearErrors,
   addShippingInfo,
+  loadUser,
 } from '../../../redux/actions/userActions';
 import { ScrollView } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';

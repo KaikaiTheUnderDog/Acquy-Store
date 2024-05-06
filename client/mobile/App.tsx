@@ -21,6 +21,8 @@ import Checkout1 from './src/Components/Checkout/CheckOut1';
 import Shipping from './src/Components/Checkout/Shipping';
 import PaymentSuccess from './src/Components/Payment/PaymentSuccess';
 import StripePayment from './src/Components/Payment/StripePayment';
+import OrderScreen from './src/Components/Order/OrderScreen';
+import OrderDetails from './src/Components/Order/OrderDetails';
 
 const Stack = createStackNavigator();
 
@@ -72,6 +74,8 @@ const App = () => {
                 headerShown: false,
               }}
             />
+            <Stack.Screen name="OrderScreen" component={OrderScreen} />
+            <Stack.Screen name="OrderDetails" component={OrderDetails} />
           </Stack.Navigator>
           <BottomNavigationBar />
         </NavigationContainer>

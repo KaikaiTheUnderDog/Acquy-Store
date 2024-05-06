@@ -92,18 +92,27 @@ const UserProfileScreen = () => {
             </View>
           ))}
         </View>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>MY ORDER</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>EDIT INFORMATION</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('ChangePassword')}
+        <View
+          style={{
+            alignItems: 'center',
+          }}
         >
-          <Text style={styles.buttonText}>CHANGE PASSWORD</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('OrderScreen')}
+          >
+            <Text style={styles.buttonText}>My Order</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Edit Information</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('ChangePassword')}
+          >
+            <Text style={styles.buttonText}>Change Password</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
       <View style={styles.footer}>
         <TouchableOpacity style={styles.Signout_button} onPress={logoutHandler}>
@@ -181,7 +190,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   button: {
-    width: '100%',
+    width: '90%',
     padding: 15,
     borderRadius: 5,
     backgroundColor: '#fff',
@@ -193,6 +202,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: '500',
+    color: 'black',
   },
   Signout_button: {
     backgroundColor: '#E4000F',

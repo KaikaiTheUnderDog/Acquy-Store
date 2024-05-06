@@ -121,6 +121,7 @@ export const userReducer = (state = {}, action) => {
       return {
         ...state,
         loading: true,
+        isAdded: false,
       };
 
     case UPDATE_PROFILE_SUCCESS:
@@ -147,6 +148,7 @@ export const userReducer = (state = {}, action) => {
       return {
         ...state,
         isUpdated: false,
+        isAdded: true,
       };
 
     case DELETE_USER_RESET:

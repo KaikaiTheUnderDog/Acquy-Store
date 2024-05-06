@@ -50,7 +50,7 @@ export const cartReducer = (
       };
 
     case CLEAR_CART:
-      return { cartItems: [] };
+      return { ...state, cartItems: [] };
 
     default:
       return state;

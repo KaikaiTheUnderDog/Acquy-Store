@@ -77,7 +77,7 @@ export const myOrdersReducer = (state = { orders: [] }, action) => {
   }
 };
 
-export const orderDetailsReducer = (state = { orders: [] }, action) => {
+export const orderDetailsReducer = (state = {}, action) => {
   switch (action.type) {
     case ORDER_DETAILS_REQUEST:
       return {
@@ -93,6 +93,7 @@ export const orderDetailsReducer = (state = { orders: [] }, action) => {
         loading: false,
         error: action.payload,
       };
+
     default:
       return state;
   }

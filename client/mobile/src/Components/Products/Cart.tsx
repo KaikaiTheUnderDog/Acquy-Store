@@ -133,7 +133,9 @@ const Cart = () => {
                     </Text>
                   </TouchableOpacity>
                 </View>
-                <Text style={styles.productInfo}>Price: ${item.price}</Text>
+                <Text style={styles.productInfo}>
+                  Price: ${(item.price * item.quantity).toFixed(2)}
+                </Text>
               </View>
               <TouchableOpacity
                 onPress={() => removeCartItemHandler(item.product)}

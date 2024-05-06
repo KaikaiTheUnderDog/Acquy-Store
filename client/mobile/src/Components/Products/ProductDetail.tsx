@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -216,7 +216,10 @@ const ProductDetailsScreen = ({ id }) => {
   if (loading) return <ActivityIndicator size="large" />;
 
   return (
-    <Tab.Navigator style={{ marginBottom: 15, backgroundColor: '#f7f7f7' }}>
+    <Tab.Navigator
+      style={{ marginBottom: 15, backgroundColor: '#f7f7f7' }}
+      screenOptions={{ lazy: true }}
+    >
       <Tab.Screen
         name="Overview"
         component={Overview}
