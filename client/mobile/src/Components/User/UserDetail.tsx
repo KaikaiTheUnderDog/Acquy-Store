@@ -75,7 +75,14 @@ const UserProfileScreen = () => {
       >
         <View style={styles.infoContainer}>
           {data.map((info, index) => (
-            <View key={index} style={styles.infoRow}>
+            <View
+              key={index}
+              style={
+                info.title === 'Birthday'
+                  ? [styles.infoRow, { borderBottomWidth: 0 }]
+                  : [styles.infoRow, { borderBottomWidth: 1 }]
+              }
+            >
               <Text style={styles.title}>{info.title}</Text>
               {info.title === 'Verified' ? (
                 <Image
@@ -103,7 +110,10 @@ const UserProfileScreen = () => {
           >
             <Text style={styles.buttonText}>My Order</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('EditProfile')}
+          >
             <Text style={styles.buttonText}>Edit Information</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -140,7 +150,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 20,
     height: 20,
-    marginTop: 5,
+    marginRight: 15,
   },
   card: {
     backgroundColor: '#fff',
@@ -170,21 +180,25 @@ const styles = StyleSheet.create({
   infoContainer: {
     width: '100%',
     marginBottom: 20,
+    backgroundColor: 'white',
+    justifyContent: 'space-between',
+    borderRadius: 20,
   },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 10,
-    borderBottomWidth: 1,
     borderBottomColor: '#e1e1e1',
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 13,
+    marginLeft: 15,
+    fontSize: 15,
   },
   info: {
     color: '#333',
-    fontSize: 19,
+    fontSize: 15,
+    marginRight: 15,
     fontWeight: 'bold',
     width: '70%',
     textAlign: 'right',

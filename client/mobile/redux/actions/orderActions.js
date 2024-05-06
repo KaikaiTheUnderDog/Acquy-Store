@@ -18,6 +18,9 @@ import {
   DELETE_ORDER_REQUEST,
   DELETE_ORDER_SUCCESS,
   DELETE_ORDER_FAILED,
+  CANCEL_ORDER_REQUEST,
+  CANCEL_ORDER_SUCCESS,
+  CANCEL_ORDER_FAILED,
 } from '../constants/orderConstants';
 import { apiURL } from '../apiURL';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -124,6 +127,24 @@ export const updateOrder = (id, orderData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_ORDER_FAILED,
+      payload: error.response.data.errMessage,
+    });
+  }
+};
+
+export const cancelOrder = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: CANCEL_ORDER_REQUEST });
+
+    const { data } = await axios.put(`${apiURL}/order/${id}/cancel`);
+
+    dispatch({
+      type: CANCEL_ORDER_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: CANCEL_ORDER_FAILED,
       payload: error.response.data.errMessage,
     });
   }

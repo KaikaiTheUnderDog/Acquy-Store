@@ -23,6 +23,7 @@ import PaymentSuccess from './src/Components/Payment/PaymentSuccess';
 import StripePayment from './src/Components/Payment/StripePayment';
 import OrderScreen from './src/Components/Order/OrderScreen';
 import OrderDetails from './src/Components/Order/OrderDetails';
+import EditProfile from './src/Components/User/EditProfile';
 
 const Stack = createStackNavigator();
 
@@ -74,8 +75,17 @@ const App = () => {
                 headerShown: false,
               }}
             />
-            <Stack.Screen name="OrderScreen" component={OrderScreen} />
-            <Stack.Screen name="OrderDetails" component={OrderDetails} />
+            <Stack.Screen name="EditProfile" component={EditProfile} />
+            <Stack.Screen
+              name="OrderScreen"
+              component={OrderScreen}
+              options={{ detachPreviousScreen: false }}
+            />
+            <Stack.Screen
+              name="OrderDetails"
+              component={OrderDetails}
+              options={{ detachPreviousScreen: false, freezeOnBlur: false }}
+            />
           </Stack.Navigator>
           <BottomNavigationBar />
         </NavigationContainer>

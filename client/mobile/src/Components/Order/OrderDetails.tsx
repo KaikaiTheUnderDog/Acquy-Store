@@ -10,9 +10,17 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrderDetails } from '../../../redux/actions/orderActions';
+import {
+  cancelOrder,
+  getOrderDetails,
+  myOrders,
+} from '../../../redux/actions/orderActions';
 import OrderDetail_ItemCard from './OrderDetail_ItemCard';
 
 const OrderDetails = () => {
@@ -20,13 +28,25 @@ const OrderDetails = () => {
   const dispatch = useDispatch();
 
   const { order, loading } = useSelector((state) => state.orderDetails);
+  const { isUpdated } = useSelector((state) => state.order);
 
   const [statusColor, setStatusColor] = useState();
-  const [isOver30Days, setIsOver30Days] = useState();
+  const [isOver30Minutes, setIsOver30Minutes] = useState();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Gọi hàm để lấy chi tiết đơn hàng hoặc thông tin cần thiết
+      dispatch(getOrderDetails(id));
+    }, [])
+  );
 
   useEffect(() => {
     dispatch(getOrderDetails(id));
   }, []);
+
+  useEffect(() => {
+    dispatch(getOrderDetails(id));
+  }, [isUpdated]);
 
   useEffect(() => {
     if (order) {
@@ -40,13 +60,15 @@ const OrderDetails = () => {
       const createdAt = new Date(order.createdAt);
       const now = new Date();
       const diffTime = Math.abs(now - createdAt);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffMinutes = Math.ceil(diffTime / (1000 * 60));
 
-      setIsOver30Days(diffDays > 30);
+      setIsOver30Minutes(diffMinutes > 30);
     }
   }, [order]);
 
-  const cancelOrderHandler = () => {};
+  const cancelOrderHandler = () => {
+    dispatch(cancelOrder(id));
+  };
 
   if (loading || !order) {
     return <ActivityIndicator size="large" />;
@@ -201,7 +223,7 @@ const OrderDetails = () => {
           </Text>
         </View>
       </View>
-      {!isOver30Days && (
+      {!isOver30Minutes && order.orderStatus !== 'Cancelled' && (
         <TouchableOpacity style={styles.button} onPress={cancelOrderHandler}>
           <Text style={styles.buttonText}>🤧 Cancel Order 🥺</Text>
         </TouchableOpacity>

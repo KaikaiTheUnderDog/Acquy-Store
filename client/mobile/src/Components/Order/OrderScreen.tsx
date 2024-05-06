@@ -13,7 +13,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import OrderItem from './OrderItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { myOrders } from '../../../redux/actions/orderActions';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -51,12 +51,17 @@ const MyOrder = () => {
 
 const OrderScreen = () => {
   const dispatch = useDispatch();
+  const navigaion = useNavigation();
 
   const { loading, orders } = useSelector((state) => state.myOrders);
 
   useEffect(() => {
     dispatch(myOrders());
   }, []);
+
+  useEffect(() => {
+    if (!orders) dispatch(myOrders());
+  }, [orders]);
 
   if (loading) {
     return <ActivityIndicator size="large" />;
