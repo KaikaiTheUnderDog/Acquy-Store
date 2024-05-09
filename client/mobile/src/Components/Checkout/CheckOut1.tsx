@@ -14,6 +14,7 @@ import { CommonActions, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from '../../../redux/actions/userActions';
 import { ADD_SHIPPING_INFO_RESET } from '../../../redux/constants/userConstants';
+import { createOrder } from '../../../redux/actions/orderActions';
 
 const paymentOptions = [
   {
