@@ -13,6 +13,7 @@ import Checkout_ItemCard from './Checkout_ItemCard';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from '../../../redux/actions/userActions';
+import { ADD_SHIPPING_INFO_RESET } from '../../../redux/constants/userConstants';
 
 const paymentOptions = [
   {
@@ -322,7 +323,7 @@ const Checkout1 = () => {
               style={{ alignSelf: 'flex-end' }}
               onPress={() => {
                 navigation.navigate('Shipping');
-                dispatch({ type: 'ADD_SHIPPING_INFO_REQUEST' });
+                dispatch({ type: ADD_SHIPPING_INFO_RESET });
               }}
             >
               <Text
