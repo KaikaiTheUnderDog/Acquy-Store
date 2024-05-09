@@ -25,7 +25,158 @@
     "category": "Consoles",
     "stock": 150,
     "numOfReviews": 230,
-    "reviews": [],
+    "reviews": [
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Absolutely love it! Exceeded all my expectations."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Great product but a bit pricey."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "Decent enough, but there are better options available."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Not what I expected. Some features are lacking."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Disappointed with the quality. Would not recommend."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Perfect! Couldn't ask for anything more!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Good quality, works well, but could be cheaper."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "Average performance. Not too bad but not great either."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Has some issues that need to be addressed."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Totally unsatisfied. It broke after a week."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "The best purchase I have made this year!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Really good, but I wish it had more features."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "It's okay for the price, but I had higher expectations."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Somewhat disappointed with the performance."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Poor quality and customer service was not helpful."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Incredible! Works like a charm!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Very good, though it arrived a bit late."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "It does the job, but nothing spectacular."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Expected much better based on the reviews."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "One star. It's that bad. Avoid at all costs."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Amazing product! I would buy it again!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Pretty solid overall, just a few minor gripes."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "Mediocre. You get what you pay for, I guess."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Not recommended unless you have no other choice."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Very poor quality, very unhappy with the purchase."
+      }
+    ],
     "sold": 345
   },
   {
@@ -83,7 +234,188 @@
     "category": "Accessories",
     "stock": 200,
     "numOfReviews": 150,
-    "reviews": [],
+    "reviews": [
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Absolutely flawless! It's everything I could have wanted."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Very good! It does everything promised with only minor drawbacks."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "It's decent, functions well for most tasks but nothing spectacular."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Mediocre at best, expected much more based on the description."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Completely useless, broke down almost immediately."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Outstanding quality! A purchase I am proud of!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Good purchase overall, only a few small issues to note."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "It works, but I have some reservations regarding its long-term reliability."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Below expectations, it's somewhat functional but disappointing."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Would give zero stars if possible. Horrible experience."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Love it! Performs perfectly and exceeds my expectations."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Pretty great! Minor issues but nothing that would stop me from recommending it."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "Fairly average; not bad, but not great either."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Has a few redeeming qualities, but overall not a great buy."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Extremely disappointed. It’s not worth the money at all."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Remarkable product! It has truly made a difference in my daily routine."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Good product, but requires a bit of tweaking for perfection."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "An ordinary product, useful but replaceable."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Not very reliable, has multiple issues that need addressing."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Failed to perform as advertised. Very unsatisfying."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Absolutely perfect! I couldn’t ask for more!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Overall, a robust product with just a couple of niggles."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "It’s adequate for the price, but I wouldn’t boast about it."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Somewhat functional but not up to the standards promised."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Totally ineffective, a waste of resources and time."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "A fantastic find! Works brilliantly and without any problems."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Solid performance, though it could be a bit more user-friendly."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "Not bad, but not great either. It does the job, just about."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Quite disappointing. I had higher expectations."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Poor build quality and ineffective. Not recommended."
+      }
+    ],
     "sold": 12
   },
   {
@@ -456,7 +788,188 @@
     "category": "Games",
     "stock": 85,
     "numOfReviews": 320,
-    "reviews": [],
+    "reviews": [
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Five stars isn't enough for this! Absolutely phenomenal in every way."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Really solid performance. A few minor niggles, but nothing too serious."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "Middle of the road—good but not great. Decent value for the price."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Has potential but falls short in several key areas. Needs improvement."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Completely dissatisfied. It failed to meet my expectations in all aspects."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Stellar product! I'm thoroughly impressed and would highly recommend it!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Very good with some reservations. It's nearly perfect but needs a tweak here and there."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "It’s a jack of all trades, master of none. Sufficient for everyday use."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "I wanted to like it, but it just doesn't deliver on its promises."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "This product was a letdown from day one. Don't waste your money."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Top of its class! I have nothing but praise for this product!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Great product, but the support from the company could be better."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "Works adequately, but I was expecting a bit more based on the reviews."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Underperformed my expectations. It’s okay, but just barely."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Failed after just a few uses. Completely unreliable."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Everything I hoped for and more. Well worth the cost."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "A good purchase that lives up to most of its hype."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "Average, not bad but not particularly great either."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Lacking in durability and performance. Not recommended."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "One of the worst experiences I've had with a product like this."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "This product exceeds expectations at every turn. A game-changer!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Good overall, though it could benefit from some minor improvements."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "It's serviceable. Does what it needs to, but nothing flashy."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Somewhat disappointed. It looked better in advertisements."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Not functional and the customer service was even worse. Stay away."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Outstanding! I’m so glad I made this purchase."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Quite good, but there's a bit of room for improvement."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "Not bad for the price, but there are certainly better products out there."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Fails to live up to expectations. Not worth the hassle."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "The product is poorly constructed and completely ineffective."
+      }
+    ],
     "sold": 210
   },
   {
@@ -485,7 +998,128 @@
     "category": "Accessories",
     "stock": 150,
     "numOfReviews": 80,
-    "reviews": [],
+    "reviews": [
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Exceeds all expectations, a must-have for anyone considering it!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Very reliable and well worth the investment."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "Not bad, but it doesn't stand out from the competition."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Somewhat disappointed. It lacks the features I expected."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Poorly made and failed after a few uses. Completely unsatisfied."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Outstanding performance! It has revolutionized my workflow!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Good product overall, though it took some time to get used to."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "Average quality. Works okay, but I had higher hopes."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Underwhelming and underperforms. Not recommended."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Absolutely terrible. It broke down almost immediately."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Perfect! Works beautifully and exactly as described!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Very good, though there's a slight learning curve."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "It’s decent but could definitely use some improvements."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Not great, has some issues that need to be addressed urgently."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Unusable and frustrating to deal with. Avoid at all costs."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Love it! Has exceeded all my expectations and then some!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Great choice for the price, though there are a few minor issues."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "It's okay for casual use, but I wouldn’t rely on it for professional needs."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Disappointing performance, not up to the mark."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "One of the worst purchases I've ever made. Very poor quality."
+      }
+    ],
     "sold": 65
   },
   {
@@ -514,7 +1148,128 @@
     "category": "Accessories",
     "stock": 120,
     "numOfReviews": 90,
-    "reviews": [],
+    "reviews": [
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Solid build and performance, but I wish the battery life was better."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "An absolute game-changer! Highly recommend this product."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "It's serviceable, but there are definitely better options out there."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "I encountered some problems with the setup, not very user-friendly."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Stopped working within a month, very disappointed."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "This is exactly what I was looking for. Perfect for my needs!"
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Good value for the price. Works well so far."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "Average performance, nothing too exciting."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Falls short of expectations, especially given the hype."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Worst product I've used in a long while. Do not buy."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "I'm thoroughly impressed with the quality and functionality."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Great product, just a bit pricey."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "It’s okay, does the job but has some annoying quirks."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Not as described. There are issues with its performance."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Complete waste of money, stopped functioning right away."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 5,
+        "comment": "Fantastic! Lives up to the specifications."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "Pretty good overall, though there's room for improvement."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 3,
+        "comment": "It's alright but not what I expected from the adverts."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 2,
+        "comment": "Has potential, but the current model is too flawed."
+      },
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 1,
+        "comment": "Had high hopes, but it failed to deliver."
+      }
+    ],
     "sold": 87
   },
   {
@@ -543,7 +1298,14 @@
     "category": "Games",
     "stock": 95,
     "numOfReviews": 220,
-    "reviews": [],
+    "reviews": [
+      {
+        "userAvatar": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+        "name": "Test Reviewer",
+        "rating": 4,
+        "comment": "A super good game OMG!!!"
+      }
+    ],
     "sold": 134
   }
 ]

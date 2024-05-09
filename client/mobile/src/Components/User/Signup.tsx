@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -17,7 +18,6 @@ import {
   clearErrors,
   loadUser,
 } from '../../../redux/actions/userActions';
-import { ScrollView } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 type Props = {
@@ -42,12 +42,27 @@ const Signup = ({ navigation }: Props) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigation.navigate('MainPage');
+      navigation.push('MainPage');
       dispatch(loadUser());
     }
 
     if (error) {
-      ToastAndroid.show(error, ToastAndroid.LONG);
+      let message = '';
+
+      if (error.includes('Please enter a valid email')) {
+        setEmailError(true);
+        message = 'Please enter a valid email';
+      }
+      if (error.includes('Your password must be at least 6 characters long')) {
+        setPasswordError(true);
+        message +=
+          message !== ''
+            ? '\nYour password must be at least 6 characters long'
+            : 'Your password must be at least 6 characters long';
+      }
+
+      ToastAndroid.show(message, ToastAndroid.LONG);
+
       dispatch(clearErrors());
     }
   }, [error, isAuthenticated, loading]);
@@ -77,7 +92,11 @@ const Signup = ({ navigation }: Props) => {
         return;
       }
     }
-    dispatch(register({ userName, email, password }));
+
+    const avatar =
+      'https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg';
+
+    dispatch(register({ userName, email, password, avatar }));
   };
 
   const onChange = (name, value) => {

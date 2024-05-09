@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Order = require('../models/order');
 
 const Errors = require('../utils/errors');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
@@ -52,5 +53,74 @@ exports.getBestSellers = catchAsyncErrors(async (req, res, next) => {
     success: true,
     message: 'This route will show best seller in database',
     bestSellers,
+  });
+});
+
+// Check has product been buy by user -> /api/v1/:id/isBuy
+exports.isBuyByUser = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const orders = await Order.find({
+      user: req.user.id,
+      'orderItems.product': req.params.id,
+      orderStatus: 'Delivered',
+    }).exec();
+
+    res.status(200).json({
+      isBuy: orders.length > 0,
+    });
+  } catch (error) {
+    return next(new Errors(error.message, 500));
+  }
+});
+
+// Create new review -> /api/v1/review
+exports.createReview = catchAsyncErrors(async (req, res, next) => {
+  const { rating, comment, productId } = req.body;
+
+  const review = {
+    user: req.user._id,
+    rating: Number(rating),
+    comment,
+    name: req.user.name,
+    userAvatar: req.user.avatar.url,
+    reviewedAt: new Date.now(),
+  };
+
+  const product = await Product.findById(productId);
+
+  const isReviewed = product.reviews.find(
+    (r) => r.user.toString() === req.user._id.toString()
+  );
+
+  if (isReviewed) {
+    product.reviews.forEach((review) => {
+      if (review.user.toString() === req.user._id.toString()) {
+        review.comment = comment;
+        review.rating = rating;
+      }
+    });
+  } else {
+    product.reviews.push(review);
+    product.numOfReviews = product.reviews.length;
+  }
+
+  product.ratings =
+    product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+    product.reviews.length;
+
+  await product.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+// Get all product's reviews --> /api/v1/:id/reviews
+exports.getAllProductReviews = catchAsyncErrors(async (req, res, next) => {
+  const product = await Product.findById(req.query.id);
+
+  res.status(200).json({
+    success: true,
+    reviews: product.reviews,
   });
 });

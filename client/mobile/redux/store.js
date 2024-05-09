@@ -9,6 +9,7 @@ import {
   reviewReducer,
   productReviewsReducer,
   bestSellersReducer,
+  checkIsBuyReducer,
 } from './reducers/productReducers';
 import {
   authReducer,
@@ -47,6 +48,7 @@ const reducer = combineReducers({
   review: reviewReducer,
   productReviews: productReviewsReducer,
   bestSellers: bestSellersReducer,
+  checkIsBuy: checkIsBuyReducer,
 });
 
 const store = configureStore({

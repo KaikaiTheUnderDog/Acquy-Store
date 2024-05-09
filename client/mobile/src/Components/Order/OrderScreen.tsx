@@ -20,6 +20,8 @@ const Tab = createMaterialTopTabNavigator();
 const MyOrder = () => {
   const { orders, status } = useRoute().params;
 
+  const dispatch = useDispatch();
+
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -30,8 +32,12 @@ const MyOrder = () => {
     setData(filteredOrders);
   }, [status, orders]);
 
+  const refresh = () => {
+    dispatch(myOrders());
+  };
+
   return (
-    <View style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1 }} onScrollToTop={refresh}>
       <Text
         style={{
           alignSelf: 'center',
@@ -45,7 +51,7 @@ const MyOrder = () => {
       <ScrollView contentContainerStyle={styles.productGrid}>
         {data && data.map((item) => <OrderItem order={item} />)}
       </ScrollView>
-    </View>
+    </ScrollView>
   );
 };
 

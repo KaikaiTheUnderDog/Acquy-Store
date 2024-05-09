@@ -5,14 +5,13 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-import { CommonActions } from '@react-navigation/native';
 
 import Checkout_ItemCard from './Checkout_ItemCard';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { createOrder } from '../../../redux/actions/orderActions';
 import { loadUser } from '../../../redux/actions/userActions';
 
 const paymentOptions = [
@@ -45,9 +44,12 @@ const Checkout1 = () => {
   const { user } = useSelector((state) => state.auth);
   const { isAdded } = useSelector((state) => state.user);
   const { cartItems } = useSelector((state) => state.cart);
+  const { loading } = useSelector((state) => state.newOrder);
 
   useEffect(() => {
-    dispatch(loadUser());
+    if (isAdded) {
+      dispatch(loadUser());
+    }
   }, [isAdded]);
 
   useEffect(() => {
@@ -89,15 +91,21 @@ const Checkout1 = () => {
     }
   }, [shippingInfo, shippingPrice]);
 
+  if (loading) {
+    return <ActivityIndicator size="large" />;
+  }
+
   const shippingPriceHandler = () => {
     if (shippingInfo.country === 'Vietnam') setShippingPrice(3);
     else setShippingPrice(20);
   };
 
   const submitHandler = () => {
-    if (!shippingInfo) setShippingInfoError(true);
-    if (!paymentMethod) {
-      setPaymentMethodError(true);
+    if (!shippingInfo || !paymentMethod) {
+      if (!shippingInfo) setShippingInfoError(true);
+      if (!paymentMethod) {
+        setPaymentMethodError(true);
+      }
       return;
     }
 
@@ -113,6 +121,7 @@ const Checkout1 = () => {
 
     if (paymentMethod === 'COD') {
       dispatch(createOrder(order));
+
       navigation.dispatch(
         CommonActions.reset({
           index: 1,
@@ -123,6 +132,8 @@ const Checkout1 = () => {
     } else if (paymentMethod === 'Stripe') {
       navigation.navigate('StripePayment', { order: order });
     }
+
+    dispatch({ type: 'CLEAR_CART' });
   };
 
   return (

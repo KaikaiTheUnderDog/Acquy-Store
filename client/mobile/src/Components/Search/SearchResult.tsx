@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  FlatList,
 } from 'react-native';
 import SmallProductCard from '../Products/SmallProductCard'; // Make sure to import SmallProductCard
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +13,6 @@ import {
   clearErrors,
   getProducts,
 } from '../../../redux/actions/productActions';
-import { FlatList } from 'react-native-gesture-handler';
 import { useRoute } from '@react-navigation/native';
 
 const categories = ['Cate1', 'Cate2', 'Cate3', 'Cate4']; // Your category names

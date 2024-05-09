@@ -24,8 +24,7 @@ import StripePayment from './src/Components/Payment/StripePayment';
 import OrderScreen from './src/Components/Order/OrderScreen';
 import OrderDetails from './src/Components/Order/OrderDetails';
 import EditProfile from './src/Components/User/EditProfile';
-
-const Stack = createStackNavigator();
+import AppNavigator from './AppNavigator';
 
 const App = () => {
   React.useEffect(() => {
@@ -35,60 +34,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <SafeAreaView style={styles.container}>
-        <NavigationContainer>
-          <Header />
-          <Stack.Navigator
-            initialRouteName="MainPage"
-            screenOptions={{
-              headerTitle: '',
-              headerStyle: { height: 30, backgroundColor: '#f7f7f7' },
-            }}
-          >
-            <Stack.Screen
-              name="MainPage"
-              component={MainPage}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen name="Signup" component={Signup} />
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Product" component={Product} />
-            <Stack.Screen name="UserProfile" component={UserProfileScreen} />
-            <Stack.Screen name="Cart" component={Cart} />
-            <Stack.Screen name="Search" component={SearchResult} />
-            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-            <Stack.Screen name="ChangePassword" component={ChangePassword} />
-            <Stack.Screen name="Checkout" component={Checkout1} />
-            <Stack.Screen name="Shipping" component={Shipping} />
-            <Stack.Screen
-              name="PaymentSuccess"
-              component={PaymentSuccess}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="StripePayment"
-              component={StripePayment}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen name="EditProfile" component={EditProfile} />
-            <Stack.Screen
-              name="OrderScreen"
-              component={OrderScreen}
-              options={{ detachPreviousScreen: false }}
-            />
-            <Stack.Screen
-              name="OrderDetails"
-              component={OrderDetails}
-              options={{ detachPreviousScreen: false, freezeOnBlur: false }}
-            />
-          </Stack.Navigator>
-          <BottomNavigationBar />
-        </NavigationContainer>
+        <AppNavigator />
       </SafeAreaView>
     </Provider>
   );

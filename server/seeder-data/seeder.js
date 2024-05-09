@@ -1,5 +1,7 @@
 const Product = require('../models/product');
 const User = require('../models/user');
+const Order = require('../models/order');
+
 const dotenv = require('dotenv');
 const connectDatabase = require('../config/database');
 
@@ -24,6 +26,8 @@ const seedProducts = async () => {
 
     await User.create(users);
     console.log('Users inserted successfully');
+
+    await Order.deleteMany();
 
     process.exit();
   } catch (err) {

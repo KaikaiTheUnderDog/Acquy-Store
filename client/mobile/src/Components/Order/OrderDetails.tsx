@@ -10,16 +10,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   cancelOrder,
   getOrderDetails,
-  myOrders,
 } from '../../../redux/actions/orderActions';
 import OrderDetail_ItemCard from './OrderDetail_ItemCard';
 
@@ -32,13 +27,6 @@ const OrderDetails = () => {
 
   const [statusColor, setStatusColor] = useState();
   const [isOver30Minutes, setIsOver30Minutes] = useState();
-
-  useFocusEffect(
-    React.useCallback(() => {
-      // Gọi hàm để lấy chi tiết đơn hàng hoặc thông tin cần thiết
-      dispatch(getOrderDetails(id));
-    }, [])
-  );
 
   useEffect(() => {
     dispatch(getOrderDetails(id));
@@ -223,11 +211,13 @@ const OrderDetails = () => {
           </Text>
         </View>
       </View>
-      {!isOver30Minutes && order.orderStatus !== 'Cancelled' && (
-        <TouchableOpacity style={styles.button} onPress={cancelOrderHandler}>
-          <Text style={styles.buttonText}>🤧 Cancel Order 🥺</Text>
-        </TouchableOpacity>
-      )}
+      {!isOver30Minutes &&
+        order.orderStatus !== 'Cancelled' &&
+        order.orderStatus !== 'Delivered' && (
+          <TouchableOpacity style={styles.button} onPress={cancelOrderHandler}>
+            <Text style={styles.buttonText}>🤧 Cancel Order 🥺</Text>
+          </TouchableOpacity>
+        )}
     </ScrollView>
   );
 };

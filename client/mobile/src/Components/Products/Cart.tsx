@@ -57,7 +57,10 @@ const Cart = () => {
 
         <TouchableOpacity
           style={styles.goShopping_BTN}
-          onPress={() => navigation.navigate('MainPage')}
+          onPress={() => {
+            console.log(' i caused it');
+            navigation.navigate('MainPage');
+          }}
         >
           <Text style={styles.Buy_Txt}>Go Shopping</Text>
         </TouchableOpacity>
@@ -172,7 +175,10 @@ const Cart = () => {
         </Text>
         <TouchableOpacity
           style={styles.Cart_BTN}
-          onPress={() => navigation.navigate('Checkout')}
+          onPress={() => {
+            navigation.navigate('Checkout');
+            console.log('Attempting to navigate to Checkout');
+          }}
         >
           <Text style={styles.Buy_Txt}>Check out</Text>
         </TouchableOpacity>

@@ -9,14 +9,13 @@ import {
   ToastAndroid,
   Keyboard,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   clearErrors,
   addShippingInfo,
-  loadUser,
 } from '../../../redux/actions/userActions';
-import { ScrollView } from 'react-native-gesture-handler';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Dropdown } from 'react-native-element-dropdown';
 import { Country } from 'country-state-city';
@@ -65,7 +64,6 @@ const Shipping = () => {
         'New shipping info. has been added into your account.',
         ToastAndroid.LONG
       );
-
       navigation.goBack();
 
       dispatch({ type: ADD_SHIPPING_INFO_RESET });
@@ -306,12 +304,6 @@ const styles = StyleSheet.create({
   signUpText: {
     color: '#138B5F',
     fontWeight: 'bold',
-  },
-  separator: {
-    height: 1,
-    backgroundColor: 'grey',
-    width: '100%',
-    marginVertical: 8,
   },
 });
 

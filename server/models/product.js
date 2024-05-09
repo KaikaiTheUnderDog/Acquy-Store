@@ -63,20 +63,22 @@ const productSchema = new mongoose.Schema({
       user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
-        required: true,
       },
       name: {
         type: String,
-        required: true,
+      },
+      userAvatar: {
+        type: String,
       },
       rating: {
         type: Number,
-        required: true,
         default: 0,
       },
       comment: {
         type: String,
-        required: true,
+      },
+      reviewedAt: {
+        type: Date,
       },
     },
   ],

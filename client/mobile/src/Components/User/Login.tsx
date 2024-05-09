@@ -8,6 +8,7 @@ import {
   ToastAndroid,
   Keyboard,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,13 +17,11 @@ import {
   clearErrors,
   loadUser,
 } from '../../../redux/actions/userActions';
-import { ScrollView } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
-type Props = {
-  navigation: any;
-};
+const Login = () => {
+  const navigation = useNavigation();
 
-const Login = ({ navigation }: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(false);
@@ -41,7 +40,7 @@ const Login = ({ navigation }: Props) => {
     }
     if (isAuthenticated) {
       navigation.navigate('MainPage');
-      ToastAndroid.show('Login successful!', ToastAndroid.LONG);
+      ToastAndroid.show('Login successfully', ToastAndroid.LONG);
     }
   }, [isAuthenticated]);
 

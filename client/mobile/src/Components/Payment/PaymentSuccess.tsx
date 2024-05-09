@@ -10,11 +10,11 @@ const PaymentSuccess = () => {
         height: '100%',
         width: '100%',
         alignContent: 'center',
-        paddingTop: 100,
+        paddingTop: 200,
       }}
     >
       <Image
-        style={{ width: 200, height: 200, alignSelf: 'center' }}
+        style={{ width: 80, height: 80, alignSelf: 'center', marginBottom: 10 }}
         source={require('../../assets/check.png')}
       />
       <Text
@@ -27,7 +27,7 @@ const PaymentSuccess = () => {
           color: 'black',
         }}
       >
-        Order successfully. {'\n'} Your order is pending.
+        Ordered successfully. {'\n'} Your order is pending.
       </Text>
       <View
         style={{

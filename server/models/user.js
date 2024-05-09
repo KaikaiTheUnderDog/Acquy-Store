@@ -4,12 +4,24 @@ const bcrypt = require('bcryptjs');
 const jsonWebToken = require('jsonwebtoken');
 const crypto = require('crypto');
 
+const cloudinary = require('cloudinary').v2;
+
 const userSchema = new mongoose.Schema({
   userName: {
     type: String,
     required: [true, 'Name is required'],
     maxLength: [30, 'Your naem cannot exceed 30 characters'],
     trim: true,
+  },
+  avatar: {
+    public_id: {
+      type: String,
+      unique: true,
+    },
+    url: {
+      type: String,
+      unique: true,
+    },
   },
   email: {
     type: String,
@@ -25,6 +37,13 @@ const userSchema = new mongoose.Schema({
   },
   dob: {
     type: Date,
+  },
+  firebaseAvatar: {
+    type: String,
+  },
+  gender: {
+    type: String,
+    enum: ['Male', 'Female', 'Other'],
   },
   shippingInfo: [
     {
@@ -79,6 +98,10 @@ userSchema.pre('save', async function (next) {
   }
 
   this.password = await bcrypt.hash(this.password, 10);
+});
+
+userSchema.pre('deleteOne', async function () {
+  await cloudinary.api.delete_resources(this.public_id);
 });
 
 userSchema.methods.checkPassword = async function (password) {

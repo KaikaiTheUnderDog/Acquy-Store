@@ -164,6 +164,8 @@ export const updateProfile = (userData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_PROFILE_REQUEST });
 
+    console.log(userData);
+
     const config = { headers: { 'Content-Type': 'application/json' } };
 
     const { data } = await axios.put(`${apiURL}/me/update`, userData, config);

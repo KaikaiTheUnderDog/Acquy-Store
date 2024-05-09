@@ -4,20 +4,32 @@
     "email": "tester01@gmail.com",
     "password": "123456",
     "isVerified": false,
-    "role": "user"
+    "role": "user",
+    "avatar": {
+      "url": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700652331/cld-sample-3.jpg",
+      "public_id": "tester01"
+    }
   },
   {
     "userName": "tester02",
     "email": "tester02@gmail.com",
     "password": "123456",
     "isVerified": true,
-    "role": "user"
+    "role": "user",
+    "avatar": {
+      "url": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg",
+      "public_id": "tester02"
+    }
   },
   {
     "userName": "admin",
     "email": "admin@gmail.com",
     "password": "123456",
     "isVerified": true,
-    "role": "admin"
+    "role": "admin",
+    "avatar": {
+      "url": "https://res.cloudinary.com/dx77ngsh6/image/upload/v1700652330/cld-sample-2.jpg",
+      "public_id": "admin"
+    }
   }
 ]

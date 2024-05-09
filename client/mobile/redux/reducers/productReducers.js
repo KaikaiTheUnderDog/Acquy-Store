@@ -35,6 +35,9 @@ import {
   BEST_SELLERS_REQUEST,
   BEST_SELLERS_FAILED,
   BEST_SELLERS_SUCCESS,
+  CHECK_IS_BUY_REQUEST,
+  CHECK_IS_BUY_SUCCESS,
+  CHECK_IS_BUY_FAILED,
 } from '../constants/productConstants';
 
 export const productReducer = (state = { products: [] }, action) => {
@@ -278,6 +281,37 @@ export const productReviewsReducer = (state = { review: [] }, action) => {
     case GET_REVIEWS_FAILED:
       return {
         ...state,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const checkIsBuyReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CHECK_IS_BUY_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CHECK_IS_BUY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isBuy: action.payload,
+      };
+    case CHECK_IS_BUY_FAILED:
+      return {
+        ...state,
+        loading: false,
         error: action.payload,
       };
 

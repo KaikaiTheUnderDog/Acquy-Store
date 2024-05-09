@@ -25,6 +25,15 @@ const UserProfileScreen = () => {
     setData([
       { title: 'Email', info: user.email },
       {
+        title: 'Gender',
+        info:
+          user.gender === 'Male'
+            ? '♂️  Male'
+            : user.gender === 'Female'
+            ? '♀️  Female'
+            : '🏳️‍🌈  Other',
+      },
+      {
         title: 'Joined At',
         info: new Date(user.createdAt).toLocaleDateString('vi-VN'),
       },
@@ -34,7 +43,7 @@ const UserProfileScreen = () => {
       },
       {
         title: 'Birthday',
-        info: user.dob,
+        info: new Date(user.dob).toLocaleDateString('vi-VN'),
       },
     ]);
   }, []);
@@ -54,21 +63,16 @@ const UserProfileScreen = () => {
   };
 
   if (loading) {
-    console.log('profile is loading');
-
     return <ActivityIndicator size="large" />;
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Image
-          // TODO: Chèn ảnh thật vào
-          source={{ uri: 'https://i.imgur.com/fRav6Vz.jpeg' }}
-          style={styles.profileImage}
-        />
+        <Image source={{ uri: user.avatar.url }} style={styles.profileImage} />
         <Text style={styles.username}>{user.userName}</Text>
       </View>
+
       <ScrollView
         style={styles.ScrollView_Container}
         showsVerticalScrollIndicator={false}
@@ -153,26 +157,27 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   card: {
-    backgroundColor: '#fff',
-    width: 175,
+    width: '60%',
     height: 175,
     borderRadius: 20,
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
-    elevation: 3, // for Android shadow
   },
   profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
     marginBottom: 10,
+    borderColor: 'red',
+    borderWidth: 5,
     backgroundColor: '#c4c4c4', // A placeholder background color
   },
   username: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: 'black',
   },
   ScrollView_Container: {
     width: '100%',

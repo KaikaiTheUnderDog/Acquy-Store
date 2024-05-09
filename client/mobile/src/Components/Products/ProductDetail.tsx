@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Image,
+  ToastAndroid,
 } from 'react-native';
 
 import { useRoute } from '@react-navigation/native';
@@ -14,9 +15,13 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { Rating } from 'react-native-ratings';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  checkIsBuy,
   clearErrors,
   getProductDetails,
+  newReview,
+  TextInput,
 } from '../../../redux/actions/productActions';
+import { Dropdown } from 'react-native-element-dropdown';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -83,6 +88,14 @@ const Specification = () => {
 
   const [data, setData] = useState([]);
 
+  const { success } = useSelector((state) => state.newReview);
+
+  useEffect(() => {
+    if (success) {
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
+  }, []);
+
   useEffect(() => {
     if (product)
       setData([
@@ -111,19 +124,6 @@ const Specification = () => {
   );
 };
 
-const reviews = [
-  {
-    user: 'User 1',
-    rating: 5,
-    comment:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.    ',
-    date: '1/1/1979',
-  },
-  { user: 'User 2', rating: 4, comment: 'Very good.', date: '1/1/1979' },
-  { user: 'User 3', rating: 3, comment: 'Average.', date: '1/1/1979' },
-  { user: 'User 4', rating: 2, comment: 'Not satisfied.', date: '1/1/1979' },
-];
-
 const review_Stats = [
   { rating: 5, count: 5 },
   { rating: 4, count: 5 },
@@ -132,54 +132,233 @@ const review_Stats = [
   { rating: 1, count: 5 },
 ];
 
-const Reviews = () => (
-  <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
-    <View style={styles.container}>
-      <View style={styles.reviewStats}>
-        {review_Stats.map((review, index) => (
-          <View
-            key={index}
-            style={{ flexDirection: 'row', alignItems: 'center', padding: 5 }}
-          >
-            <Text style={styles.comment}>{review.count} reviews</Text>
-            <Rating imageSize={20} readonly startingValue={review.rating} />
+const stars = [
+  { label: '5 ⭐⭐⭐⭐⭐', value: 5 },
+  { label: '4 ⭐⭐⭐⭐', value: 4 },
+  { label: '3 ⭐⭐⭐', value: 3 },
+  { label: '2 ⭐⭐', value: 2 },
+  { label: '1 ⭐', value: 1 },
+];
+
+const Reviews = () => {
+  const { product } = useRoute().params;
+
+  const dispatch = useDispatch();
+
+  const [reviews, setReviews] = useState([]);
+  const [review, setReview] = useState();
+  const [isFocus, setIsFocus] = useState(false);
+  const [rating, setRating] = useState();
+  const [comment, setComment] = useState();
+  const [lastModified, setLastModified] = useState(new Date());
+  const [isFilterFocused, setIsFilterFocused] = useState(false);
+
+  const { isBuy } = useSelector((state) => state.checkIsBuy);
+  const { user } = useSelector((state) => state.auth);
+  const { success } = useSelector((state) => state.newReview);
+
+  useEffect(() => {
+    dispatch(checkIsBuy(product._id));
+
+    if (isBuy)
+      setReview(product.reviews.filter((rev) => rev.user === user._id));
+
+    if (review) {
+      setRating(review.rating);
+      setComment(review.comment);
+      setLastModified(review.reviewedAt);
+    }
+
+    /* const review_Stats = [
+      {
+        label: `5 (${product.reviews.valueDocument({ rating: 5 })})`,
+        value: 5,
+      },
+      {
+        label: `4 (${product.reviews.countDocument({ rating: 4 })})`,
+        value: 4,
+      },
+      {
+        label: `3 (${product.reviews.countDocument({ rating: 3 })})`,
+        value: 3,
+      },
+      {
+        label: `2 (${product.reviews.countDocument({ rating: 2 })})`,
+        value: 2,
+      },
+      {
+        label: `1 (${product.reviews.countDocument({ rating: 1 })})`,
+        value: 1,
+      },
+    ]; */
+  }, []);
+
+  useEffect(() => {
+    if (success) ToastAndroid.show('Thank you for submitting your review. 😘');
+  }, [success]);
+
+  const newReviewHandler = () => {
+    dispatch(
+      newReview({
+        rating,
+        comment,
+        productId: product._id,
+      })
+    );
+  };
+
+  return (
+    <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
+      {isBuy && (
+        <View style={styles.newReviewContainer}>
+          <View style={{ flexDirection: 'row' }}>
+            <Text
+              style={{
+                width: '24%',
+                marginLeft: 10,
+                fontSize: 13,
+                fontWeight: '500',
+              }}
+            >
+              Your rating:{' '}
+            </Text>
+            <Dropdown
+              style={styles.ratingField}
+              data={stars}
+              value={rating}
+              onFocus={() => setIsFocus(true)}
+              placeholder={!isFocus ? 'Choose rating' : '...'}
+              placeholderStyle={{
+                color: '#999999',
+                fontSize: 12,
+                fontWeight: '600',
+                marginLeft: 10,
+              }}
+              onBlur={() => setIsFocus(false)}
+              onChange={(item) => {
+                setRating(item.value);
+                setIsFocus(false);
+              }}
+              labelField="label"
+              valueField="value"
+              itemTextStyle={{ color: 'black', fontSize: 14 }}
+              selectedTextStyle={{
+                color: 'black',
+                fontSize: 12,
+                fontWeight: '600',
+                alignContent: 'center',
+                marginLeft: 25,
+              }}
+            />
+          </View>
+          <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+            <Text
+              style={{
+                width: '24%',
+                marginLeft: 10,
+                fontSize: 13,
+                fontWeight: '500',
+                textAlignVertical: 'center',
+              }}
+            >
+              Last modified:
+            </Text>
+            <Text
+              style={{
+                width: '30%',
+                marginLeft: 10,
+                fontSize: 13,
+                fontWeight: '500',
+                textAlignVertical: 'center',
+              }}
+            >
+              {new Date(lastModified).toLocaleDateString('vi-VN')}
+            </Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <Text
+              style={{
+                width: '24%',
+                marginLeft: 10,
+                fontSize: 13,
+                fontWeight: '500',
+              }}
+            >
+              Comment:
+            </Text>
+            <TextInput
+              style={styles.commentField}
+              textAlignVertical="top"
+              value={comment}
+              onChangeText={(value) => setComment(value)}
+              placeholder="Enter your comment here"
+              placeholderTextColor="#999999"
+            />
+          </View>
+          <TouchableOpacity style={styles.reviewBtn} onPress={newReviewHandler}>
+            <Text style={styles.reviewText}>Submit</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      <Dropdown
+        style={styles.inputField}
+        data={stars}
+        //value={paymentMethod}
+        onFocus={() => setIsFilterFocused(true)}
+        placeholder={!isFilterFocused ? 'Filter reviews by rating' : '...'}
+        placeholderStyle={{
+          color: '#999999',
+          fontSize: 16,
+          fontWeight: '600',
+        }}
+        onBlur={() => setIsFilterFocused(false)}
+        onChange={(item) => {
+          /* setPaymentMethod(item.value);
+          setPaymentMethodError(false); */
+          setIsFilterFocused(false);
+        }}
+        labelField="label"
+        valueField="value"
+        itemTextStyle={{ color: 'black', fontSize: 16 }}
+        selectedTextStyle={{
+          color: 'black',
+          fontSize: 16,
+          fontWeight: '600',
+        }}
+      />
+      <View style={styles.container}>
+        {reviews.map((review, index) => (
+          <View key={index} style={styles.review}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={{ uri: review.userAvatar }} // Replace with your profile image URI
+                style={styles.profileImage}
+              />
+              <Text style={styles.user}>{review.name}</Text>
+              <Rating
+                style={{ position: 'absolute', marginLeft: '70%' }}
+                imageSize={20}
+                readonly
+                startingValue={review.rating}
+              />
+            </View>
+            <Text style={styles.comment}>{review.comment}</Text>
+            <Text style={styles.date}>
+              {review.reviewedAt || lastModified.toLocaleDateString('vi-vn')}
+            </Text>
           </View>
         ))}
       </View>
-      {reviews.map((review, index) => (
-        <View key={index} style={styles.review}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image
-              source={{ uri: 'https://i.imgur.com/fRav6Vz.jpeg' }} // Replace with your profile image URI
-              style={styles.profileImage}
-            />
-            <Text style={styles.user}>{review.user}</Text>
-            <Rating
-              style={{ position: 'absolute', marginLeft: '70%' }}
-              imageSize={20}
-              readonly
-              startingValue={review.rating}
-            />
-          </View>
-          <Text style={styles.comment}>{review.comment}</Text>
-          <Text style={styles.date}>{review.date}</Text>
-        </View>
-      ))}
-    </View>
-  </ScrollView>
-);
+    </ScrollView>
+  );
+};
 
 const ProductDetailsScreen = ({ id }) => {
-  const [quantity, setQuantity] = useState(1);
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
-
   const dispatch = useDispatch();
 
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
-  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getProductDetails(id));
@@ -189,29 +368,6 @@ const ProductDetailsScreen = ({ id }) => {
       dispatch(clearErrors());
     }
   }, [dispatch, error, id]); // Include `id` as a dependency
-
-  /* const addToCart = () => {
-    addItemToCart(id, quantity)(dispatch);
-    alert.success('Item Added to Cart');
-  }; */
-
-  /* const increaseQty = () => {
-    const count = document.querySelector('.count');
-
-    if (count.valueAsNumber >= product.stock) return;
-
-    const qty = count.valueAsNumber + 1;
-    setQuantity(qty);
-  };
-
-  const decreaseQty = () => {
-    const count = document.querySelector('.count');
-
-    if (count.valueAsNumber <= 1) return;
-
-    const qty = count.valueAsNumber - 1;
-    setQuantity(qty);
-  }; */
 
   if (loading) return <ActivityIndicator size="large" />;
 
@@ -230,7 +386,11 @@ const ProductDetailsScreen = ({ id }) => {
         component={Specification}
         initialParams={{ product }}
       />
-      <Tab.Screen name="Reviews" component={Reviews} />
+      <Tab.Screen
+        name="Reviews"
+        component={Reviews}
+        initialParams={{ product }}
+      />
     </Tab.Navigator>
   );
 };
@@ -240,6 +400,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     marginTop: 20,
+  },
+  newReviewContainer: {
+    width: '100%',
+    height: 200,
+    backgroundColor: 'white',
+    marginBottom: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    paddingTop: 8,
   },
   item: {
     flexDirection: 'row',
@@ -313,6 +482,20 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#FFF',
   },
+  reviewBtn: {
+    width: '20%',
+    height: 35,
+    padding: 5,
+    borderRadius: 10,
+    backgroundColor: '#E4000F',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'flex-end',
+    marginBottom: 10,
+    marginRight: 14,
+    elevation: 5,
+  },
+  reviewText: { fontSize: 12, fontWeight: '500', color: '#FFF' },
   review: {
     marginBottom: 10,
     borderBottomWidth: 1,
@@ -364,6 +547,41 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     marginTop: 5,
     color: '#138B5F',
+  },
+  inputField: {
+    borderWidth: 1,
+    borderColor: 'grey',
+    borderRadius: 5,
+    padding: 10,
+    fontSize: 10,
+    marginBottom: 10,
+    height: 40,
+    color: 'black',
+    fontWeight: '600',
+  },
+  ratingField: {
+    borderWidth: 1,
+    borderColor: 'grey',
+    borderRadius: 5,
+    fontSize: 10,
+    marginBottom: 10,
+    height: 20,
+    width: '40%',
+    color: 'black',
+    fontWeight: '600',
+  },
+  commentField: {
+    borderWidth: 1,
+    borderColor: 'grey',
+    borderRadius: 5,
+    fontSize: 10,
+    marginBottom: 10,
+    height: 80,
+    width: '70%',
+    color: 'black',
+    fontWeight: '600',
+    alignContent: 'flex-start',
+    padding: 10,
   },
 });
 

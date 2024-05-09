@@ -32,6 +32,9 @@ import {
   BEST_SELLERS_REQUEST,
   BEST_SELLERS_SUCCESS,
   BEST_SELLERS_FAILED,
+  CHECK_IS_BUY_REQUEST,
+  CHECK_IS_BUY_SUCCESS,
+  CHECK_IS_BUY_FAILED,
 } from '../constants/productConstants';
 import { apiURL } from '../apiURL';
 
@@ -103,17 +106,31 @@ export const getProductDetails = (id) => async (dispatch) => {
   }
 };
 
+export const checkIsBuy = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: CHECK_IS_BUY_REQUEST });
+
+    const { data } = await axios.get(`${apiURL}/${id}/isbuy`);
+
+    dispatch({ type: CHECK_IS_BUY_SUCCESS, payload: data.isBuy });
+  } catch (err) {
+    dispatch({
+      type: CHECK_IS_BUY_FAILED,
+      payload: err.response.data.errMessage,
+    });
+  }
+};
+
 export const newReview = (reviewData) => async (dispatch) => {
   try {
-    dispatch({ type: NEW_REVIEW_REQUEST });
-
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
 
-    const { data } = await axios.put(`/api/v1/review`, reviewData, config);
+    const { data } = await axios.put(`${apiURL}/review`, reviewData, config);
+    console.log(data);
 
     dispatch({
       type: NEW_REVIEW_SUCCESS,
