@@ -10,26 +10,17 @@ const sendToken = require('../utils/jsonWebToken');
 const sendEmail = require('../utils/sendEmail');
 const Errors = require('../utils/errors');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
-const { log } = require('console');
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyClf9HZxFbaGNnfwPLPsZuej3zoAoRpmMg',
-  authDomain: 'ryzel-318ea.firebaseapp.com',
-  projectId: 'ryzel-318ea',
-  storageBucket: 'ryzel-318ea.appspot.com',
-  messagingSenderId: '706054821323',
-  appId: '1:706054821323:web:bb23db379963ab9345924e',
-  measurementId: 'G-Y42C5E3WS1',
-};
-
-const app = initializeApp(firebaseConfig);
-
-const storage = getStorage();
 
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   const { userName, email, password, avatar } = req.body;
 
   try {
+    const result = await cloudinary.uploader.upload(avatar, {
+      folder: 'avatars',
+      width: 150,
+      crop: 'scale',
+    });
+
     const user = await User.create({
       userName,
       email,
@@ -38,12 +29,6 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
         public_id: result.public_id,
         url: result.secure_url,
       },
-    });
-
-    const result = await cloudinary.uploader.upload(avatar, {
-      folder: 'avatars',
-      width: 150,
-      crop: 'scale',
     });
 
     // Tạo token xác nhận

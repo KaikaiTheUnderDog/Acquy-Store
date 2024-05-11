@@ -75,21 +75,23 @@ exports.isBuyByUser = catchAsyncErrors(async (req, res, next) => {
 
 // Create new review -> /api/v1/review
 exports.createReview = catchAsyncErrors(async (req, res, next) => {
-  const { rating, comment, productId } = req.body;
+  const { rating, comment, productId, name } = req.body;
 
   const review = {
-    user: req.user._id,
+    user: req.user.id,
     rating: Number(rating),
     comment,
-    name: req.user.name,
+    name,
     userAvatar: req.user.avatar.url,
-    reviewedAt: new Date.now(),
+    reviewedAt: Date.now(),
   };
+
+  console.log(name);
 
   const product = await Product.findById(productId);
 
   const isReviewed = product.reviews.find(
-    (r) => r.user.toString() === req.user._id.toString()
+    (r) => r.user.toString() === req.user.id.toString()
   );
 
   if (isReviewed) {

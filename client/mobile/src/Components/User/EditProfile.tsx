@@ -53,7 +53,6 @@ const EditProfile = () => {
   const initInfo = () => {
     if (user) {
       setUserName(user.userName);
-      setAvatar(user.avatar.url);
 
       if (user.gender) {
         setGender(user.gender);
@@ -66,6 +65,8 @@ const EditProfile = () => {
   };
 
   useEffect(() => {
+    setAvatar(user.avatar.url);
+
     initInfo();
   }, []);
 
@@ -97,9 +98,10 @@ const EditProfile = () => {
         birthday,
         gender,
         uploadedAvatar,
-        platform: 'mobile',
       })
     );
+    console.log(avatar);
+    console.log(uploadedAvatar);
   };
 
   const handleChooseAvatar = async () => {
@@ -115,6 +117,8 @@ const EditProfile = () => {
       const imageBase64 = `data:${result.assets[0].type};base64,${result.assets[0].base64}`;
 
       setUploadedAvatar(imageBase64);
+      console.log(avatar);
+      console.log(result.assets[0].uri);
     }
   };
 

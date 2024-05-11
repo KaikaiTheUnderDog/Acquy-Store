@@ -39,19 +39,17 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
   };
 
   // Update avatar
-  if (req.body.avatar) {
+  if (req.body.uploadedAvatar) {
     const user = await User.findById(req.user.id);
 
     const image_id = user.avatar.public_id;
     const res = await cloudinary.uploader.destroy(image_id);
 
-    if (req.body.avatar) {
-      const result = await cloudinary.uploader.upload(req.body.avatar, {
-        folder: 'avatars',
-        width: 150,
-        crop: 'scale',
-      });
-    }
+    const result = await cloudinary.uploader.upload(req.body.uploadedAvatar, {
+      folder: 'avatars',
+      width: 150,
+      crop: 'scale',
+    });
 
     newUserProfile.avatar = {
       public_id: result.public_id,

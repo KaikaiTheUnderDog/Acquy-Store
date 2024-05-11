@@ -58,7 +58,6 @@ const Cart = () => {
         <TouchableOpacity
           style={styles.goShopping_BTN}
           onPress={() => {
-            console.log(' i caused it');
             navigation.navigate('MainPage');
           }}
         >

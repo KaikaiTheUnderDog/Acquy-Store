@@ -42,7 +42,7 @@ const Signup = ({ navigation }: Props) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigation.push('MainPage');
+      navigation.navigate('MainPage');
       dispatch(loadUser());
     }
 
@@ -96,7 +96,7 @@ const Signup = ({ navigation }: Props) => {
     const avatar =
       'https://res.cloudinary.com/dx77ngsh6/image/upload/v1700659080/images/default_avatar.jpg';
 
-    dispatch(register({ userName, email, password, avatar }));
+    https: dispatch(register({ userName, email, password, avatar }));
   };
 
   const onChange = (name, value) => {

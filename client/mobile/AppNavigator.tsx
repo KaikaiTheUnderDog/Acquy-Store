@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Header from './src/Components/Header/Header';
-import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import BottomNavigationBar from './src/Components/Header/Navibar';
 import MainPage from './src/Components/MainPage/MainPage';
 import Login from './src/Components/User/Login';
@@ -16,7 +16,7 @@ import UserProfileScreen from './src/Components/User/UserDetail';
 import Product from './src/Components/Products/Product';
 import SearchResult from './src/Components/Search/SearchResult';
 import Cart from './src/Components/Products/Cart';
-import { Provider, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { loadUser } from './redux/actions/userActions';
 import Checkout1 from './src/Components/Checkout/CheckOut1';
 import Shipping from './src/Components/Checkout/Shipping';
@@ -25,8 +25,6 @@ import StripePayment from './src/Components/Payment/StripePayment';
 import OrderScreen from './src/Components/Order/OrderScreen';
 import OrderDetails from './src/Components/Order/OrderDetails';
 import EditProfile from './src/Components/User/EditProfile';
-import Authenticated from './navigation/Authenticated';
-import Main from './navigation/Main';
 
 const Stack = createStackNavigator();
 
@@ -98,7 +96,6 @@ const AppNavigator = () => {
 };
 
 const styles = StyleSheet.create({
-  //rggg
   container: {
     flex: 1,
     justifyContent: 'space-between',

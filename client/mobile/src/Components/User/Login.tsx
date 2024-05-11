@@ -34,15 +34,15 @@ const Login = () => {
   useEffect(() => {
     if (error) {
       ToastAndroid.show('Email or password is invalid!', ToastAndroid.LONG);
-      dispatch(clearErrors());
       setPassword('');
       setLoginError(true);
+      dispatch(clearErrors());
     }
     if (isAuthenticated) {
       navigation.navigate('MainPage');
       ToastAndroid.show('Login successfully', ToastAndroid.LONG);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, error]);
 
   const signInHandler = () => {
     Keyboard.dismiss();

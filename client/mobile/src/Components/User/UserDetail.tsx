@@ -26,12 +26,13 @@ const UserProfileScreen = () => {
       { title: 'Email', info: user.email },
       {
         title: 'Gender',
-        info:
-          user.gender === 'Male'
-            ? '♂️  Male'
-            : user.gender === 'Female'
-            ? '♀️  Female'
-            : '🏳️‍🌈  Other',
+        info: !user.gender
+          ? ''
+          : user.gender === 'Male'
+          ? '♂️  Male'
+          : user.gender === 'Female'
+          ? '♀️  Female'
+          : '🏳️‍🌈  Other',
       },
       {
         title: 'Joined At',
@@ -43,7 +44,7 @@ const UserProfileScreen = () => {
       },
       {
         title: 'Birthday',
-        info: new Date(user.dob).toLocaleDateString('vi-VN'),
+        info: user.dob ? new Date(user.dob).toLocaleDateString('vi-VN') : '',
       },
     ]);
   }, []);

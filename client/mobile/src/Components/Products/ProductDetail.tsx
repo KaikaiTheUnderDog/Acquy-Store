@@ -2,15 +2,17 @@ import React, { lazy, useEffect, useState } from 'react';
 import {
   View,
   Text,
-  ScrollView,
   StyleSheet,
-  TouchableOpacity,
   ActivityIndicator,
   Image,
   ToastAndroid,
+  TextInput,
+  Touchable,
 } from 'react-native';
 
-import { useRoute } from '@react-navigation/native';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Rating } from 'react-native-ratings';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,9 +21,9 @@ import {
   clearErrors,
   getProductDetails,
   newReview,
-  TextInput,
 } from '../../../redux/actions/productActions';
 import { Dropdown } from 'react-native-element-dropdown';
+import { NEW_REVIEW_RESET } from '../../../redux/constants/productConstants';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -29,6 +31,8 @@ const Overview = () => {
   const { product } = useRoute().params;
   const [mainImage, setMainImage] = useState('');
   const [secondaryImages, setSecondaryImages] = useState([]);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (product && product.images && product.images.length > 0) {
@@ -77,7 +81,12 @@ const Overview = () => {
         )}
       </View>
       <Text style={styles.Name}>{product.name}</Text>
-      <Text style={styles.reviewTxt}>({product.numOfReviews} reviews)</Text>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={styles.ratingsTxt}> {product.ratings} ⭐</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Reviews')}>
+          <Text style={styles.reviewTxt}>({product.numOfReviews} reviews)</Text>
+        </TouchableOpacity>
+      </View>
       <Text style={styles.description}>{product.description}</Text>
     </ScrollView>
   );
@@ -87,14 +96,6 @@ const Specification = () => {
   const { product } = useRoute().params;
 
   const [data, setData] = useState([]);
-
-  const { success } = useSelector((state) => state.newReview);
-
-  useEffect(() => {
-    if (success) {
-      dispatch({ type: NEW_REVIEW_RESET });
-    }
-  }, []);
 
   useEffect(() => {
     if (product)
@@ -124,24 +125,16 @@ const Specification = () => {
   );
 };
 
-const review_Stats = [
-  { rating: 5, count: 5 },
-  { rating: 4, count: 5 },
-  { rating: 3, count: 5 },
-  { rating: 2, count: 5 },
-  { rating: 1, count: 5 },
-];
-
 const stars = [
-  { label: '5 ⭐⭐⭐⭐⭐', value: 5 },
-  { label: '4 ⭐⭐⭐⭐', value: 4 },
-  { label: '3 ⭐⭐⭐', value: 3 },
-  { label: '2 ⭐⭐', value: 2 },
-  { label: '1 ⭐', value: 1 },
+  { label: '⭐⭐⭐⭐⭐', value: 5 },
+  { label: '⭐⭐⭐⭐', value: 4 },
+  { label: '⭐⭐⭐', value: 3 },
+  { label: '⭐⭐', value: 2 },
+  { label: '⭐', value: 1 },
 ];
 
 const Reviews = () => {
-  const { product } = useRoute().params;
+  const { product, loading } = useSelector((state) => state.productDetails);
 
   const dispatch = useDispatch();
 
@@ -152,49 +145,80 @@ const Reviews = () => {
   const [comment, setComment] = useState();
   const [lastModified, setLastModified] = useState(new Date());
   const [isFilterFocused, setIsFilterFocused] = useState(false);
+  const [filterOptions, setFilterOptions] = useState([]);
 
   const { isBuy } = useSelector((state) => state.checkIsBuy);
   const { user } = useSelector((state) => state.auth);
   const { success } = useSelector((state) => state.newReview);
 
   useEffect(() => {
+    setFilterOptions([
+      {
+        label: `(${
+          product.reviews.filter((review) => review.rating === 5).length
+        }) ⭐⭐⭐⭐⭐`,
+        value: 5,
+      },
+      {
+        label: `(${
+          product.reviews.filter((review) => review.rating === 4).length
+        }) ⭐⭐⭐⭐`,
+        value: 4,
+      },
+      {
+        label: `(${
+          product.reviews.filter((review) => review.rating === 3).length
+        }) ⭐⭐⭐`,
+        value: 3,
+      },
+      {
+        label: `(${
+          product.reviews.filter((review) => review.rating === 2).length
+        }) ⭐⭐`,
+        value: 2,
+      },
+      {
+        label: `(${
+          product.reviews.filter((review) => review.rating === 1).length
+        }) ⭐`,
+        value: 1,
+      },
+    ]);
+  }, []);
+
+  useEffect(() => {
+    if (product.reviews)
+      setReviews(
+        product.reviews.sort((a, b) => {
+          return new Date(b.reviewedAt) - new Date(a.reviewedAt);
+        })
+      );
+
     dispatch(checkIsBuy(product._id));
 
-    if (isBuy)
+    if (
+      isBuy &&
+      product.reviews.length > 0 &&
+      product.reviews.filter((rev) => rev.user === user._id).length > 0
+    ) {
       setReview(product.reviews.filter((rev) => rev.user === user._id));
+    }
 
     if (review) {
       setRating(review.rating);
       setComment(review.comment);
       setLastModified(review.reviewedAt);
     }
-
-    /* const review_Stats = [
-      {
-        label: `5 (${product.reviews.valueDocument({ rating: 5 })})`,
-        value: 5,
-      },
-      {
-        label: `4 (${product.reviews.countDocument({ rating: 4 })})`,
-        value: 4,
-      },
-      {
-        label: `3 (${product.reviews.countDocument({ rating: 3 })})`,
-        value: 3,
-      },
-      {
-        label: `2 (${product.reviews.countDocument({ rating: 2 })})`,
-        value: 2,
-      },
-      {
-        label: `1 (${product.reviews.countDocument({ rating: 1 })})`,
-        value: 1,
-      },
-    ]; */
-  }, []);
+  }, [product.reviews]);
 
   useEffect(() => {
-    if (success) ToastAndroid.show('Thank you for submitting your review. 😘');
+    if (success) {
+      ToastAndroid.show(
+        'Thank you for submitting your review. 😘',
+        ToastAndroid.LONG
+      );
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
   }, [success]);
 
   const newReviewHandler = () => {
@@ -203,9 +227,18 @@ const Reviews = () => {
         rating,
         comment,
         productId: product._id,
+        name: user.userName,
       })
     );
   };
+
+  const filterReviews = (value) => {
+    setReviews(product.reviews.filter((review) => review.rating === value));
+  };
+
+  if (loading) {
+    return <ActivityIndicator size="large"></ActivityIndicator>;
+  }
 
   return (
     <ScrollView style={styles.tabContent} showsVerticalScrollIndicator={false}>
@@ -225,7 +258,7 @@ const Reviews = () => {
             <Dropdown
               style={styles.ratingField}
               data={stars}
-              value={rating}
+              //value={rating}
               onFocus={() => setIsFocus(true)}
               placeholder={!isFocus ? 'Choose rating' : '...'}
               placeholderStyle={{
@@ -237,6 +270,7 @@ const Reviews = () => {
               onBlur={() => setIsFocus(false)}
               onChange={(item) => {
                 setRating(item.value);
+
                 setIsFocus(false);
               }}
               labelField="label"
@@ -290,6 +324,7 @@ const Reviews = () => {
               style={styles.commentField}
               textAlignVertical="top"
               value={comment}
+              defaultValue={review && review.comment}
               onChangeText={(value) => setComment(value)}
               placeholder="Enter your comment here"
               placeholderTextColor="#999999"
@@ -302,8 +337,7 @@ const Reviews = () => {
       )}
       <Dropdown
         style={styles.inputField}
-        data={stars}
-        //value={paymentMethod}
+        data={filterOptions}
         onFocus={() => setIsFilterFocused(true)}
         placeholder={!isFilterFocused ? 'Filter reviews by rating' : '...'}
         placeholderStyle={{
@@ -313,8 +347,7 @@ const Reviews = () => {
         }}
         onBlur={() => setIsFilterFocused(false)}
         onChange={(item) => {
-          /* setPaymentMethod(item.value);
-          setPaymentMethodError(false); */
+          filterReviews(item.value);
           setIsFilterFocused(false);
         }}
         labelField="label"
@@ -327,27 +360,29 @@ const Reviews = () => {
         }}
       />
       <View style={styles.container}>
-        {reviews.map((review, index) => (
-          <View key={index} style={styles.review}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Image
-                source={{ uri: review.userAvatar }} // Replace with your profile image URI
-                style={styles.profileImage}
-              />
-              <Text style={styles.user}>{review.name}</Text>
-              <Rating
-                style={{ position: 'absolute', marginLeft: '70%' }}
-                imageSize={20}
-                readonly
-                startingValue={review.rating}
-              />
+        {reviews &&
+          reviews.map((review, index) => (
+            <View key={index} style={styles.review}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Image
+                  source={{ uri: review.userAvatar }} // Replace with your profile image URI
+                  style={styles.profileImage}
+                />
+                <Text style={styles.user}>{review.name}</Text>
+                <Rating
+                  style={{ position: 'absolute', marginLeft: '70%' }}
+                  imageSize={20}
+                  readonly
+                  startingValue={review.rating}
+                />
+              </View>
+              <Text style={styles.comment}>{review.comment}</Text>
+              <Text style={styles.date}>
+                {new Date(review.reviewedAt).toLocaleDateString('vi-vn') ||
+                  lastModified.toLocaleDateString('vi-vn')}
+              </Text>
             </View>
-            <Text style={styles.comment}>{review.comment}</Text>
-            <Text style={styles.date}>
-              {review.reviewedAt || lastModified.toLocaleDateString('vi-vn')}
-            </Text>
-          </View>
-        ))}
+          ))}
       </View>
     </ScrollView>
   );
@@ -359,6 +394,12 @@ const ProductDetailsScreen = ({ id }) => {
   const { loading, error, product } = useSelector(
     (state) => state.productDetails
   );
+
+  const { success } = useSelector((state) => state.newReview);
+
+  useEffect(() => {
+    dispatch(getProductDetails(id));
+  }, [success]);
 
   useEffect(() => {
     dispatch(getProductDetails(id));
@@ -414,7 +455,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 10,
-    paddingTop: 20,
+    marginTop: 5,
     padding: 5,
     borderBottomWidth: 1,
     paddingBottom: 5,
@@ -503,8 +544,9 @@ const styles = StyleSheet.create({
   },
   user: {
     fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: 17,
     paddingLeft: 15,
+    color: 'red',
   },
   rating: {
     color: '#333',
@@ -519,8 +561,8 @@ const styles = StyleSheet.create({
     marginLeft: '85%',
   },
   profileImage: {
-    width: 60,
-    height: 60,
+    width: 40,
+    height: 40,
     borderRadius: 50,
     marginBottom: 10,
     backgroundColor: '#c4c4c4', // A placeholder background color
@@ -544,9 +586,15 @@ const styles = StyleSheet.create({
   },
   reviewTxt: {
     fontSize: 14,
-    paddingLeft: 20,
     marginTop: 5,
     color: '#138B5F',
+    paddingLeft: 5,
+  },
+  ratingsTxt: {
+    fontSize: 14,
+    paddingLeft: 20,
+    marginTop: 5,
+    color: 'black',
   },
   inputField: {
     borderWidth: 1,
@@ -582,6 +630,16 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     alignContent: 'flex-start',
     padding: 10,
+  },
+  myStarStyle: {
+    color: 'yellow',
+    backgroundColor: 'transparent',
+    textShadowColor: 'black',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  },
+  myEmptyStarStyle: {
+    color: 'white',
   },
 });
 

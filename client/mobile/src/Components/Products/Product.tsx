@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  ToastAndroid,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import ProductDetailsScreen from '../Products/ProductDetail';
 import { useDispatch } from 'react-redux';
@@ -13,6 +19,10 @@ const Product = () => {
 
   const addToCart = () => {
     dispatch(addItemToCart(id, quantity));
+    ToastAndroid.show(
+      'This product has been added into cart',
+      ToastAndroid.LONG
+    );
   };
 
   return (

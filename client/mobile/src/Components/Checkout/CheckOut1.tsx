@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  ToastAndroid,
 } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
@@ -103,6 +104,12 @@ const Checkout1 = () => {
   };
 
   const submitHandler = () => {
+    if (!user) {
+      ToastAndroid.show('Please login first !!!', ToastAndroid.LONG);
+      navigation.navigate('Login');
+      return;
+    }
+
     if (!shippingInfo || !paymentMethod) {
       if (!shippingInfo) setShippingInfoError(true);
       if (!paymentMethod) {
@@ -120,6 +127,7 @@ const Checkout1 = () => {
       totalPrice,
       paymentMethod,
     };
+    10;
 
     if (paymentMethod === 'COD') {
       dispatch(createOrder(order));
