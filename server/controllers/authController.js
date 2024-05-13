@@ -10,11 +10,12 @@ const sendToken = require('../utils/jsonWebToken');
 const sendEmail = require('../utils/sendEmail');
 const Errors = require('../utils/errors');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
+const { log } = require('console');
 
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
-  const { userName, email, password, avatar } = req.body;
-
   try {
+    const { userName, email, password, avatar } = req.body;
+
     const result = await cloudinary.uploader.upload(avatar, {
       folder: 'avatars',
       width: 150,
@@ -31,24 +32,41 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
       },
     });
 
-    // Tạo token xác nhận
-    const verificationToken = user.createVerificationToken();
-
-    // Lưu token và ngày hết hạn
     await user.save();
 
-    // Gửi email xác nhận
-    const verificationUrl = `http://localhost:8000/api/v1/verify/${verificationToken}`;
-    const message = `Thank you for registering. Please click on the following link to verify your email address: \n\n${verificationUrl}`;
+    sendToken(user, 200, res);
+  } catch (error) {
+    return next(new Errors(error.message, 400));
+  }
+});
 
-    await sendEmail({
-      email: user.email,
-      subject: 'Email Verification - Ryzel Store',
-      message,
+exports.sendOtp = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      email: req.body.email,
     });
 
-    // Gọi sendToken sau khi gửi email thành công
-    sendToken(user, 200, res);
+    if (user) {
+      //Tạo OTP
+      const otp = user.createRegisterOtp();
+
+      user.save();
+
+      // Gửi email xác nhận
+      const message = `Thank you for registering. Please enter the following OTP in register screen to verify your account: \n\n${otp}`;
+
+      await sendEmail({
+        email: user.email,
+        subject: 'Register Verification OTP - Ryzel Store',
+        message,
+      });
+    } else {
+      return next(new Errors('User not found', 400));
+    }
+
+    res.status(200).json({
+      mailSent: true,
+    });
   } catch (error) {
     return next(new Errors(error.message, 400));
   }
@@ -56,32 +74,30 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 
 exports.verifyEmail = catchAsyncErrors(async (req, res, next) => {
   try {
-    const hashedToken = crypto
-      .createHash('sha256')
-      .update(req.params.token)
-      .digest('hex');
+    const otp = Number(req.params.otp);
 
     const user = await User.findOne({
-      registerToken: hashedToken,
-      registerTokenExpiration: { $gt: Date.now() },
+      registerOtp: otp,
+      registerOtpExpires: { $gt: Date.now() },
     });
 
     if (!user) {
-      return next(new Errors('Verification token is invalid or expired', 400));
+      return next(new Errors('OTP is invalid or expired', 400));
     }
 
     // Cập nhật isVerified và xóa thông tin token
     user.isVerified = true;
-    user.registerToken = undefined;
-    user.registerTokenExpiration = undefined;
+    user.registerOtp = undefined;
+    user.registerOtpExpires = undefined;
 
     await user.save();
 
     // Gửi thông báo hoặc chuyển hướng đến trang xác nhận thành công
     res.status(200).json({
       success: true,
-      message: 'Email verified successfully!',
     });
+
+    sendToken(user, 200, res);
   } catch (error) {
     return next(new Errors(error.message, 400));
   }
@@ -131,15 +147,11 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
     return next(new Errors('Invalid email', 404));
   }
 
-  // Get reset token
-  const resetToken = user.createPasswordResetToken();
+  const otp = user.createResetPasswordOtp();
 
   await user.save({ validateBeforeSave: false });
 
-  // Create reset password URL
-  const resetPasswordUrl = `http://localhost:8000/api/v1/password/reset/${resetToken}`;
-
-  const message = `Your password reset token is as follow: \n\n${resetPasswordUrl}\n\nIf you haven't requested this email, please ignore it.`;
+  const message = `Your password reset OTP is as follow: \n\n${otp}\n\nIf you haven't requested this email, please ignore it.`;
 
   try {
     await sendEmail({
@@ -149,12 +161,11 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
     });
 
     res.status(200).json({
-      success: true,
-      message: `Password reset link sent to your email ${user.email}`,
+      mailSent: true,
     });
   } catch (error) {
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
+    user.resetPasswordOtp = undefined;
+    user.resetPasswordOtpExpires = undefined;
 
     await user.save({ validateBeforeSave: false });
 
@@ -162,39 +173,55 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
-  // Hash URL token
-  const hashedToken = crypto
-    .createHash('sha256')
-    .update(req.params.token)
-    .digest('hex');
+exports.verifyResetPasswordOtp = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const otp = Number(req.params.otp);
 
+    const user = await User.findOne({
+      resetPasswordOtp: otp,
+      resetPasswordOtpExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return next(new Errors('OTP is invalid or expired', 400));
+    }
+
+    // Cập nhật isVerified và xóa thông tin token
+    user.resetPasswordOtp = undefined;
+    user.resetPasswordOtpExpires = undefined;
+
+    await user.save();
+
+    // Gửi thông báo hoặc chuyển hướng đến trang xác nhận thành công
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    return next(new Errors(error.message, 400));
+  }
+});
+
+exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findOne({
-    resetPasswordToken: hashedToken,
-    resetPasswordExpires: { $gt: Date.now() },
+    email: req.body.email,
   });
 
   if (!user) {
-    return next(new Errors('Password reset token is invalid or expired', 400));
-  }
-
-  if (req.body.password !== req.body.confirmedPassword) {
-    return next(new Errors('Passwords do not match'), 400);
+    return next(new Errors('Fatal error', 400));
   }
 
   // Set new password
   user.password = req.body.password;
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpires = undefined;
 
   await user.save();
 
-  sendToken(user, 200, res);
+  res.status(200).json({
+    success: true,
+  });
 });
 
 // Change password -> /api/v1/password/update
 exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
-  console.log(req.user.id);
   const user = await User.findById(req.user.id).select('+password');
 
   // Check old user's password

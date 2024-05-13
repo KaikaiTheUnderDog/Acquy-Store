@@ -3,6 +3,7 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jsonWebToken = require('jsonwebtoken');
 const crypto = require('crypto');
+const { resetPassword } = require('../controllers/authController');
 
 const cloudinary = require('cloudinary').v2;
 
@@ -88,6 +89,10 @@ const userSchema = new mongoose.Schema({
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
+  resetPasswordOtp: Number,
+  resetPasswordOtpExpires: Date,
+  registerOtp: Number,
+  registerOtpExpires: Date,
   registerToken: String,
   registerTokenExpiration: Date,
 });
@@ -137,6 +142,24 @@ userSchema.methods.createPasswordResetToken = function () {
   this.resetPasswordExpires = Date.now() + 3600000;
 
   return resetToken;
+};
+
+userSchema.methods.createRegisterOtp = function () {
+  // Create token
+  this.registerOtp = Math.floor(100000 + Math.random() * 900000);
+  // Set token expires time
+  this.registerOtpExpires = Date.now() + 300000;
+
+  return this.registerOtp;
+};
+
+userSchema.methods.createResetPasswordOtp = function () {
+  // Create token
+  this.resetPasswordOtp = Math.floor(100000 + Math.random() * 900000);
+  // Set token expires time
+  this.resetPasswordOtpExpires = Date.now() + 300000;
+
+  return this.resetPasswordOtp;
 };
 
 userSchema.methods.createVerificationToken = function () {

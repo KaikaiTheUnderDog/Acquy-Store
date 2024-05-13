@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   View,
   ScrollView,
@@ -12,49 +12,53 @@ import {
 } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../../redux/actions/userActions';
+import { loadUser, logout } from '../../../redux/actions/userActions';
 
 const UserProfileScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
+  const isFocused = useIsFocused();
 
   const { user, loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    setData([
-      { title: 'Email', info: user.email },
-      {
-        title: 'Gender',
-        info: !user.gender
-          ? ''
-          : user.gender === 'Male'
-          ? '♂️  Male'
-          : user.gender === 'Female'
-          ? '♀️  Female'
-          : '🏳️‍🌈  Other',
-      },
-      {
-        title: 'Joined At',
-        info: new Date(user.createdAt).toLocaleDateString('vi-VN'),
-      },
-      {
-        title: 'Verified',
-        info: user.isVerified,
-      },
-      {
-        title: 'Birthday',
-        info: user.dob ? new Date(user.dob).toLocaleDateString('vi-VN') : '',
-      },
-    ]);
-  }, []);
+    if (isFocused) {
+      dispatch(loadUser());
+    }
+  }, [isFocused]);
 
-  if (!user)
-    return (
-      <View style={styles.container}>
-        <Text>User not found</Text>
-      </View>
-    );
+  useEffect(() => {
+    if (user)
+      setData([
+        { title: 'Email', info: user.email },
+        {
+          title: 'Gender',
+          info: !user.gender
+            ? ''
+            : user.gender === 'Male'
+            ? '♂️  Male'
+            : user.gender === 'Female'
+            ? '♀️  Female'
+            : '🏳️‍🌈  Other',
+        },
+        {
+          title: 'Joined At',
+          info: new Date(user.createdAt).toLocaleDateString('vi-VN'),
+        },
+        {
+          title: 'Verified',
+          info: user.isVerified,
+        },
+        {
+          title: 'Birthday',
+          info: user.dob ? new Date(user.dob).toLocaleDateString('vi-VN') : '',
+        },
+      ]);
+  }, [user]);
+
+  if (!user || loading)
+    return <ActivityIndicator size={'large'}></ActivityIndicator>;
 
   const logoutHandler = () => {
     navigation.navigate('MainPage');
@@ -90,14 +94,28 @@ const UserProfileScreen = () => {
             >
               <Text style={styles.title}>{info.title}</Text>
               {info.title === 'Verified' ? (
-                <Image
-                  style={styles.icon}
-                  source={
-                    info.info === true
-                      ? require('../../assets/check.png')
-                      : require('../../assets/cross.png')
-                  }
-                />
+                <View
+                  style={{ flexDirection: 'row', justifyContent: 'flex-end' }}
+                >
+                  <Image
+                    style={styles.icon}
+                    source={
+                      info.info === true
+                        ? require('../../assets/check.png')
+                        : require('../../assets/cross.png')
+                    }
+                  />
+                  {info.info === false && (
+                    <TouchableOpacity
+                      style={styles.sendMailBtn}
+                      onPress={() => navigation.navigate('VerifyAccount')}
+                    >
+                      <Text style={styles.sendMailBtnText}>
+                        Press here to verify
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
               ) : (
                 <Text style={styles.info}>{info.info}</Text>
               )}
@@ -113,7 +131,7 @@ const UserProfileScreen = () => {
             style={styles.button}
             onPress={() => navigation.navigate('OrderScreen')}
           >
-            <Text style={styles.buttonText}>My Order</Text>
+            <Text style={styles.buttonText}>My Orders</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
@@ -156,6 +174,18 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 15,
+  },
+  sendMailBtn: {
+    width: '60%',
+    height: 20,
+    borderRadius: 10,
+    justifyContent: 'center',
+  },
+  sendMailBtnText: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: 'orange',
+    textDecorationLine: 'underline',
   },
   card: {
     width: '60%',

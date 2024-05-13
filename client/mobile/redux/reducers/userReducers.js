@@ -43,6 +43,20 @@ import {
   ADD_SHIPPING_INFO_SUCCESS,
   ADD_SHIPPING_INFO_FAILED,
   ADD_SHIPPING_INFO_RESET,
+  SEND_OTP_REQUEST,
+  SEND_OTP_SUCCESS,
+  SEND_OTP_FAILED,
+  VERIFY_FAILED,
+  VERIFY_REQUEST,
+  VERIFY_SUCCESS,
+  VERIFY_RESET,
+  SEND_OTP_RESET,
+  FORGOT_PASSWORD_RESET,
+  RESET_PASSWORD_VERIFY_REQUEST,
+  RESET_PASSWORD_VERIFY_FAILED,
+  RESET_PASSWORD_VERIFY_SUCCESS,
+  RESET_PASSWORD_VERIFY_RESET,
+  NEW_PASSWORD_RESET,
 } from '../constants/userConstants';
 
 export const authReducer = (state = { user: {} }, action) => {
@@ -55,6 +69,47 @@ export const authReducer = (state = { user: {} }, action) => {
         isAuthenticated: false,
       };
 
+    case SEND_OTP_REQUEST:
+    case VERIFY_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case VERIFY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: action.payload,
+      };
+
+    case VERIFY_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+
+    case SEND_OTP_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        mailSent: action.payload,
+      };
+
+    case SEND_OTP_FAILED:
+    case VERIFY_FAILED:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+
+    case SEND_OTP_RESET:
+      return {
+        ...state,
+        mailSent: false,
+      };
+
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
     case LOAD_USER_SUCCESS:
@@ -63,6 +118,7 @@ export const authReducer = (state = { user: {} }, action) => {
         loading: false,
         isAuthenticated: true,
         user: action.payload,
+        registerSuccess: true,
       };
 
     case LOAD_USER_FAILED:
@@ -187,6 +243,7 @@ export const forgotPasswordReducer = (state = {}, action) => {
   switch (action.type) {
     case FORGOT_PASSWORD_REQUEST:
     case NEW_PASSWORD_REQUEST:
+    case RESET_PASSWORD_VERIFY_REQUEST:
       return {
         ...state,
         loading: true,
@@ -197,17 +254,44 @@ export const forgotPasswordReducer = (state = {}, action) => {
       return {
         ...state,
         loading: false,
-        message: action.payload,
+        mailSent: action.payload,
+      };
+
+    case FORGOT_PASSWORD_RESET:
+      return {
+        ...state,
+        mailSent: false,
+      };
+
+    case RESET_PASSWORD_VERIFY_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+
+    case NEW_PASSWORD_RESET:
+      return {
+        ...state,
+        resetSuccess: false,
       };
 
     case NEW_PASSWORD_SUCCESS:
       return {
         ...state,
+        loading: false,
+        resetSuccess: action.payload,
+      };
+
+    case RESET_PASSWORD_VERIFY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
         success: action.payload,
       };
 
     case FORGOT_PASSWORD_FAILED:
     case NEW_PASSWORD_FAILED:
+    case RESET_PASSWORD_VERIFY_FAILED:
       return {
         ...state,
         loading: false,

@@ -46,6 +46,7 @@ const EditProfile = () => {
   const [open, setOpen] = useState(false);
   const [hasBirthday, setHasBirthday] = useState(false);
   const [uploadedAvatar, setUploadedAvatar] = useState();
+  const [birthdayEdited, setBirthdayEdited] = useState();
 
   const { user } = useSelector((state) => state.auth);
   const { isUpdated, loading } = useSelector((state) => state.user);
@@ -95,13 +96,11 @@ const EditProfile = () => {
     dispatch(
       updateProfile({
         userName,
-        birthday,
+        birthday: birthdayEdited,
         gender,
         uploadedAvatar,
       })
     );
-    console.log(avatar);
-    console.log(uploadedAvatar);
   };
 
   const handleChooseAvatar = async () => {
@@ -117,8 +116,6 @@ const EditProfile = () => {
       const imageBase64 = `data:${result.assets[0].type};base64,${result.assets[0].base64}`;
 
       setUploadedAvatar(imageBase64);
-      console.log(avatar);
-      console.log(result.assets[0].uri);
     }
   };
 
@@ -194,6 +191,7 @@ const EditProfile = () => {
 
             setBirthday(date);
             setHasBirthday(true);
+            setBirthdayEdited(date);
             Keyboard.dismiss();
           }}
           onCancel={() => {

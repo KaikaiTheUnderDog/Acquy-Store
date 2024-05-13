@@ -41,6 +41,15 @@ import {
   ADD_SHIPPING_INFO_REQUEST,
   ADD_SHIPPING_INFO_FAILED,
   ADD_SHIPPING_INFO_SUCCESS,
+  SEND_OTP_REQUEST,
+  SEND_OTP_SUCCESS,
+  SEND_OTP_FAILED,
+  VERIFY_FAILED,
+  VERIFY_SUCCESS,
+  VERIFY_REQUEST,
+  RESET_PASSWORD_VERIFY_REQUEST,
+  RESET_PASSWORD_VERIFY_SUCCESS,
+  RESET_PASSWORD_VERIFY_FAILED,
 } from '../constants/userConstants';
 import { apiURL } from '../apiURL';
 
@@ -95,6 +104,39 @@ export const register = (userData) => async (dispatch) => {
     });
   }
 };
+
+export const sendOtp = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: SEND_OTP_REQUEST });
+
+    const config = { headers: { 'Content-Type': 'application/json' } };
+
+    const { data } = await axios.put(`${apiURL}/register/otp`, email, config);
+
+    dispatch({ type: SEND_OTP_SUCCESS, payload: data.mailSent });
+  } catch (error) {
+    dispatch({
+      type: SEND_OTP_FAILED,
+      payload: error.response.data.errMessage,
+    });
+  }
+};
+
+export const verifyEmail = (otp) => async (dispatch) => {
+  try {
+    dispatch({ type: VERIFY_REQUEST });
+
+    const { data } = await axios.put(`${apiURL}/verify/${otp}`);
+
+    dispatch({ type: VERIFY_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({
+      type: VERIFY_FAILED,
+      payload: error.response.data.errMessage,
+    });
+  }
+};
+
 export const addShippingInfo = (shippingData) => async (dispatch) => {
   try {
     dispatch({ type: ADD_SHIPPING_INFO_REQUEST });
@@ -228,7 +270,7 @@ export const forgotPassword = (email) => async (dispatch) => {
 
     dispatch({
       type: FORGOT_PASSWORD_SUCCESS,
-      payload: data.message,
+      payload: data.mailSent,
     });
   } catch (error) {
     dispatch({
@@ -238,7 +280,22 @@ export const forgotPassword = (email) => async (dispatch) => {
   }
 };
 
-export const resetPassword = (token, passwords) => async (dispatch) => {
+export const verifyResetPasswordOtp = (otp) => async (dispatch) => {
+  try {
+    dispatch({ type: RESET_PASSWORD_VERIFY_REQUEST });
+
+    const { data } = await axios.put(`${apiURL}/password/reset/${otp}`);
+
+    dispatch({ type: RESET_PASSWORD_VERIFY_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({
+      type: RESET_PASSWORD_VERIFY_FAILED,
+      payload: error.response.data.errMessage,
+    });
+  }
+};
+
+export const resetPassword = (password) => async (dispatch) => {
   try {
     dispatch({ type: NEW_PASSWORD_REQUEST });
 
@@ -249,8 +306,8 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `${apiURL}/password/reset/${token}`,
-      passwords,
+      `${apiURL}/password/reset`,
+      password,
       config
     );
 

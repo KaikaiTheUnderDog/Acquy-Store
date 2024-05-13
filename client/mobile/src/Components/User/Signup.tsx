@@ -17,6 +17,7 @@ import {
   register,
   clearErrors,
   loadUser,
+  sendOtp,
 } from '../../../redux/actions/userActions';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -36,14 +37,18 @@ const Signup = ({ navigation }: Props) => {
   const [emailError, setEmailError] = useState(false);
   const dispatch = useDispatch();
 
-  const { error, isAuthenticated, loading } = useSelector(
+  const { error, isAuthenticated, loading, registerSuccess } = useSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigation.navigate('MainPage');
       dispatch(loadUser());
+    }
+
+    if (registerSuccess) {
+      dispatch(sendOtp({ email: user.email }));
+      navigation.navigate('VerifyAccount');
     }
 
     if (error) {
@@ -65,7 +70,7 @@ const Signup = ({ navigation }: Props) => {
 
       dispatch(clearErrors());
     }
-  }, [error, isAuthenticated, loading]);
+  }, [error, isAuthenticated, registerSuccess]);
 
   const { userName, email, password, confirmedPassword } = user;
 

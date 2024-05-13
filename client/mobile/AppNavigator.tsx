@@ -25,6 +25,7 @@ import StripePayment from './src/Components/Payment/StripePayment';
 import OrderScreen from './src/Components/Order/OrderScreen';
 import OrderDetails from './src/Components/Order/OrderDetails';
 import EditProfile from './src/Components/user/EditProfile';
+import VerifyAccount from './src/Components/user/VerifyAccount';
 
 const Stack = createStackNavigator();
 
@@ -88,6 +89,7 @@ const AppNavigator = () => {
             component={OrderDetails}
             options={{ detachPreviousScreen: false, freezeOnBlur: false }}
           />
+          <Stack.Screen name="VerifyAccount" component={VerifyAccount} />
         </Stack.Navigator>
         <BottomNavigationBar />
       </NavigationContainer>

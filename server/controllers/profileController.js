@@ -34,9 +34,16 @@ exports.addShippingInfo = catchAsyncErrors(async (req, res, next) => {
 exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
   const newUserProfile = {
     userName: req.body.userName,
-    dob: new Date(req.body.birthday),
     gender: req.body.gender,
   };
+
+  const dob = new Date(req.body.birthday);
+
+  if (Object.prototype.toString.call(dob) === '[object Date]') {
+    if (!isNaN(dob)) {
+      newUserProfile.dob = dob;
+    }
+  }
 
   // Update avatar
   if (req.body.uploadedAvatar) {
