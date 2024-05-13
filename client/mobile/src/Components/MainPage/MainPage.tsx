@@ -7,14 +7,14 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import SmallProductCard from '../Products/SmallProductCard';
+import SmallProductCard from '../product/SmallProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
   clearErrors,
   getProducts,
 } from '../../../redux/actions/productActions';
-import BestSellers from '../Products/BestSellers';
+import BestSellers from '../product/BestSellers';
 
 const ProductList = () => {
   const dispatch = useDispatch();

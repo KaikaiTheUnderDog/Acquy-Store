@@ -3,19 +3,37 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
+  Alert,
   TouchableOpacity,
   ActivityIndicator,
   ToastAndroid,
+  Modal,
+  ScrollView,
 } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
 import Checkout_ItemCard from './Checkout_ItemCard';
-import { CommonActions, useNavigation } from '@react-navigation/native';
+import {
+  CommonActions,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from '../../../redux/actions/userActions';
 import { ADD_SHIPPING_INFO_RESET } from '../../../redux/constants/userConstants';
 import { createOrder } from '../../../redux/actions/orderActions';
+import {
+  CardField,
+  createPaymentMethod,
+  StripeProvider,
+  useConfirmPayment,
+} from '@stripe/stripe-react-native';
+import {
+  getStripeAPIKey,
+  processPayment,
+} from '../../../redux/actions/paymentActions';
+import axios from 'axios';
+import { apiURL } from '../../../redux/apiURL';
 
 const paymentOptions = [
   {
@@ -29,6 +47,8 @@ const paymentOptions = [
 ];
 
 const Checkout1 = () => {
+  const { orderItems } = useRoute().params;
+
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -46,7 +66,7 @@ const Checkout1 = () => {
 
   const { user } = useSelector((state) => state.auth);
   const { isAdded } = useSelector((state) => state.user);
-  const { cartItems } = useSelector((state) => state.cart);
+  //const { orderItems } = useSelector((state) => state.cart);
   const { loading } = useSelector((state) => state.newOrder);
 
   useEffect(() => {
@@ -74,7 +94,7 @@ const Checkout1 = () => {
       setData(newData);
     }
     setTotalPrice(
-      cartItems
+      orderItems
         .reduce((acc, item) => acc + item.quantity * item.price, 0)
         .toFixed(2)
     );
@@ -84,7 +104,7 @@ const Checkout1 = () => {
     if (shippingInfo) {
       shippingPriceHandler();
       setTotalPrice(
-        cartItems
+        orderItems
           .reduce(
             (acc, item) => acc + item.quantity * item.price,
             taxPrice + shippingPrice
@@ -103,7 +123,7 @@ const Checkout1 = () => {
     else setShippingPrice(20);
   };
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     if (!user) {
       ToastAndroid.show('Please login first !!!', ToastAndroid.LONG);
       navigation.navigate('Login');
@@ -119,7 +139,7 @@ const Checkout1 = () => {
     }
 
     const order = {
-      orderItems: cartItems,
+      orderItems,
       shippingInfo,
       itemsPrice,
       shippingPrice,
@@ -127,7 +147,6 @@ const Checkout1 = () => {
       totalPrice,
       paymentMethod,
     };
-    10;
 
     if (paymentMethod === 'COD') {
       dispatch(createOrder(order));
@@ -140,10 +159,10 @@ const Checkout1 = () => {
       );
       dispatch({ type: 'CLEAR_CART' });
     } else if (paymentMethod === 'Stripe') {
-      navigation.navigate('StripePayment', { order: order });
-    }
+      const paymentData = { amount: Math.round(order.totalPrice * 100) };
 
-    dispatch({ type: 'CLEAR_CART' });
+      navigation.navigate('StripePayment', { order, paymentData });
+    }
   };
 
   return (
@@ -160,7 +179,7 @@ const Checkout1 = () => {
       </Text>
       <ScrollView
         style={[
-          cartItems.length > 1 ? { height: '20%' } : { height: '15%' },
+          orderItems.length > 1 ? { height: '20%' } : { height: '15%' },
           {
             marginBottom: 15,
             backgroundColor: 'red',
@@ -170,12 +189,12 @@ const Checkout1 = () => {
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled
       >
-        {cartItems &&
-          cartItems.length > 0 &&
-          cartItems.map((cartItem) => (
+        {orderItems &&
+          orderItems.length > 0 &&
+          orderItems.map((orderItem) => (
             <Checkout_ItemCard
-              key={cartItem.product}
-              item={cartItem}
+              key={orderItem.product}
+              item={orderItem}
             ></Checkout_ItemCard>
           ))}
       </ScrollView>
@@ -220,6 +239,7 @@ const Checkout1 = () => {
             fontWeight: '600',
           }}
         />
+        {paymentMethod === 'Stripe'}
         <ScrollView>
           <Text
             style={{
@@ -377,6 +397,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 0,
     paddingBottom: 0,
+    backgroundColor: 'white',
   },
   shippingPrice: {
     color: 'black',
@@ -473,6 +494,22 @@ const styles = StyleSheet.create({
     marginRight: 10,
     color: 'black',
     fontWeight: 'bold',
+  },
+  payBtn: {
+    width: '30%',
+    height: '100%',
+    marginBottom: 50,
+    borderRadius: 10,
+    marginTop: 10,
+    backgroundColor: '#E4000F',
+    alignItems: 'center',
+    elevation: 5,
+    justifyContent: 'center',
+  },
+  payBtnText: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: '#FFF',
   },
 });
 

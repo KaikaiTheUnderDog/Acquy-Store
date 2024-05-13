@@ -8,7 +8,7 @@ import {
   Pressable,
   ToastAndroid,
 } from 'react-native';
-import SmallProductCard from '../Products/SmallProductCard'; // Make sure to import SmallProductCard
+import SmallProductCard from '../product/SmallProductCard'; // Make sure to import SmallProductCard
 import { useDispatch, useSelector } from 'react-redux';
 import {
   clearErrors,

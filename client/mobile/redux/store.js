@@ -27,6 +27,10 @@ import {
   orderReducer,
 } from './reducers/orderReducers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  stripeAPIKeyReducer,
+  processPaymentReducer,
+} from './reducers/paymentReducers';
 
 const reducer = combineReducers({
   products: productReducer,
@@ -49,6 +53,8 @@ const reducer = combineReducers({
   productReviews: productReviewsReducer,
   bestSellers: bestSellersReducer,
   checkIsBuy: checkIsBuyReducer,
+  stripeAPIKey: stripeAPIKeyReducer,
+  processPayment: processPaymentReducer,
 });
 
 const store = configureStore({

@@ -175,8 +175,7 @@ const Cart = () => {
         <TouchableOpacity
           style={styles.Cart_BTN}
           onPress={() => {
-            navigation.navigate('Checkout');
-            console.log('Attempting to navigate to Checkout');
+            navigation.navigate('Checkout', { orderItems: cartItems });
           }}
         >
           <Text style={styles.Buy_Txt}>Check out</Text>

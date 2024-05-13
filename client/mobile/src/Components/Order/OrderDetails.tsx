@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   cancelOrder,
@@ -21,6 +21,7 @@ import OrderDetail_ItemCard from './OrderDetail_ItemCard';
 const OrderDetails = () => {
   const { id } = useRoute().params;
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const { order, loading } = useSelector((state) => state.orderDetails);
   const { isUpdated } = useSelector((state) => state.order);
@@ -218,6 +219,16 @@ const OrderDetails = () => {
             <Text style={styles.buttonText}>🤧 Cancel Order 🥺</Text>
           </TouchableOpacity>
         )}
+      {order.orderStatus === 'Delivered' && (
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate('Checkout', { orderItems: order.orderItems })
+          }
+        >
+          <Text style={styles.buttonText}>🤑 Buy Again 😘</Text>
+        </TouchableOpacity>
+      )}
     </ScrollView>
   );
 };

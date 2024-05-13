@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 
-import ProductDetailsScreen from '../Products/ProductDetail';
+import ProductDetailsScreen from './ProductDetail';
 import { useDispatch } from 'react-redux';
 import { addItemToCart } from '../../../redux/actions/cartActions';
 import { useRoute } from '@react-navigation/native';
