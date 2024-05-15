@@ -21,12 +21,14 @@ const product = require('./routers/productRouter');
 const profile = require('./routers/profileRouter');
 const order = require('./routers/orderRouter');
 const payment = require('./routers/paymentRouter');
+const admin = require('./routers/adminRouter');
 
 app.use('/api/v1', auth);
 app.use('/api/v1', product);
 app.use('/api/v1', profile);
 app.use('/api/v1', order);
 app.use('/api/v1', payment);
+app.use('/api/v1', admin);
 
 // Middleware to handle errors
 app.use(errorHandler);

@@ -18,9 +18,10 @@ const UserProfileScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
-  const isFocused = useIsFocused();
 
   const { user, loading } = useSelector((state) => state.auth);
+
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     if (isFocused) {

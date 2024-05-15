@@ -93,11 +93,12 @@ const Checkout1 = () => {
       }));
       setData(newData);
     }
-    setTotalPrice(
+    setItemsPrice(
       orderItems
         .reduce((acc, item) => acc + item.quantity * item.price, 0)
         .toFixed(2)
     );
+    setTotalPrice(itemsPrice);
   }, []);
 
   useEffect(() => {
