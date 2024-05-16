@@ -75,11 +75,11 @@ const ForgotPassword = () => {
   }, [success]);
 
   useEffect(() => {
-    if (success === true) {
+    if (resetSuccess === true) {
       navigation.navigate('Login');
       ToastAndroid.show('Password has been reset.', ToastAndroid.LONG);
     }
-  }, [success]);
+  }, [resetSuccess]);
 
   useEffect(() => {
     if (error) {

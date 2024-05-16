@@ -8,11 +8,11 @@ import Header from './src/Components/Header/Header';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import BottomNavigationBar from './src/Components/Header/Navibar';
 import MainPage from './src/Components/MainPage/MainPage';
-import Login from './src/Components/user/Login';
-import Signup from './src/Components/user/Signup';
-import ForgotPassword from './src/Components/user/ForgotPassword';
-import ChangePassword from './src/Components/user/ChangePassword';
-import UserProfileScreen from './src/Components/user/UserDetail';
+import Login from './src/Components/User/Login';
+import Signup from './src/Components/User/Signup';
+import ForgotPassword from './src/Components/User/ForgotPassword';
+import ChangePassword from './src/Components/User/ChangePassword';
+import UserProfileScreen from './src/Components/User/UserDetail';
 import Product from './src/Components/product/Product';
 import SearchResult from './src/Components/Search/SearchResult';
 import Cart from './src/Components/product/Cart';
@@ -24,8 +24,8 @@ import PaymentSuccess from './src/Components/Payment/PaymentSuccess';
 import StripePayment from './src/Components/Payment/StripePayment';
 import OrderScreen from './src/Components/Order/OrderScreen';
 import OrderDetails from './src/Components/Order/OrderDetails';
-import EditProfile from './src/Components/user/EditProfile';
-import VerifyAccount from './src/Components/user/VerifyAccount';
+import EditProfile from './src/Components/User/EditProfile';
+import VerifyAccount from './src/Components/User/VerifyAccount';
 
 const Stack = createStackNavigator();
 

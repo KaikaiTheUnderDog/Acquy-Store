@@ -86,6 +86,8 @@ const Checkout1 = () => {
   }, [user]);
 
   useEffect(() => {
+    if (!user) {
+    }
     if (user && user.shippingInfo && user.shippingInfo.length > 0) {
       const newData = user.shippingInfo.map((info) => ({
         label: `${info.phoneNo}, ${info.receiver} - ${info.address}, ${info.city}, ${info.country}`,

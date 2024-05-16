@@ -13,11 +13,15 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import OrderItem from './OrderItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { myOrders } from '../../../redux/actions/orderActions';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 
 const Tab = createMaterialTopTabNavigator();
 
-const MyOrder = () => {
+const MyOrder = ({ route }) => {
   const { status } = route.params;
   const orders = useSelector((state) => state.myOrders.orders);
 
@@ -52,9 +56,13 @@ const OrderScreen = () => {
     dispatch(myOrders());
   }, []);
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
-    if (!orders) dispatch(myOrders());
-  }, [orders]);
+    if (isFocused) {
+      dispatch(myOrders());
+    }
+  }, [isFocused]);
 
   if (loading) {
     return <ActivityIndicator size="large" />;
