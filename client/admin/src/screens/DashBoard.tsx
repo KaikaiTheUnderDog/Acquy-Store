@@ -37,13 +37,13 @@ const Dashboard = () => {
     (state) => state.dashboard
   );
 
-  /*   const isFocused = useIsFocused();
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     if (isFocused) {
       dispatch(getDashboardData());
     }
-  }, [isFocused]); */
+  }, [isFocused]);
 
   const [sales, setSales] = useState(0);
   const [userCount, setUserCount] = useState(0);

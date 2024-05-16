@@ -10,9 +10,6 @@ import {
   NEW_REVIEW_SUCCESS,
   NEW_REVIEW_FAILED,
   NEW_REVIEW_RESET,
-  ADMIN_PRODUCTS_REQUEST,
-  ADMIN_PRODUCTS_FAILED,
-  ADMIN_PRODUCTS_SUCCESS,
   NEW_PRODUCT_REQUEST,
   NEW_PRODUCT_SUCCESS,
   NEW_PRODUCT_FAILED,
@@ -39,46 +36,6 @@ import {
   CHECK_IS_BUY_SUCCESS,
   CHECK_IS_BUY_FAILED,
 } from '../constants/productConstants';
-
-export const productReducer = (state = { products: [] }, action) => {
-  switch (action.type) {
-    case ADMIN_PRODUCTS_REQUEST:
-    case ALL_PRODUCTS_REQUEST:
-      return {
-        loading: true,
-        products: [],
-      };
-
-    case ALL_PRODUCTS_SUCCESS:
-      return {
-        loading: false,
-        products: action.payload.products,
-        totalProduct: action.payload.totalProduct,
-        resPerPage: action.payload.resPerPage,
-        productsFounded: action.payload.productsFounded,
-        bestSellers: action.payload.bestSellers,
-      };
-    case ADMIN_PRODUCTS_SUCCESS:
-      return {
-        loading: false,
-        products: action.payload,
-      };
-    case ADMIN_PRODUCTS_FAILED:
-    case ALL_PRODUCTS_FAILED:
-      return {
-        loading: false,
-        error: action.payload,
-      };
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
-      };
-
-    default:
-      return state;
-  }
-};
 
 export const bestSellersReducer = (state = { bestSellers: [] }, action) => {
   switch (action.type) {

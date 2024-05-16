@@ -18,9 +18,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 const Tab = createMaterialTopTabNavigator();
 
 const MyOrder = () => {
-  const { orders, status } = useRoute().params;
-
-  const dispatch = useDispatch();
+  const { status } = route.params;
+  const orders = useSelector((state) => state.myOrders.orders);
 
   const [data, setData] = useState([]);
 
@@ -28,28 +27,16 @@ const MyOrder = () => {
     const filteredOrders = orders.filter(
       (order) => order.orderStatus === status
     );
-
     setData(filteredOrders);
-  }, [status, orders]);
-
-  const refresh = () => {
-    dispatch(myOrders());
-  };
+  }, [orders, status]);
 
   return (
-    <ScrollView style={{ flex: 1 }} onScrollToTop={refresh}>
-      <Text
-        style={{
-          alignSelf: 'center',
-          paddingTop: 10,
-          fontSize: 16,
-          fontWeight: 'bold',
-        }}
-      >
-        {status} orders
-      </Text>
+    <ScrollView style={{ flex: 1 }}>
+      <Text style={styles.headerText}>{status} orders</Text>
       <ScrollView contentContainerStyle={styles.productGrid}>
-        {data && data.map((item) => <OrderItem order={item} />)}
+        {data.map((item, index) => (
+          <OrderItem key={index} order={item} />
+        ))}
       </ScrollView>
     </ScrollView>
   );
@@ -134,6 +121,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
     textAlign: 'center',
+  },
+  headerText: {
+    alignSelf: 'center',
+    paddingTop: 10,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   productGrid: {
     flexDirection: 'row',

@@ -13,6 +13,9 @@ import {
   DELETE_ORDER_SUCCESS,
   DELETE_ORDER_FAILED,
   DELETE_ORDER_RESET,
+  ADMIN_PRODUCTS_REQUEST,
+  ADMIN_PRODUCTS_FAILED,
+  ADMIN_PRODUCTS_SUCCESS,
 } from '../constants/adminConstants';
 
 export const dashboardReducer = (state = {}, action) => {
@@ -117,6 +120,35 @@ export const orderReducer = (state = {}, action) => {
         isDeleted: false,
       };
 
+    case 'CLEAR_ERRORS':
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const productReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case ADMIN_PRODUCTS_REQUEST:
+      return {
+        loading: true,
+        products: [],
+      };
+
+    case ADMIN_PRODUCTS_SUCCESS:
+      return {
+        loading: false,
+        products: action.payload,
+      };
+    case ADMIN_PRODUCTS_FAILED:
+      return {
+        loading: false,
+        error: action.payload,
+      };
     case 'CLEAR_ERRORS':
       return {
         ...state,

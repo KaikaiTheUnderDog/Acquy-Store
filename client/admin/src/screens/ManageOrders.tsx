@@ -11,16 +11,19 @@ import {
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import { allOrders } from '../../redux/actions/adminActions';
 import OrderItem from '../components/OrderItem';
 
 const Tab = createMaterialTopTabNavigator();
 
-const OrdersScreen = () => {
-  const { orders, status } = useRoute().params;
-
-  //const dispatch = useDispatch();
+const OrdersScreen = ({ route }) => {
+  const { status } = route.params;
+  const orders = useSelector((state) => state.allOrders.orders);
 
   const [data, setData] = useState([]);
 
@@ -28,28 +31,16 @@ const OrdersScreen = () => {
     const filteredOrders = orders.filter(
       (order) => order.orderStatus === status
     );
-
     setData(filteredOrders);
-  }, [status, orders]);
-
-  const refresh = () => {
-    //dispatch(allOrders());
-  };
+  }, [orders, status]);
 
   return (
-    <ScrollView style={{ flex: 1 }} onScrollToTop={refresh}>
-      <Text
-        style={{
-          alignSelf: 'center',
-          paddingTop: 10,
-          fontSize: 16,
-          fontWeight: 'bold',
-        }}
-      >
-        {status} orders
-      </Text>
+    <ScrollView style={{ flex: 1 }}>
+      <Text style={styles.headerText}>{status} orders</Text>
       <ScrollView contentContainerStyle={styles.productGrid}>
-        {data && data.map((item) => <OrderItem order={item} />)}
+        {data.map((item, index) => (
+          <OrderItem key={index} order={item} />
+        ))}
       </ScrollView>
     </ScrollView>
   );
@@ -64,6 +55,14 @@ const ManageOrders = () => {
   useEffect(() => {
     dispatch(allOrders());
   }, []);
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      dispatch(allOrders());
+    }
+  }, [isFocused]);
 
   if (loading) {
     return <ActivityIndicator size="large" />;
@@ -116,6 +115,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray', // Màu của gạch phân cách
     marginLeft: 10, // Khoảng cách giữa label và gạch
   },
+  headerText: {
+    alignSelf: 'center',
+    paddingTop: 10,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  productGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    padding: 24,
+    paddingTop: 5,
+  },
   categoryContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -130,13 +142,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
     textAlign: 'center',
-  },
-  productGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    padding: 24,
-    paddingTop: 5,
   },
   latestSearchesTitle: {
     marginTop: 20,

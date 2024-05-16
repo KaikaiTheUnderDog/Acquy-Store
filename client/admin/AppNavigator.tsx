@@ -16,8 +16,11 @@ import Login from './src/screens/Login';
 import Dashboard from './src/screens/DashBoard';
 import ManageOrders from './src/screens/ManageOrders';
 import OrderDetails from './src/screens/OrderDetails';
+import ManageProducts from './src/screens/ManageProducts';
+import NewProduct from './src/screens/NewProduct';
 
 const OrdersStack = createStackNavigator();
+const ProductsStack = createStackNavigator();
 
 function OrdersStackNavigator() {
   return (
@@ -33,6 +36,23 @@ function OrdersStackNavigator() {
         options={{ headerShown: false }}
       />
     </OrdersStack.Navigator>
+  );
+}
+
+function ProductsStackNavigator() {
+  return (
+    <ProductsStack.Navigator initialRouteName="Manage Products">
+      <ProductsStack.Screen
+        name="Manage Products"
+        component={ManageProducts}
+        options={{ headerShown: false }}
+      />
+      <ProductsStack.Screen
+        name="NewProduct"
+        component={NewProduct}
+        options={{ headerShown: false }}
+      />
+    </ProductsStack.Navigator>
   );
 }
 
@@ -53,6 +73,10 @@ const AppNavigator = () => {
           <Drawer.Screen
             name="Manage Orders"
             component={OrdersStackNavigator}
+          />
+          <Drawer.Screen
+            name="Manage Product"
+            component={ProductsStackNavigator}
           />
         </Drawer.Navigator>
       </NavigationContainer>

@@ -1,7 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 /* import {
-  productReducer,
   productDetailsReducer,
   newReviewReducer,
   newProductReducer,
@@ -21,18 +20,18 @@ import {
   dashboardReducer,
   allOrdersReducer,
   orderReducer,
+  productReducer,
 } from './reducers/adminReducers';
 import { orderDetailsReducer } from './reducers/orderReducers';
 
 const reducer = combineReducers({
-  /* products: productReducer,
+  /* 
   productDetails: productDetailsReducer,
   auth: authReducer,
   user: userReducer,
   myOrders: myOrdersReducer,
   newReview: newReviewReducer,
   newProduct: newProductReducer,
-  updateProduct: updateProductReducer,
   allOrders: allOrdersReducer,
   allUsers: allUsersReducer,
   userDetails: userDetailsReducer,
@@ -45,6 +44,7 @@ const reducer = combineReducers({
   allOrders: allOrdersReducer,
   order: orderReducer,
   orderDetails: orderDetailsReducer,
+  products: productReducer,
 });
 
 const store = configureStore({
