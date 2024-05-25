@@ -477,7 +477,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'black',
     width: '90%',
-    height: 230,
+    height: 200,
     resizeMode: 'contain',
   },
   thumbnailContainer: {

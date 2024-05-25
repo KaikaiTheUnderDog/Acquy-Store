@@ -6,13 +6,13 @@ import {
   StyleSheet,
   ScrollView,
   Image,
+  Alert,
+  ToastAndroid,
 } from 'react-native';
-import {
-  addItemToCart,
-  removeItemFromCart,
-} from '../../../redux/actions/cartActions';
+import { addItemToCart, removeItemFromCart } from '../../../redux/actions/cartActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { TextInput } from 'react-native-gesture-handler';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -22,10 +22,35 @@ const Cart = () => {
     dispatch(removeItemFromCart(id));
   };
 
+  const confirmRemoveItem = (id) => {
+    Alert.alert(
+      'Confirm Remove',
+      'Are you sure you want to remove this item from your cart?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => removeCartItemHandler(id),
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   const increaseQty = (id, quantity, stock) => {
     const newQty = quantity + 1;
 
-    if (newQty > stock) return;
+    if (newQty > stock) {
+      ToastAndroid.show(
+        'You have reached max number',
+        ToastAndroid.LONG
+      );
+      return;
+    }
 
     dispatch(addItemToCart(id, newQty));
   };
@@ -34,7 +59,7 @@ const Cart = () => {
     const newQty = quantity - 1;
 
     if (newQty <= 0) {
-      removeCartItemHandler(id);
+      confirmRemoveItem(id);
       return;
     }
 
@@ -45,16 +70,8 @@ const Cart = () => {
 
   if (cartItems.length === 0 || !cartItems) {
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: 'white',
-          alignItems: 'center',
-          flexDirection: 'column',
-        }}
-      >
+      <View style={styles.emptyCartContainer}>
         <Text style={styles.Title}>You have selected no items.</Text>
-
         <TouchableOpacity
           style={styles.goShopping_BTN}
           onPress={() => {
@@ -67,17 +84,25 @@ const Cart = () => {
     );
   }
 
+  const handleQuantityChange = (value, stock, id) => {
+    const num = parseInt(value);
+    if (isNaN(num) || num == 0){
+      confirmRemoveItem(id);
+    }
+      
+    else if (!isNaN(num) && num > 0 && num <= stock) { // Áp dụng ràng buộc với số lượng trong kho
+      dispatch(addItemToCart(id, num));
+    } else {
+      ToastAndroid.show(
+        `Quantity must be a number between 1 and ${stock}`,
+        ToastAndroid.SHORT
+      );
+      return; // Giữ nguyên giá trị nếu không hợp lệ
+    }
+  };
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <Text
-        style={{
-          fontWeight: 'bold',
-          color: 'black',
-          fontSize: 20,
-          marginTop: 5,
-          marginLeft: 35,
-        }}
-      >
+    <View style={styles.cartContainer}>
+      <Text style={styles.totalItemsText}>
         Total items: {cartItems.length}
       </Text>
       <ScrollView
@@ -100,47 +125,44 @@ const Cart = () => {
                 }}
                 style={styles.productImage}
               />
-              <View
-                style={{
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  flex: 1,
-                }}
-              >
+              <View style={styles.productDetails}>
                 <Text style={styles.productName}>
                   {item.name.length > 34
                     ? `${item.name.substring(0, 34)}...`
                     : item.name}
                 </Text>
-
                 <View style={styles.quantityContainer}>
                   <Text style={styles.productQuantity}>Quantity: </Text>
                   <TouchableOpacity
                     style={styles.quantityButton}
                     onPress={() => decreaseQty(item.product, item.quantity)}
                   >
-                    <Text style={{ color: 'white', fontWeight: 'bold' }}>
-                      -
-                    </Text>
+                    <Text style={styles.quantityButtonText}>-</Text>
                   </TouchableOpacity>
-                  <Text style={styles.productQuantity}>{item.quantity}</Text>
+                  <TextInput 
+                    style={styles.productQuantity} 
+                    value={String(item.quantity)}
+                    onChangeText={(value) => handleQuantityChange(value, item.stock, item.product)} // Sử dụng handleQuantityChange để xử lý sự thay đổi
+                    keyboardType="numeric"
+                  />
                   <TouchableOpacity
                     style={styles.quantityButton}
                     onPress={() =>
                       increaseQty(item.product, item.quantity, item.stock)
                     }
                   >
-                    <Text style={{ color: 'white', fontWeight: 'bold' }}>
-                      +
-                    </Text>
+                    <Text style={styles.quantityButtonText}>+</Text>
                   </TouchableOpacity>
                 </View>
                 <Text style={styles.productInfo}>
                   Price: ${(item.price * item.quantity).toFixed(2)}
                 </Text>
+                <Text style={styles.productInfo}>
+                  Stock: {item.stock}
+                </Text>
               </View>
               <TouchableOpacity
-                onPress={() => removeCartItemHandler(item.product)}
+                onPress={() => confirmRemoveItem(item.product)}
                 style={styles.trashIconContainer}
               >
                 <Image
@@ -151,22 +173,8 @@ const Cart = () => {
             </TouchableOpacity>
           ))}
       </ScrollView>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        <Text
-          style={{
-            justifyContent: 'flex-start',
-            flex: 1,
-            padding: 20,
-            paddingLeft: 40,
-            fontSize: 16,
-            color: 'black',
-          }}
-        >
+      <View style={styles.totalContainer}>
+        <Text style={styles.totalText}>
           Total: $
           {cartItems
             .reduce((acc, item) => acc + item.quantity * item.price, 0)
@@ -186,26 +194,22 @@ const Cart = () => {
 };
 
 const styles = StyleSheet.create({
-  categoryContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#f7f7f7',
-    paddingTop: 10,
+  emptyCartContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
-  Title: {
+  cartContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  totalItemsText: {
     fontWeight: 'bold',
-    fontSize: 18,
-    marginBottom: 20,
-    marginTop: 10,
-  },
-  categoryTabActive: {
-    borderBottomWidth: 3,
-    borderBottomColor: 'red',
-  },
-  categoryText: {
-    fontSize: 16,
     color: 'black',
-    textAlign: 'center',
+    fontSize: 20,
+    marginTop: 5,
+    marginLeft: 35,
   },
   productGrid: {
     flexDirection: 'row',
@@ -215,24 +219,11 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     marginBottom: 40,
   },
-  latestSearchesTitle: {
-    marginTop: 20,
-    marginLeft: 10,
+  Title: {
     fontWeight: 'bold',
-  },
-  backButton: {
-    width: 48,
-    height: 48,
-  },
-  Cart_BTN: {
-    width: '40%',
-    paddingTop: 15,
-    paddingBottom: 15,
-    borderRadius: 15,
-    backgroundColor: 'red',
-    alignItems: 'center',
-    marginRight: 40,
-    height: 50,
+    fontSize: 18,
+    marginBottom: 20,
+    marginTop: 10,
   },
   goShopping_BTN: {
     width: '40%',
@@ -260,7 +251,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    elevation: 10, // for Android shadow
+    elevation: 10,
   },
   productName: {
     fontSize: 18,
@@ -276,24 +267,13 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     resizeMode: 'contain',
   },
-  buyNow: {
+  productDetails: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    flex: 1,
+  },
+  productQuantity: {
     color: 'black',
-    marginTop: 7,
-    fontSize: 13,
-    fontWeight: '600',
-  },
-  trashIconContainer: {
-    padding: 10, // Tạo không gian xung quanh icon để dễ dàng nhấn
-    // Nếu bạn muốn làm cho phần chứa icon nhỏ hơn, bạn có thể điều chỉnh padding này
-  },
-  trashIcon: {
-    width: 25, // Chiều rộng cố định cho icon
-    height: 25, // Chiều cao cố định cho icon
-    resizeMode: 'contain',
-  },
-  productInfo: {
-    color: 'black',
-    marginTop: 7,
     fontSize: 13,
     fontWeight: '600',
   },
@@ -301,22 +281,57 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: 140, // Điều chỉnh chiều rộng nếu cần
+    width: 140,
     backgroundColor: 'white',
-    borderRadius: 5, // Tạo góc tròn cho container
+    borderRadius: 5,
   },
   quantityButton: {
-    width: 20, // Điều chỉnh chiều rộng nếu cần
-    height: 20, // Điều chỉnh chiều cao nếu cần
+    width: 20,
+    height: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red', // Màu nền cho nút
-    borderRadius: 5, // Góc tròn cho nút
+    backgroundColor: 'red',
+    borderRadius: 5,
   },
-  productQuantity: {
+  quantityButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  productInfo: {
     color: 'black',
+    marginTop: 7,
     fontSize: 13,
     fontWeight: '600',
+  },
+  trashIconContainer: {
+    padding: 10,
+  },
+  trashIcon: {
+    width: 25,
+    height: 25,
+    resizeMode: 'contain',
+  },
+  totalContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  totalText: {
+    justifyContent: 'flex-start',
+    flex: 1,
+    padding: 20,
+    paddingLeft: 40,
+    fontSize: 16,
+    color: 'black',
+  },
+  Cart_BTN: {
+    width: '40%',
+    paddingTop: 15,
+    paddingBottom: 15,
+    borderRadius: 15,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    marginRight: 40,
+    height: 50,
   },
 });
 

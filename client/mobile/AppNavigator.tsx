@@ -3,7 +3,7 @@ import store from './redux/store';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import { MenuProvider } from 'react-native-popup-menu';
 import Header from './src/Components/Header/Header';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import BottomNavigationBar from './src/Components/Header/Navibar';

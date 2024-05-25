@@ -7,6 +7,7 @@ import {
   Modal,
   Pressable,
   ToastAndroid,
+  TextInput,
 } from 'react-native';
 import SmallProductCard from '../product/SmallProductCard'; // Make sure to import SmallProductCard
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +19,7 @@ import { useRoute } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Dropdown } from 'react-native-element-dropdown';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import _ from 'lodash'; // Import lodash
 
 const Categories = [
   { label: 'All' },
@@ -38,6 +40,7 @@ const stars = [
 const SearchResult = () => {
   const dispatch = useDispatch();
   const { keyword } = useRoute().params;
+  const { categories } = useRoute().params;
 
   const [currentPage, setCurrentPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -47,6 +50,8 @@ const SearchResult = () => {
   const [price, setPrice] = useState([0, 1000]);
   const [isCateDropdownFocused, setIsCateDropdownFocused] = useState(false);
   const [ratings, setRatings] = useState(0);
+  const [minPriceInput, setMinPriceInput] = useState('0');
+  const [maxPriceInput, setMaxPriceInput] = useState('1000');
   const [isRatingsDropdownFocused, setIsRatingsDropdownFocused] =
     useState(false);
 
@@ -60,7 +65,8 @@ const SearchResult = () => {
       ToastAndroid.show(error, ToastAndroid.LONG);
       dispatch(clearErrors(error));
     }
-    dispatch(getProducts(keyword, 1, [1, 9999999], '', 0));
+    console.log('Cate: ', categories, 'KW', keyword)
+    dispatch(getProducts(keyword, 1, [1, 9999999], categories, 0));
   }, [error, keyword]);
 
   useEffect(() => {
@@ -91,6 +97,7 @@ const SearchResult = () => {
   const filterProducts = () => {
     setShowList([]);
     setCurrentPage(0);
+    console.log(category, keyword)
     dispatch(getProducts(keyword, 1, price, category, ratings));
     setFilterModalVisibility(false);
   };
@@ -152,7 +159,7 @@ const SearchResult = () => {
               Price
             </Text>
             <MultiSlider
-              values={[0, 1000]}
+              values={[parseInt(minPriceInput), parseInt(maxPriceInput)]}
               step={1}
               sliderLength={230}
               min={0}
@@ -165,22 +172,31 @@ const SearchResult = () => {
                     justifyContent: 'space-between',
                   }}
                 >
-                  <Text
-                    style={[styles.sliderLabel, { flex: 2, marginLeft: 3 }]}
-                  >
-                    Min:{' '}
-                    <Text style={{ color: 'red' }}>{prop.oneMarkerValue}</Text>
-                  </Text>
-                  <Text style={[styles.sliderLabel, { flex: 1 }]}>
-                    Max:{' '}
-                    <Text style={{ color: 'red' }}>{prop.twoMarkerValue}</Text>
-                  </Text>
+                  <TextInput
+                    style={[styles.priceInput, { marginRight: 5 }]}
+                    value={minPriceInput}
+                    onChangeText={(value) => setMinPriceInput(value)}
+            
+                    keyboardType="numeric"
+                  />
+                  <TextInput
+                    style={[styles.priceInput, { marginLeft: 5 }]}
+                    value={maxPriceInput}
+                    onChangeText={(value) => setMaxPriceInput(value)}
+                    keyboardType="numeric"
+                  />
+
                 </View>
               )}
+              
               onValuesChangeFinish={(values) => {
+                setMinPriceInput(values[0].toString());
+                setMaxPriceInput(values[1].toString());
                 setPrice(values);
               }}
             />
+
+
             <Text style={[styles.filterLabel, { alignSelf: 'flex-start' }]}>
               Category
             </Text>
@@ -337,6 +353,15 @@ const styles = StyleSheet.create({
   flatListContentContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  priceInput: {
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 5,
+    padding: 8,
+    width: '45%',
+    fontSize: 16,
+    textAlign: 'center',
   },
   filterBtn: {
     width: '30%',
