@@ -1,21 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
   ToastAndroid,
   TouchableOpacity,
   View,
+  TextInput,
 } from 'react-native';
 
 import ProductDetailsScreen from './ProductDetail';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart } from '../../../redux/actions/cartActions';
 import { useRoute } from '@react-navigation/native';
+import { getProductDetails, clearErrors } from '../../../redux/actions/productActions';
 
 const Product = () => {
   const { id } = useRoute().params;
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
+
+  const { loading, error, product } = useSelector(
+    (state) => state.productDetails
+  );
+
+  const { success } = useSelector((state) => state.newReview);
+
+  useEffect(() => {
+    dispatch(getProductDetails(id));
+  }, [dispatch, id, success]);
+
+  useEffect(() => {
+    if (error) {
+      dispatch(clearErrors());
+      ToastAndroid.show(error.message, ToastAndroid.LONG);
+    }
+  }, [dispatch, error]);
 
   const addToCart = () => {
     dispatch(addItemToCart(id, quantity));
@@ -23,6 +42,15 @@ const Product = () => {
       'This product has been added into cart',
       ToastAndroid.LONG
     );
+  };
+
+  const handleQuantityChange = (value) => {
+    const num = parseInt(value, 10);
+    if (!isNaN(num) && num > 0) {
+      setQuantity(num > product.stock ? product.stock : num);
+    } else {
+      setQuantity(1);
+    }
   };
 
   return (
@@ -37,10 +65,15 @@ const Product = () => {
           >
             <Text style={{ color: 'white', fontWeight: 'bold' }}>-</Text>
           </TouchableOpacity>
-          <Text style={styles.productQuantity}>{quantity}</Text>
+          <TextInput
+            style={styles.quantityInput}
+            value={String(quantity)}
+            onChangeText={handleQuantityChange}
+            keyboardType="numeric"
+          />
           <TouchableOpacity
             style={styles.quantityButton}
-            onPress={() => setQuantity(quantity + 1)}
+            onPress={() => setQuantity(quantity + 1 <= product.stock ? quantity + 1 : product.stock)}
           >
             <Text style={{ color: 'white', fontWeight: 'bold' }}>+</Text>
           </TouchableOpacity>
@@ -63,7 +96,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0)', // Đặt background là hoàn toàn trong suốt
+    backgroundColor: 'rgba(255, 255, 255, 0)', // Transparent background
   },
   Cart_BTN: {
     width: '40%',
@@ -98,6 +131,17 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 18,
     fontWeight: '600',
+  },
+  quantityInput: {
+    width: 40,
+    height: 40,
+    textAlign: 'center',
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    color: 'black',
+    fontSize: 16,
+    marginHorizontal: 5,
   },
 });
 
