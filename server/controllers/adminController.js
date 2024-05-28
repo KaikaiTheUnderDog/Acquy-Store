@@ -4,6 +4,7 @@ const Product = require('../models/product');
 
 const Errors = require('../utils/errors');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
+const APIFeatures = require('../utils/apiFeatures');
 
 const startOfToday = new Date();
 startOfToday.setHours(0, 0, 0, 0);
@@ -85,6 +86,25 @@ exports.getDashboardData = catchAsyncErrors(async (req, res, next) => {
       { $sort: { _id: 1 } }, // Sắp xếp theo tháng
     ]);
 
+    const dailySalesData = await Order.aggregate([
+      {
+        $match: {
+          orderStatus: 'Delivered',
+          createdAt: {
+            $gte: startOfMonth,
+            $lte: endOfMonth,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: { $dayOfMonth: '$createdAt' },
+          totalSales: { $sum: '$totalPrice' },
+        },
+      },
+      { $sort: { _id: 1 } }, // Sắp xếp theo ngày trong tháng
+    ]);
+
     const salesData = await Order.aggregate([
       { $match: { orderStatus: 'Delivered' } },
       {
@@ -95,6 +115,69 @@ exports.getDashboardData = catchAsyncErrors(async (req, res, next) => {
       },
     ]);
 
+    const pendingOrdersCount =
+      ordersByStatus.find((status) => status._id === 'Pending')?.count || 0;
+    const shippingOrdersCount =
+      ordersByStatus.find((status) => status._id === 'Shipping')?.count || 0;
+    const cancelledOrdersCount =
+      ordersByStatus.find((status) => status._id === 'Cancelled')?.count || 0;
+    const deliveredOrdersCount =
+      ordersByStatus.find((status) => status._id === 'Delivered')?.count || 0;
+
+    const pendingPercentage = (
+      (pendingOrdersCount / totalOrders) *
+      100
+    ).toFixed(2);
+    const shippingPercentage = (
+      (shippingOrdersCount / totalOrders) *
+      100
+    ).toFixed(2);
+    const cancelledPercentage = (
+      (cancelledOrdersCount / totalOrders) *
+      100
+    ).toFixed(2);
+    const deliveredPercentage = (
+      (deliveredOrdersCount / totalOrders) *
+      100
+    ).toFixed(2);
+
+    const deliveredOrdersByCountry = await Order.aggregate([
+      {
+        $match: {
+          orderStatus: 'Delivered',
+        },
+      },
+      {
+        $group: {
+          _id: {
+            $cond: [
+              { $eq: ['$shippingInfo.country', 'Vietnam'] },
+              'Vietnam',
+              {
+                $cond: [
+                  { $eq: ['$shippingInfo.country', 'United States'] },
+                  'United States',
+                  'Others',
+                ],
+              },
+            ],
+          },
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    const vietnamOrdersCount =
+      deliveredOrdersByCountry.find((country) => country._id === 'Vietnam')
+        ?.count || 0;
+    const usOrdersCount =
+      deliveredOrdersByCountry.find(
+        (country) => country._id === 'United States'
+      )?.count || 0;
+    const otherOrdersCount =
+      deliveredOrdersByCountry.find((country) => country._id === 'Others')
+        ?.count || 0;
+
     res.status(200).json({
       success: true,
       data: {
@@ -104,15 +187,82 @@ exports.getDashboardData = catchAsyncErrors(async (req, res, next) => {
           total: totalOrders,
           byStatus: ordersByStatus,
           ordersToday,
+          percentages: {
+            pending: pendingPercentage,
+            shipping: shippingPercentage,
+            cancelled: cancelledPercentage,
+            delivered: deliveredPercentage,
+          },
         },
         sales: salesData.length > 0 ? salesData[0] : { totalSales: 0 },
         weeklySalesData,
         monthlySalesData,
+        dailySalesData,
+        deliveredOrdersByCountry: {
+          vietnam: vietnamOrdersCount,
+          unitedStates: usOrdersCount,
+          others: otherOrdersCount,
+        },
       },
     });
   } catch (error) {
     return next(new Errors(error.message, 500));
   }
+});
+
+const getUserData = async (startDate, endDate, timeUnit) => {
+  const data = await User.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: startDate, $lte: endDate },
+      },
+    },
+    {
+      $group: {
+        _id: {
+          time: { [`$${timeUnit}`]: '$createdAt' },
+          isVerified: '$isVerified',
+        },
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { '_id.time': 1 } }, // Sort by time
+  ]);
+
+  const verifiedData = data.filter((d) => d._id.isVerified);
+  const unverifiedData = data.filter((d) => !d._id.isVerified);
+
+  return { verifiedData, unverifiedData };
+};
+
+// Get new users count (Admin) => /api/v1/admin/users/count
+exports.getNewUserData = catchAsyncErrors(async (req, res, next) => {
+  // Fetch data for daily, weekly, and monthly
+  const dailyData = await getUserData(startOfMonth, endOfMonth, 'dayOfMonth');
+  const weeklyData = await getUserData(startOfWeek, endOfWeek, 'dayOfWeek');
+  const monthlyData = await getUserData(
+    new Date(`${new Date().getFullYear()}-01-01`),
+    new Date(`${new Date().getFullYear()}-12-31`),
+    'month'
+  );
+
+  res.status(200).json({
+    success: true,
+    data: {
+      dailyNewUserData: {
+        verified: dailyData.verifiedData,
+        unverified: dailyData.unverifiedData,
+      },
+      weeklyNewUserData: {
+        verified: weeklyData.verifiedData,
+        unverified: weeklyData.unverifiedData,
+      },
+      monthlyNewUserData: {
+        verified: monthlyData.verifiedData,
+        unverified: monthlyData.unverifiedData,
+      },
+    },
+  });
 });
 
 // Get all orders --> /api/v1/admin/orders
@@ -183,12 +333,105 @@ exports.deleteOrder = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+const startOfYesterday = new Date(startOfToday);
+startOfYesterday.setDate(startOfToday.getDate() - 1);
+
+const endOfYesterday = new Date(endOfToday);
+endOfYesterday.setDate(endOfToday.getDate() - 1);
+
+const startOfLastWeek = new Date();
+startOfLastWeek.setDate(
+  startOfLastWeek.getDate() - startOfLastWeek.getDay() - 6
+);
+startOfLastWeek.setHours(0, 0, 0, 0);
+
+const endOfLastWeek = new Date(startOfLastWeek);
+endOfLastWeek.setDate(startOfLastWeek.getDate() + 6);
+endOfLastWeek.setHours(23, 59, 59, 999);
+
+const startOfLastMonth = new Date();
+startOfLastMonth.setMonth(startOfLastMonth.getMonth() - 1);
+startOfLastMonth.setDate(1);
+startOfLastMonth.setHours(0, 0, 0, 0);
+
+const endOfLastMonth = new Date(startOfLastMonth);
+endOfLastMonth.setMonth(startOfLastMonth.getMonth() + 1);
+endOfLastMonth.setDate(0);
+endOfLastMonth.setHours(23, 59, 59, 999);
+
+const getSalesCount = async (startDate, endDate) => {
+  const sales = await Order.aggregate([
+    {
+      $match: {
+        orderStatus: 'Delivered',
+        createdAt: { $gte: startDate, $lte: endDate },
+      },
+    },
+    {
+      $unwind: '$orderItems',
+    },
+    {
+      $group: {
+        _id: '$orderItems.product',
+        totalSold: { $sum: '$orderItems.quantity' },
+      },
+    },
+  ]);
+  return sales;
+};
+
+const calculateGrowth = (currentSales, previousSales) => {
+  const growthMap = new Map();
+  previousSales.forEach((sale) => {
+    growthMap.set(sale._id.toString(), sale.totalSold);
+  });
+
+  return currentSales.map((sale) => {
+    const previousTotal = growthMap.get(sale._id.toString()) || 0;
+    const gain =
+      previousTotal === 0
+        ? 0
+        : ((sale.totalSold - previousTotal) / previousTotal) * 100;
+    return {
+      productId: sale._id,
+      gain,
+    };
+  });
+};
+
 // Get all products (Admin)  =>   /api/v1/admin/products
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
-  const products = await Product.find();
+  const apiFeatures = new APIFeatures(Product.find(), req.query)
+    .search()
+    .filter();
+
+  let products = await apiFeatures.query;
+
+  const salesThisMonth = await getSalesCount(startOfMonth, endOfToday);
+  const salesLastMonth = await getSalesCount(startOfLastMonth, endOfLastMonth);
+
+  const monthlyGrowth = calculateGrowth(salesThisMonth, salesLastMonth);
+
+  let productsWithGrowth = products.map((product) => {
+    const monthlyGain =
+      monthlyGrowth.find(
+        (growth) => growth.productId.toString() === product._id.toString()
+      )?.gain || 0;
+
+    return {
+      ...product._doc,
+      monthlyGain,
+    };
+  });
+
+  const mostGainedProducts = productsWithGrowth
+    .sort((a, b) => b.monthlyGain - a.monthlyGain)
+    .slice(0, 5);
 
   res.status(200).json({
     success: true,
-    products,
+    count: productsWithGrowth.length,
+    products: productsWithGrowth,
+    mostGained: mostGainedProducts,
   });
 });

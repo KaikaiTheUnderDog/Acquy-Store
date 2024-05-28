@@ -7,6 +7,7 @@ const {
   updatePendingOrders,
   deleteOrder,
   getAdminProducts,
+  getNewUserData,
 } = require('../controllers/adminController');
 
 const {
@@ -27,5 +28,8 @@ router
 router
   .route('/admin/products')
   .get(isAuthenticatedUser, authorizeRole('admin'), getAdminProducts);
+router
+  .route('/admin/users/count')
+  .get(isAuthenticatedUser, authorizeRole('admin'), getNewUserData);
 
 module.exports = router;
