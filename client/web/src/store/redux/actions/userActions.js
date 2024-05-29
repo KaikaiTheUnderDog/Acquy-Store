@@ -50,28 +50,25 @@ import {
 	RESET_PASSWORD_VERIFY_SUCCESS,
 	RESET_PASSWORD_VERIFY_FAILED,
 } from '../constants/userConstants';
+import { setAuth } from '@/store/theme'; // Make sure the path is correct
 
+// Login User
 export const login = (email, password) => async (dispatch) => {
 	try {
-		dispatch({
-			type: LOGIN_REQUEST,
-		});
-		const config = {
-			headers: { 'Content-Type': 'application/json' },
-		};
+		dispatch({ type: LOGIN_REQUEST });
+
+		const config = { headers: { 'Content-Type': 'application/json' } };
 
 		const { data } = await axios.post('/api/v1/login', { email, password }, config);
 
 		localStorage.setItem('token', data.token);
+		dispatch(setAuth(true));
 
-		dispatch({
-			type: LOGIN_SUCCESS,
-			payload: data.user,
-		});
+		dispatch({ type: LOGIN_SUCCESS, payload: data.user });
 	} catch (error) {
 		dispatch({
 			type: LOGIN_FAILED,
-			payload: error.response.data.errMessage || 'error',
+			payload: error.response?.data?.message || 'Login failed',
 		});
 	}
 };

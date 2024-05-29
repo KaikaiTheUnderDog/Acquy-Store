@@ -69,48 +69,6 @@ export const authReducer = (state = { user: {} }, action) => {
 				loading: true,
 				isAuthenticated: false,
 			};
-
-		case SEND_OTP_REQUEST:
-		case VERIFY_REQUEST:
-			return {
-				...state,
-				loading: true,
-			};
-
-		case VERIFY_SUCCESS:
-			return {
-				...state,
-				loading: false,
-				success: action.payload,
-			};
-
-		case VERIFY_RESET:
-			return {
-				...state,
-				success: false,
-			};
-
-		case SEND_OTP_SUCCESS:
-			return {
-				...state,
-				loading: false,
-				mailSent: action.payload,
-			};
-
-		case SEND_OTP_FAILED:
-		case VERIFY_FAILED:
-			return {
-				...state,
-				error: action.payload,
-				loading: false,
-			};
-
-		case SEND_OTP_RESET:
-			return {
-				...state,
-				mailSent: false,
-			};
-
 		case LOGIN_SUCCESS:
 		case REGISTER_SUCCESS:
 		case LOAD_USER_SUCCESS:
@@ -119,17 +77,8 @@ export const authReducer = (state = { user: {} }, action) => {
 				loading: false,
 				isAuthenticated: true,
 				user: action.payload,
-				registerSuccess: true,
 			};
-
 		case LOAD_USER_FAILED:
-			return {
-				loading: false,
-				isAuthenticated: false,
-				user: null,
-				error: action.payload,
-			};
-
 		case LOGIN_FAILED:
 		case REGISTER_FAILED:
 			return {
@@ -139,32 +88,19 @@ export const authReducer = (state = { user: {} }, action) => {
 				user: null,
 				error: action.payload,
 			};
-
 		case LOGOUT_SUCCESS:
 			return {
 				loading: false,
 				isAuthenticated: false,
 				user: null,
 			};
-
-		case LOGOUT_FAILED:
-			return {
-				...state,
-				error: action.payload,
-			};
-
 		case CLEAR_ERRORS:
 			return {
 				...state,
-				loading: false,
 				error: null,
 			};
-
 		default:
-			return {
-				...state,
-				loading: false,
-			};
+			return state;
 	}
 };
 

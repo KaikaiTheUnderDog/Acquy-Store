@@ -1,5 +1,6 @@
 import { lazy, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ScrollToTopOnRouteChange from '@hocs/withScrollTopOnRouteChange';
 import withLazyLoadably from '@hocs/withLazyLoadably';
@@ -12,6 +13,9 @@ import ProtectedRoute from './ProtectedRoute';
 import store from '../../store/redux/store';
 import { loadUser } from '../../store/redux/actions/userActions';
 import UpdateOrderPage from '@/pages/updateOrderPages';
+import UpdateProductPage from '@/pages/updateProductPages';
+import { Loader1 } from '@/components/loader';
+import NewProductPage from '@/pages/newProductPages';
 
 const LoginPage = withLazyLoadably(lazy(() => import('@/pages/loginPages/login')));
 
@@ -25,8 +29,13 @@ const Page503 = withLazyLoadably(lazy(() => import('@/pages/errorPages/503')));
 const Page505 = withLazyLoadably(lazy(() => import('@/pages/errorPages/505')));
 
 function Router() {
+	const dispatch = useDispatch();
+
+	const { isAuthenticated } = useSelector((state) => state.theme);
+
 	useEffect(() => {
-		store.dispatch(loadUser());
+		console.log(isAuthenticated);
+		if (isAuthenticated) dispatch(loadUser());
 	}, []);
 
 	return (
@@ -64,10 +73,26 @@ function Router() {
 								}
 							/>
 							<Route
+								path="products/new"
+								element={
+									<ProtectedRoute isAdmin>
+										<NewProductPage />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
 								path="order/:id"
 								element={
 									<ProtectedRoute isAdmin>
 										<UpdateOrderPage />
+									</ProtectedRoute>
+								}
+							/>
+							<Route
+								path="product/:id"
+								element={
+									<ProtectedRoute isAdmin>
+										<UpdateProductPage />
 									</ProtectedRoute>
 								}
 							/>

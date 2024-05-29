@@ -8,6 +8,9 @@ const {
   deleteOrder,
   getAdminProducts,
   getNewUserData,
+  updateProduct,
+  deleteProduct,
+  newProduct,
 } = require('../controllers/adminController');
 
 const {
@@ -25,6 +28,13 @@ router
   .route('/admin/order/:id')
   .put(isAuthenticatedUser, authorizeRole('admin'), updatePendingOrders)
   .delete(isAuthenticatedUser, authorizeRole('admin'), deleteOrder);
+router
+  .route('/admin/products/new')
+  .post(isAuthenticatedUser, authorizeRole('admin'), newProduct);
+router
+  .route('/admin/product/:id')
+  .put(isAuthenticatedUser, authorizeRole('admin'), updateProduct)
+  .delete(isAuthenticatedUser, authorizeRole('admin'), deleteProduct);
 router
   .route('/admin/products')
   .get(isAuthenticatedUser, authorizeRole('admin'), getAdminProducts);

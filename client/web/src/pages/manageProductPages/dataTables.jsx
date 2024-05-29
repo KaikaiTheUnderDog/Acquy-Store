@@ -101,14 +101,14 @@ function ProductTable({ props }) {
 						<TableCell align="right">${row.price}</TableCell>
 						<TableCell align="right">{row.sold}</TableCell>
 						<TableCell align="right">{row.stock}</TableCell>
-						<TableCell align="center">
+						<TableCell align="left">
 							<Tooltip title="Update Product" arrow>
 								<IconButton
 									aria-label="edit"
 									color="warning"
 									size="small"
 									sx={{ fontSize: 2 }}
-									onClick={() => navigate(`/admin/product/${row._id}/edit`)}
+									onClick={() => navigate(`/admin/product/${row._id}`)}
 								>
 									<ModeEditOutlineOutlinedIcon fontSize="medium" />
 								</IconButton>

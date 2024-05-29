@@ -2,28 +2,33 @@ import { configureStore, combineReducers, applyMiddleware } from '@reduxjs/toolk
 import themeReducer from '../theme';
 import { thunk } from 'redux-thunk';
 
-/* import {
-  productDetailsReducer,
-  newReviewReducer,
+import {
+	productDetailsReducer,
+	/* newReviewReducer,
   newProductReducer,
-  updateProductReducer,
   reviewReducer,
   productReviewsReducer,
   bestSellersReducer,
-  checkIsBuyReducer,
-} from './reducers/productReducers'; */
+  checkIsBuyReducer, */
+} from './reducers/productReducers';
 import {
 	authReducer,
 	/* userReducer,
   allUsersReducer,
   userDetailsReducer, */
 } from './reducers/userReducers';
-import { dashboardReducer, allOrdersReducer, orderReducer, productReducer } from './reducers/adminReducers';
+import {
+	dashboardReducer,
+	allOrdersReducer,
+	orderReducer,
+	productReducer,
+	updateProductReducer,
+	newProductReducer,
+} from './reducers/adminReducers';
 import orderDetailsReducer from './reducers/orderReducers';
 
 const reducer = combineReducers({
 	/* 
-  productDetails: productDetailsReducer,
   auth: authReducer,
   user: userReducer,
   myOrders: myOrdersReducer,
@@ -36,12 +41,15 @@ const reducer = combineReducers({
   productReviews: productReviewsReducer,
   bestSellers: bestSellersReducer,
   checkIsBuy: checkIsBuyReducer, */
+	newProduct: newProductReducer,
+	productDetails: productDetailsReducer,
 	auth: authReducer,
 	dashboard: dashboardReducer,
 	allOrders: allOrdersReducer,
 	order: orderReducer,
 	orderDetails: orderDetailsReducer,
 	products: productReducer,
+	updateProduct: updateProductReducer,
 	theme: themeReducer,
 });
 
