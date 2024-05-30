@@ -10,7 +10,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import TablePagination from '@mui/material/TablePagination';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -28,6 +27,8 @@ import {
 } from '@mui/material';
 import { allOrders, clearErrors, deleteOrder } from '@/store/redux/actions/adminActions';
 import { enqueueSnackbar } from 'notistack';
+import { DELETE_ORDER_RESET } from '@/store/redux/constants/adminConstants';
+import { Loader3 } from '@/components/loader';
 
 const headCells = [
 	{
@@ -67,6 +68,7 @@ function OrderTable({ props, searchQuery }) {
 	const navigate = useNavigate();
 
 	const { orders = [], error } = useSelector((state) => state.allOrders);
+	const { loading, isDeleted } = useSelector((state) => state.order);
 
 	const [open, setOpen] = useState(false);
 	const [selectedOrder, setSelectedOrder] = useState(null);
@@ -79,7 +81,11 @@ function OrderTable({ props, searchQuery }) {
 		if (error) {
 			enqueueSnackbar(error, { variant: 'muiSnackbar', severity: 'error' });
 		}
-	}, [error, dispatch, enqueueSnackbar]);
+		if (isDeleted) {
+			dispatch(allOrders());
+			dispatch({ type: DELETE_ORDER_RESET });
+		}
+	}, [error, isDeleted, dispatch, enqueueSnackbar]);
 
 	const handleDeleteClick = (orderId) => {
 		setSelectedOrder(orderId);
@@ -98,6 +104,10 @@ function OrderTable({ props, searchQuery }) {
 	};
 
 	const filteredOrders = orders.filter((order) => order._id.toLowerCase().includes(searchQuery.toLowerCase()));
+
+	if (loading) {
+		return <Loader3 />;
+	}
 
 	return (
 		<Card component="section" type="section">

@@ -11,8 +11,10 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import CardHeader from '@/components/cardHeader';
 import DataTable from '@/components/dataTable';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
-import { getAdminProducts } from '@/store/redux/actions/adminActions';
+import { deleteProduct, getAdminProducts } from '@/store/redux/actions/adminActions';
 import { enqueueSnackbar } from 'notistack';
+import { Loader3 } from '@/components/loader';
+import { DELETE_PRODUCT_RESET } from '@/store/redux/constants/adminConstants';
 
 const getHeadCells = [
 	{
@@ -53,11 +55,12 @@ const getHeadCells = [
 	},
 ];
 
-function ProductTable({ props }) {
+function ProductTable({ searchQuery, props }) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	const { products, error } = useSelector((state) => state.products);
+	const { loading, isDeleted } = useSelector((state) => state.updateProduct);
 
 	const [open, setOpen] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
@@ -70,7 +73,11 @@ function ProductTable({ props }) {
 		if (error) {
 			enqueueSnackbar(error, { variant: 'muiSnackbar', severity: 'error' });
 		}
-	}, [error, dispatch, enqueueSnackbar]);
+		if (isDeleted) {
+			dispatch(getAdminProducts());
+			dispatch({ type: DELETE_PRODUCT_RESET });
+		}
+	}, [error, dispatch, isDeleted, enqueueSnackbar]);
 
 	const handleDeleteClick = (productId) => {
 		setSelectedProduct(productId);
@@ -83,16 +90,25 @@ function ProductTable({ props }) {
 	};
 
 	const handleConfirmDelete = () => {
+		dispatch(deleteProduct(selectedProduct));
 		setOpen(false);
 		setSelectedProduct(null);
 	};
+
+	if (loading) {
+		return <Loader3 />;
+	}
+
+	const filteredProducts = products.filter((product) =>
+		product.name.toLowerCase().includes(searchQuery.toLowerCase()),
+	);
 
 	return (
 		<Card component="section" type="section">
 			<CardHeader title="Products Overview" subtitle="Manage your products." />
 			<DataTable
 				headCells={getHeadCells}
-				rows={products || []} // Ensure rows is always an array
+				rows={filteredProducts || []} // Ensure rows is always an array
 				emptyRowsHeight={{ default: 66.8, dense: 46.8 }}
 				render={(row) => (
 					<TableRow hover tabIndex={-1} key={row._id}>

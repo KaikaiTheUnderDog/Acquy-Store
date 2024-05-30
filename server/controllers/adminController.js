@@ -290,7 +290,6 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
   }
 
   req.body.images = imagesLinks;
-  console.log(req.body.images);
 
   const product = await Product.create(req.body);
 

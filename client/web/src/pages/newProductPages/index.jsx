@@ -27,6 +27,7 @@ import { NEW_PRODUCT_RESET } from '@/store/redux/constants/adminConstants';
 import { enqueueSnackbar } from 'notistack';
 import ImageIcon from '@mui/icons-material/Image';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Loader3 } from '@/components/loader';
 
 const categories = ['Games', 'Accessories', 'Consoles', 'Merchandises', 'Alternatives'];
 
@@ -36,7 +37,7 @@ const textFieldStyles = {
 
 function NewProductPage() {
 	const dispatch = useDispatch();
-	const { success, error } = useSelector((state) => state.newProduct);
+	const { success, error, loading } = useSelector((state) => state.newProduct);
 
 	const [name, setName] = useState('');
 	const [price, setPrice] = useState('');
@@ -138,6 +139,10 @@ function NewProductPage() {
 		dispatch(newProduct(formData));
 		setOpen(false);
 	};
+
+	if (loading) {
+		return <Loader3 />;
+	}
 
 	return (
 		<>

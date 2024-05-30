@@ -1,27 +1,21 @@
-// MUI
-import Typography from '@mui/material/Typography';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Breadcrumbs, Link, Typography, Button, TextField } from '@mui/material';
 import PageHeader from '@/components/pageHeader';
 import ProductTable from './dataTables';
-import { useNavigate } from 'react-router-dom';
-import { Box } from '@mui/material';
 
 function ManageProductPage() {
 	const navigate = useNavigate();
+	const [searchQuery, setSearchQuery] = useState('');
+
+	const handleSearchChange = (event) => {
+		setSearchQuery(event.target.value);
+	};
 
 	return (
 		<>
 			<PageHeader title="Manage Products">
-				<Breadcrumbs
-					aria-label="breadcrumb"
-					sx={{
-						textTransform: 'uppercase',
-					}}
-				>
+				<Breadcrumbs aria-label="breadcrumb" sx={{ textTransform: 'uppercase' }}>
 					<Link underline="hover" href="/admin/dashboard">
 						Admin
 					</Link>
@@ -29,13 +23,19 @@ function ManageProductPage() {
 				</Breadcrumbs>
 			</PageHeader>
 
-			<Box display="flex" justifyContent="flex-end" sx={{ mb: 2 }}>
+			<Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+				<TextField
+					label="Search Products"
+					variant="outlined"
+					value={searchQuery}
+					onChange={handleSearchChange}
+				/>
 				<Button variant="contained" color="primary" onClick={() => navigate('/admin/products/new')}>
 					New Product
 				</Button>
 			</Box>
 
-			<ProductTable props={{ dense: true }} />
+			<ProductTable searchQuery={searchQuery} />
 		</>
 	);
 }
