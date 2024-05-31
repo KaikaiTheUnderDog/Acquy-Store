@@ -18,7 +18,11 @@ import {
   resetPassword,
   verifyResetPasswordOtp,
 } from '../../../redux/actions/userActions';
-import { FORGOT_PASSWORD_RESET } from '../../../redux/constants/userConstants';
+import {
+  FORGOT_PASSWORD_RESET,
+  NEW_PASSWORD_RESET,
+  RESET_PASSWORD_VERIFY_RESET,
+} from '../../../redux/constants/userConstants';
 import { useNavigation } from '@react-navigation/native';
 
 const ForgotPassword = () => {
@@ -69,8 +73,6 @@ const ForgotPassword = () => {
     if (success === true) {
       setEmailError(false);
       setOtpError(false);
-
-      dispatch({ type: FORGOT_PASSWORD_RESET });
     }
   }, [success]);
 
@@ -78,6 +80,8 @@ const ForgotPassword = () => {
     if (resetSuccess === true) {
       navigation.navigate('Login');
       ToastAndroid.show('Password has been reset.', ToastAndroid.LONG);
+      dispatch({ type: NEW_PASSWORD_RESET });
+      dispatch({ type: RESET_PASSWORD_VERIFY_RESET });
     }
   }, [resetSuccess]);
 

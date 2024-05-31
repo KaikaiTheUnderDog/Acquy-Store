@@ -32,10 +32,15 @@ $npm install
 
 npm run dev
 
-## Chạy Client
+## Chạy Client (mobile)
 
 $cd client/mobile
 $npm start
+
+## Chạy Client (web)
+
+$cd client/web
+$npm run dev
 
 \*\* Lưu ý trước khi chạy client với localhost cần mở Terminal để tiến hành mapping port localhost trên thiết bị debug với port localhost trên mobile
 

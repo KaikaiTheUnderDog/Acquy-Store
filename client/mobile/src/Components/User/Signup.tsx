@@ -89,13 +89,14 @@ const Signup = ({ navigation }: Props) => {
         setEmailError(true);
         return;
       }
+    }
 
-      if (user.password !== user.confirmedPassword) {
-        ToastAndroid.show('Password does not match', ToastAndroid.LONG);
-        onChange('password', '');
-        onChange('confirmedPassword', '');
-        return;
-      }
+    if (user.password !== user.confirmedPassword) {
+      ToastAndroid.show('Password does not match', ToastAndroid.LONG);
+      onChange('password', '');
+      onChange('confirmedPassword', '');
+      setPasswordError(true);
+      return;
     }
 
     const avatar =
