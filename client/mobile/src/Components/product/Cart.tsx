@@ -8,11 +8,14 @@ import {
   Image,
   Alert,
   ToastAndroid,
+  TextInput,
 } from 'react-native';
-import { addItemToCart, removeItemFromCart } from '../../../redux/actions/cartActions';
+import {
+  addItemToCart,
+  removeItemFromCart,
+} from '../../../redux/actions/cartActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { TextInput } from 'react-native-gesture-handler';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -45,10 +48,7 @@ const Cart = () => {
     const newQty = quantity + 1;
 
     if (newQty > stock) {
-      ToastAndroid.show(
-        'You have reached max number',
-        ToastAndroid.LONG
-      );
+      ToastAndroid.show('You have reached max number', ToastAndroid.LONG);
       return;
     }
 
@@ -86,25 +86,22 @@ const Cart = () => {
 
   const handleQuantityChange = (value, stock, id) => {
     const num = parseInt(value);
-    if (isNaN(num) || num == 0){
+    if (isNaN(num) || num == 0) {
       confirmRemoveItem(id);
-    }
-      
-    else if (!isNaN(num) && num > 0 && num <= stock) { // Áp dụng ràng buộc với số lượng trong kho
+    } else if (!isNaN(num) && num > 0 && num <= stock) {
       dispatch(addItemToCart(id, num));
     } else {
       ToastAndroid.show(
         `Quantity must be a number between 1 and ${stock}`,
         ToastAndroid.SHORT
       );
-      return; // Giữ nguyên giá trị nếu không hợp lệ
+      return;
     }
   };
+
   return (
     <View style={styles.cartContainer}>
-      <Text style={styles.totalItemsText}>
-        Total items: {cartItems.length}
-      </Text>
+      <Text style={styles.totalItemsText}>Total items: {cartItems.length}</Text>
       <ScrollView
         contentContainerStyle={styles.productGrid}
         showsVerticalScrollIndicator={false}
@@ -119,12 +116,19 @@ const Cart = () => {
                 navigation.navigate('Product', { id: item.product })
               }
             >
-              <Image
-                source={{
-                  uri: `${item.image}`,
-                }}
-                style={styles.productImage}
-              />
+              <View style={styles.productImageContainer}>
+                <Image
+                  source={{
+                    uri: `${item.image}`,
+                  }}
+                  style={styles.productImage}
+                />
+                <Text
+                  style={[styles.productInfo, { color: 'grey', fontSize: 9 }]}
+                >
+                  Stock: {item.stock}
+                </Text>
+              </View>
               <View style={styles.productDetails}>
                 <Text style={styles.productName}>
                   {item.name.length > 34
@@ -132,17 +136,18 @@ const Cart = () => {
                     : item.name}
                 </Text>
                 <View style={styles.quantityContainer}>
-                  <Text style={styles.productQuantity}>Quantity: </Text>
                   <TouchableOpacity
                     style={styles.quantityButton}
                     onPress={() => decreaseQty(item.product, item.quantity)}
                   >
                     <Text style={styles.quantityButtonText}>-</Text>
                   </TouchableOpacity>
-                  <TextInput 
-                    style={styles.productQuantity} 
+                  <TextInput
+                    style={styles.quantityInput}
                     value={String(item.quantity)}
-                    onChangeText={(value) => handleQuantityChange(value, item.stock, item.product)} // Sử dụng handleQuantityChange để xử lý sự thay đổi
+                    onChangeText={(value) =>
+                      handleQuantityChange(value, item.stock, item.product)
+                    }
                     keyboardType="numeric"
                   />
                   <TouchableOpacity
@@ -156,9 +161,6 @@ const Cart = () => {
                 </View>
                 <Text style={styles.productInfo}>
                   Price: ${(item.price * item.quantity).toFixed(2)}
-                </Text>
-                <Text style={styles.productInfo}>
-                  Stock: {item.stock}
                 </Text>
               </View>
               <TouchableOpacity
@@ -239,12 +241,18 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#FFF',
   },
+  productName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    width: '100%',
+    color: 'red',
+  },
   largeCard: {
     borderRadius: 10,
     marginLeft: 15,
     marginRight: 15,
     marginBottom: 30,
-    height: 120,
+    height: 150,
     width: '100%',
     alignSelf: 'center',
     backgroundColor: '#FFF',
@@ -253,12 +261,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     elevation: 10,
   },
-  productName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    width: '100%',
-    color: 'red',
-    marginBottom: 7,
+  productImageContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   productImage: {
     width: 80,
@@ -272,18 +277,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flex: 1,
   },
-  productQuantity: {
-    color: 'black',
-    fontSize: 13,
-    fontWeight: '600',
-  },
   quantityContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: 140,
+    width: 120,
     backgroundColor: 'white',
-    borderRadius: 5,
   },
   quantityButton: {
     width: 20,
@@ -297,9 +296,15 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  quantityInput: {
+    color: 'black',
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'center',
+    width: 30,
+  },
   productInfo: {
     color: 'black',
-    marginTop: 7,
     fontSize: 13,
     fontWeight: '600',
   },

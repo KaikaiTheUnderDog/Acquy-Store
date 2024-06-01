@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Dimensions,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -56,7 +57,19 @@ const OrderDetails = () => {
   }, [order]);
 
   const cancelOrderHandler = () => {
-    dispatch(cancelOrder(id));
+    Alert.alert(
+      'Confirm Cancellation',
+      'Are you sure you want to cancel this order?',
+      [
+        {
+          text: 'No',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'Yes', onPress: () => dispatch(cancelOrder(id)) },
+      ],
+      { cancelable: false }
+    );
   };
 
   if (loading || !order) {
@@ -172,7 +185,7 @@ const OrderDetails = () => {
         {order &&
           order.orderItems.length > 0 &&
           order.orderItems.map((orderItem) => (
-            <OrderDetail_ItemCard item={orderItem} />
+            <OrderDetail_ItemCard item={orderItem} key={orderItem._id} />
           ))}
       </View>
       <Text
@@ -219,16 +232,17 @@ const OrderDetails = () => {
             <Text style={styles.buttonText}>🤧 Cancel Order 🥺</Text>
           </TouchableOpacity>
         )}
-      {order.orderStatus === 'Delivered' && (
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate('Checkout', { orderItems: order.orderItems })
-          }
-        >
-          <Text style={styles.buttonText}>🤑 Buy Again 😘</Text>
-        </TouchableOpacity>
-      )}
+      {order.orderStatus === 'Delivered' ||
+        (order.orderStatus === 'Cancelled' && (
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() =>
+              navigation.navigate('Checkout', { orderItems: order.orderItems })
+            }
+          >
+            <Text style={styles.buttonText}>🤑 Buy Again 😘</Text>
+          </TouchableOpacity>
+        ))}
     </ScrollView>
   );
 };
