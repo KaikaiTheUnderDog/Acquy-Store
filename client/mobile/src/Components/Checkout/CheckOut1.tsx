@@ -7,11 +7,13 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   ToastAndroid,
-  Modal,
   ScrollView,
+  NativeModules,
+  NativeEventEmitter,
+  Image,
 } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-
+import CryptoJS from 'crypto-js';
 import Checkout_ItemCard from './Checkout_ItemCard';
 import {
   CommonActions,
@@ -22,27 +24,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from '../../../redux/actions/userActions';
 import { ADD_SHIPPING_INFO_RESET } from '../../../redux/constants/userConstants';
 import { createOrder } from '../../../redux/actions/orderActions';
-import {
-  CardField,
-  createPaymentMethod,
-  StripeProvider,
-  useConfirmPayment,
-} from '@stripe/stripe-react-native';
-import {
-  getStripeAPIKey,
-  processPayment,
-} from '../../../redux/actions/paymentActions';
-import axios from 'axios';
-import { apiURL } from '../../../redux/apiURL';
+
+const { ZaloPayBridge } = NativeModules;
+const payZaloBridgeEmitter = new NativeEventEmitter(ZaloPayBridge);
 
 const paymentOptions = [
   {
-    label: '💵      Cash On Delivery (COD)',
+    label: 'Cash On Delivery (COD)',
     value: 'COD',
+    icon: require('../../assets/icons/cod.png'),
   },
   {
-    label: '💳      Stripe',
+    label: 'Stripe',
     value: 'Stripe',
+    icon: require('../../assets/icons/stripe.png'),
+  },
+  {
+    label: 'ZaloPay',
+    value: 'ZaloPay',
+    icon: require('../../assets/icons/zalopay.png'),
   },
 ];
 
@@ -66,8 +66,100 @@ const Checkout1 = () => {
 
   const { user } = useSelector((state) => state.auth);
   const { isAdded } = useSelector((state) => state.user);
-  //const { orderItems } = useSelector((state) => state.cart);
   const { loading } = useSelector((state) => state.newOrder);
+
+  async function createZaloPayOrder(money) {
+    function getCurrentDateYYMMDD() {
+      var todayDate = new Date().toISOString().slice(2, 10);
+      return todayDate.split('-').join('');
+    }
+
+    let apptransid = getCurrentDateYYMMDD() + '_' + new Date().getTime();
+    let appid = 2554;
+    let amount = parseInt(money);
+    let appuser = 'ZaloPayDemo';
+    let apptime = new Date().getTime();
+    let embeddata = '{}';
+    let item = '[]';
+    let description = 'Merchant description for order #' + apptransid;
+    let hmacInput =
+      appid +
+      '|' +
+      apptransid +
+      '|' +
+      appuser +
+      '|' +
+      amount +
+      '|' +
+      apptime +
+      '|' +
+      embeddata +
+      '|' +
+      item;
+    let mac = CryptoJS.HmacSHA256(
+      hmacInput,
+      'sdngKKJmqEMzvh5QQcdD2A9XBSKUNaYn'
+    );
+
+    var order = {
+      app_id: appid,
+      app_user: appuser,
+      app_time: apptime,
+      amount: amount,
+      app_trans_id: apptransid,
+      embed_data: embeddata,
+      item: item,
+      description: description,
+      mac: mac.toString(),
+    };
+
+    let formBody = [];
+    for (let i in order) {
+      var encodedKey = encodeURIComponent(i);
+      var encodedValue = encodeURIComponent(order[i]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    formBody = formBody.join('&');
+
+    try {
+      let response = await fetch('https://sb-openapi.zalopay.vn/v2/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        },
+        body: formBody,
+      });
+      let resJson = await response.json();
+      return resJson.zp_trans_token;
+    } catch (error) {
+      console.error('Error creating order: ', error);
+      throw error;
+    }
+  }
+
+  useEffect(() => {
+    const subscription = payZaloBridgeEmitter.addListener(
+      'EventPayZalo',
+      (data) => {
+        if (data.returnCode == 1) {
+          console.log('Pay success!');
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [{ name: 'MainPage' }, { name: 'PaymentSuccess' }],
+            })
+          );
+        } else if (data.returnCode == -1) {
+          ZaloPayBridge.installApp();
+          console.log('Pay error! ' + data.returnCode);
+        } else {
+          console.log('Payment status: ' + data.returnCode);
+        }
+      }
+    );
+
+    return () => subscription.remove();
+  }, [navigation]);
 
   useEffect(() => {
     if (isAdded) {
@@ -165,8 +257,24 @@ const Checkout1 = () => {
       const paymentData = { amount: Math.round(order.totalPrice * 100) };
 
       navigation.navigate('StripePayment', { order, paymentData });
+    } else if (paymentMethod === 'ZaloPay') {
+      try {
+        const token = await createZaloPayOrder(totalPrice * 25500);
+
+        var payZP = NativeModules.ZaloPayBridge;
+        payZP.payOrder(token);
+      } catch (error) {
+        console.error('Error processing payment: ', error);
+      }
     }
   };
+
+  const renderPaymentOption = (item) => (
+    <View style={styles.paymentOption}>
+      <Image source={item.icon} style={styles.paymentIcon} />
+      <Text style={styles.paymentLabel}>{item.label}</Text>
+    </View>
+  );
 
   return (
     <ScrollView style={styles.container} nestedScrollEnabled>
@@ -233,6 +341,7 @@ const Checkout1 = () => {
             setIsPaymentFocus(false);
             setPaymentMethodError(false);
           }}
+          renderItem={renderPaymentOption}
           labelField="label"
           valueField="value"
           itemTextStyle={{ color: 'black', fontSize: 16 }}
@@ -513,6 +622,21 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '500',
     color: '#FFF',
+  },
+  paymentOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  paymentIcon: {
+    width: 40,
+    height: 40,
+    marginRight: 10,
+    marginLeft: 20,
+  },
+  paymentLabel: {
+    fontSize: 16,
+    color: 'black',
   },
 });
 
