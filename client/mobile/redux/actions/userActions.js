@@ -53,7 +53,7 @@ import {
 } from '../constants/userConstants';
 import { apiURL } from '../apiURL';
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, fcmToken) => async (dispatch) => {
   try {
     dispatch({
       type: LOGIN_REQUEST,
@@ -64,7 +64,7 @@ export const login = (email, password) => async (dispatch) => {
 
     const { data } = await axios.post(
       `${apiURL}/login`,
-      { email, password },
+      { email, password, fcmToken },
       config
     );
 

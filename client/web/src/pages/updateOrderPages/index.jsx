@@ -98,69 +98,76 @@ function UpdateOrderPage() {
 			<Grid container spacing={3}>
 				<Grid item xs={12} md={6}>
 					<Stack spacing={2}>
-						<Card type="section" sx={{ width: '100%' }}>
-							<CardHeader title="Order Details" subtitle="Includes id and status of order." />
-							<Grid container spacing={2}>
-								<Grid item xs={12}>
-									<TextField
-										InputProps={{
-											readOnly: true,
-										}}
-										value={order && order._id}
-										label="Order ID"
-										variant="filled"
-										fullWidth
-										sx={textFieldStyles}
-									/>
+						{order && (
+							<Card type="section" sx={{ width: '100%', height: 'auto' }}>
+								<CardHeader title="Order Details" subtitle="Includes id and status of order." />
+								<Grid container spacing={2}>
+									<Grid item xs={12}>
+										<TextField
+											InputProps={{
+												readOnly: true,
+											}}
+											value={order && order._id}
+											label="Order ID"
+											variant="filled"
+											fullWidth
+											sx={textFieldStyles}
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<TextField
+											value={status}
+											onChange={(e) => setStatus(e.target.value)}
+											label="Order Status"
+											variant="outlined"
+											fullWidth
+											select
+											sx={textFieldStyles}
+										>
+											{['Pending', 'Shipping', 'Delivered', 'Cancelled'].map((option) => (
+												<MenuItem key={option} value={option}>
+													{option}
+												</MenuItem>
+											))}
+										</TextField>
+									</Grid>
+									<Grid item xs={12}>
+										<Button
+											variant="contained"
+											color="primary"
+											fullWidth
+											onClick={handleUpdateClick}
+										>
+											Update
+										</Button>
+									</Grid>
+									<Grid item xs={6}>
+										<TextField
+											InputProps={{
+												readOnly: true,
+											}}
+											value={order && order.paymentMethod}
+											label="Payment Method"
+											variant="filled"
+											fullWidth
+											sx={textFieldStyles}
+										/>
+									</Grid>
+									<Grid item xs={6}>
+										<TextField
+											InputProps={{
+												readOnly: true,
+											}}
+											value={order && new Date(order.createdAt).toLocaleDateString('vi-VN')}
+											label="Created At"
+											variant="filled"
+											fullWidth
+											sx={textFieldStyles}
+										/>
+									</Grid>
 								</Grid>
-								<Grid item xs={12}>
-									<TextField
-										value={status}
-										onChange={(e) => setStatus(e.target.value)}
-										label="Order Status"
-										variant="outlined"
-										fullWidth
-										select
-										sx={textFieldStyles}
-									>
-										{['Pending', 'Shipping', 'Delivered', 'Cancelled'].map((option) => (
-											<MenuItem key={option} value={option}>
-												{option}
-											</MenuItem>
-										))}
-									</TextField>
-								</Grid>
-								<Grid item xs={12}>
-									<Button variant="contained" color="primary" fullWidth onClick={handleUpdateClick}>
-										Update
-									</Button>
-								</Grid>
-								<Grid item xs={6}>
-									<TextField
-										InputProps={{
-											readOnly: true,
-										}}
-										value={order && order.paymentMethod}
-										label="Payment Method"
-										variant="filled"
-										fullWidth
-										sx={textFieldStyles}
-									/>
-								</Grid>
-								<Grid item xs={6}>
-									<TextField
-										InputProps={{
-											readOnly: true,
-										}}
-										value={order && new Date(order.createdAt).toLocaleDateString('vi-VN')}
-										label="Created At"
-										variant="filled"
-										fullWidth
-										sx={textFieldStyles}
-									/>
-								</Grid>
-							</Grid>
-						</Card>
+							</Card>
+						)}
 						{order && order.paymentInfo && (
 							<Card type="section" sx={{ width: '100%', height: 'auto' }}>
 								<CardHeader title="Payment Info" subtitle="Includes stripe payment info." />

@@ -12,11 +12,9 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  login,
-  clearErrors,
-  loadUser,
-} from '../../../redux/actions/userActions';
+import messaging from '@react-native-firebase/messaging';
+
+import { login, clearErrors } from '../../../redux/actions/userActions';
 import { useNavigation } from '@react-navigation/native';
 
 const Login = () => {
@@ -44,10 +42,13 @@ const Login = () => {
     }
   }, [isAuthenticated, error]);
 
-  const signInHandler = () => {
+  const signInHandler = async () => {
     Keyboard.dismiss();
 
-    dispatch(login(email, password));
+    await messaging().registerDeviceForRemoteMessages();
+    const token = await messaging().getToken();
+
+    dispatch(login(email, password, token));
   };
 
   if (loading) {

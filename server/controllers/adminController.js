@@ -5,8 +5,13 @@ const Product = require('../models/product');
 const Errors = require('../utils/errors');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const APIFeatures = require('../utils/apiFeatures');
+const firebaseAdmin = require('firebase-admin');
 
 const cloudinary = require('cloudinary').v2;
+
+const { initializeApp } = require('firebase-admin/app');
+const serviceAccount = require('../config/serviceAccountKey.json');
+initializeApp({ credential: firebaseAdmin.credential.cert(serviceAccount) });
 
 const startOfToday = new Date();
 startOfToday.setHours(0, 0, 0, 0);
@@ -405,6 +410,7 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
 // Update pending orders --> /api/v1/admin/order/:id
 exports.updatePendingOrders = catchAsyncErrors(async (req, res, next) => {
   const order = await Order.findById(req.params.id);
+  const user = await User.findById(order.user);
 
   if (order.orderStatus === 'Delivered') {
     return next(new Errors('This order has already been delivered', 400));
@@ -421,6 +427,24 @@ exports.updatePendingOrders = catchAsyncErrors(async (req, res, next) => {
   } else order.deliveredAt = undefined;
 
   await order.save();
+
+  if (user.fcmToken) {
+    await firebaseAdmin.messaging().send({
+      token: user.fcmToken,
+      notification: {
+        title:
+          order.orderStatus === 'Delivered' || order.orderStatus === 'Cancelled'
+            ? `Your order has been ${order.orderStatus}.`
+            : `Your order is being ${order.orderStatus}.`,
+        body: `Your order with ${order.orderItems[0].name} ${
+          order.orderStatus === 'Delivered' || order.orderStatus === 'Cancelled'
+            ? `has been ${order.orderStatus}.`
+            : `is being ${order.orderStatus}.`
+        }`,
+        imageUrl: order.orderItems[0].image,
+      },
+    });
+  }
 
   res.status(200).json({
     success: true,

@@ -104,7 +104,9 @@ exports.verifyEmail = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, fcmToken } = req.body;
+
+  console.log(fcmToken);
 
   // Check if email and password is entered by user
   if (!email || !password) {
@@ -125,10 +127,19 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     return next(new Errors('Invalid email or password', 400));
   }
 
+  if (fcmToken) {
+    user.fcmToken = fcmToken;
+    user.save();
+  }
+
   sendToken(user, 200, res);
 });
 
 exports.logoutUser = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  user.fcmToken = undefined;
+  user.save();
+
   res.cookie('token', null, {
     expires: new Date(Date.now()),
     httpOnly: true,

@@ -95,6 +95,7 @@ const userSchema = new mongoose.Schema({
   registerOtpExpires: Date,
   registerToken: String,
   registerTokenExpiration: Date,
+  fcmToken: String,
 });
 
 userSchema.pre('save', async function (next) {
