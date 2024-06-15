@@ -50,6 +50,9 @@ import {
   RESET_PASSWORD_VERIFY_REQUEST,
   RESET_PASSWORD_VERIFY_SUCCESS,
   RESET_PASSWORD_VERIFY_FAILED,
+  GET_FAVORITE_PRODUCTS_REQUEST,
+  GET_FAVORITE_PRODUCTS_SUCCESS,
+  GET_FAVORITE_PRODUCTS_FAILED,
 } from '../constants/userConstants';
 import { apiURL } from '../apiURL';
 
@@ -318,6 +321,24 @@ export const resetPassword = (password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: NEW_PASSWORD_FAILED,
+      payload: error.response.data.errMessage,
+    });
+  }
+};
+
+export const getFavoriteProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_FAVORITE_PRODUCTS_REQUEST });
+
+    const { data } = await axios.get(`${apiURL}/me/favorites`);
+
+    dispatch({
+      type: GET_FAVORITE_PRODUCTS_SUCCESS,
+      payload: data.favoriteProducts,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_FAVORITE_PRODUCTS_FAILED,
       payload: error.response.data.errMessage,
     });
   }

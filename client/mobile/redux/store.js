@@ -17,6 +17,7 @@ import {
   forgotPasswordReducer,
   allUsersReducer,
   userDetailsReducer,
+  favoriteProductsReducer,
 } from './reducers/userReducers';
 import { cartReducer } from './reducers/cartReducers';
 import {
@@ -55,6 +56,7 @@ const reducer = combineReducers({
   checkIsBuy: checkIsBuyReducer,
   stripeAPIKey: stripeAPIKeyReducer,
   processPayment: processPaymentReducer,
+  favoriteProducts: favoriteProductsReducer,
 });
 
 const store = configureStore({

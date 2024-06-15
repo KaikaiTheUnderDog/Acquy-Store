@@ -3,7 +3,6 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jsonWebToken = require('jsonwebtoken');
 const crypto = require('crypto');
-const { resetPassword } = require('../controllers/authController');
 
 const cloudinary = require('cloudinary').v2;
 
@@ -24,6 +23,12 @@ const userSchema = new mongoose.Schema({
       unique: true,
     },
   },
+  favoriteProducts: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Product',
+    },
+  ],
   email: {
     type: String,
     required: [true, 'Email is required'],

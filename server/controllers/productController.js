@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const Order = require('../models/order');
+const User = require('../models/user');
 
 const Errors = require('../utils/errors');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
@@ -122,5 +123,57 @@ exports.getAllProductReviews = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     reviews: product.reviews,
+  });
+});
+
+// Add a product to the user favorites list --> /api/v1/product/:id/favorite
+exports.addFavoriteProduct = catchAsyncErrors(async (req, res, next) => {
+  const productId = req.params.id;
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    return next(new Errors('User not found', 404));
+  }
+
+  // Check if the product is already in the favorite list
+  const isFavorite = user.favoriteProducts.includes(productId);
+
+  if (isFavorite) {
+    return next(new Errors('Product is already in your favorites list', 400));
+  }
+
+  user.favoriteProducts.push(productId);
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: 'Product added to favorites',
+  });
+});
+
+// Remove a product from the user favorites list --> /api/v1/product/:id/favorite
+exports.removeFavoriteProduct = catchAsyncErrors(async (req, res, next) => {
+  const productId = req.params.id;
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    return next(new Errors('User not found', 404));
+  }
+
+  // Check if the product is in the favorite list
+  const isFavorite = user.favoriteProducts.includes(productId);
+
+  if (!isFavorite) {
+    return next(new Errors('Product is not in your favorites list', 400));
+  }
+
+  user.favoriteProducts = user.favoriteProducts.filter(
+    (id) => id.toString() !== productId.toString()
+  );
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: 'Product removed from favorites',
   });
 });

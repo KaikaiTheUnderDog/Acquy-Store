@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,23 +7,28 @@ import {
   Image,
   ToastAndroid,
   TextInput,
-  Touchable,
 } from 'react-native';
-
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Rating } from 'react-native-ratings';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  addFavoriteProduct,
   checkIsBuy,
   clearErrors,
   getProductDetails,
   newReview,
+  removeFavoriteProduct,
 } from '../../../redux/actions/productActions';
 import { Dropdown } from 'react-native-element-dropdown';
-import { NEW_REVIEW_RESET } from '../../../redux/constants/productConstants';
+import {
+  ADD_FAVORITE_REQUEST,
+  ADD_FAVORITE_RESET,
+  NEW_REVIEW_RESET,
+} from '../../../redux/constants/productConstants';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { loadUser } from '../../../redux/actions/userActions';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -31,7 +36,12 @@ const Overview = () => {
   const { product } = useRoute().params;
   const [mainImage, setMainImage] = useState('');
   const [secondaryImages, setSecondaryImages] = useState([]);
+  const [isFavorited, setIsFavorited] = useState(false);
 
+  const { user } = useSelector((state) => state.auth);
+  const { success } = useSelector((state) => state.productDetails);
+
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -40,7 +50,44 @@ const Overview = () => {
       const secondary = product.images.slice(1).map((image) => image.url);
       setSecondaryImages(secondary);
     }
-  }, [product]);
+
+    if (
+      user &&
+      user.favoriteProducts &&
+      user.favoriteProducts.length > 0 &&
+      user.favoriteProducts.includes(product._id)
+    ) {
+      setIsFavorited(true);
+    } else setIsFavorited(false);
+  }, [product, user]);
+
+  useEffect(() => {
+    if (success) {
+      dispatch({ type: ADD_FAVORITE_RESET });
+      dispatch(loadUser());
+    }
+  }, [success]);
+
+  const toggleFavorite = () => {
+    if (user) {
+      if (user.favoriteProducts) {
+        if (user.favoriteProducts.includes(product._id)) {
+          dispatch(removeFavoriteProduct(product._id));
+          setIsFavorited(false);
+        } else {
+          dispatch(addFavoriteProduct(product._id));
+          setIsFavorited(true);
+        }
+
+        ToastAndroid.show(
+          isFavorited ? 'Removed from favorites' : 'Added to favorites',
+          ToastAndroid.SHORT
+        );
+      }
+    } else {
+      navigation.navigate('Login');
+    }
+  };
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -81,10 +128,16 @@ const Overview = () => {
         )}
       </View>
       <Text style={styles.Name}>{product.name}</Text>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text style={styles.ratingsTxt}> {product.ratings} ⭐</Text>
         <TouchableOpacity onPress={() => navigation.navigate('Reviews')}>
           <Text style={styles.reviewTxt}>({product.numOfReviews} reviews)</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={toggleFavorite}
+          style={{ marginLeft: 20, alignContent: 'center' }}
+        >
+          <Icon name="heart" size={30} color={isFavorited ? 'red' : 'gray'} />
         </TouchableOpacity>
       </View>
       <Text style={styles.description}>{product.description}</Text>
@@ -488,7 +541,7 @@ const styles = StyleSheet.create({
   thumbnailTouchable: {
     marginHorizontal: 5,
     borderWidth: 1,
-    borderColor: 'black', // or 'transparent' to hide border
+    borderColor: 'black',
     borderRadius: 10,
   },
   thumbnail: {
@@ -502,7 +555,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'justify',
   },
-  // Style for the tab content container
   tabContent: {
     flex: 1,
     padding: 16,
@@ -565,7 +617,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 50,
     marginBottom: 10,
-    backgroundColor: '#c4c4c4', // A placeholder background color
+    backgroundColor: '#c4c4c4',
   },
   reviewStats: {
     borderColor: 'black',

@@ -26,6 +26,7 @@ import OrderScreen from './src/Components/Order/OrderScreen';
 import OrderDetails from './src/Components/Order/OrderDetails';
 import EditProfile from './src/Components/User/EditProfile';
 import VerifyAccount from './src/Components/User/VerifyAccount';
+import FavoritesScreen from './src/Components/User/FavoritesScreen';
 
 const Stack = createStackNavigator();
 
@@ -88,6 +89,11 @@ const AppNavigator = () => {
             name="OrderDetails"
             component={OrderDetails}
             options={{ detachPreviousScreen: false, freezeOnBlur: false }}
+          />
+          <Stack.Screen
+            name="Favorites"
+            component={FavoritesScreen}
+            options={{ detachPreviousScreen: false }}
           />
           <Stack.Screen name="VerifyAccount" component={VerifyAccount} />
         </Stack.Navigator>

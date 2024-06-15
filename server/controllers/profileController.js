@@ -75,3 +75,20 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     user,
   });
 });
+
+// Get user's favorite products -> /api/v1/me/favorites
+exports.getFavoriteProducts = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id).populate({
+    path: 'favoriteProducts',
+    model: 'Product',
+  });
+
+  if (!user) {
+    return next(new Errors('User not found', 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    favoriteProducts: user.favoriteProducts,
+  });
+});

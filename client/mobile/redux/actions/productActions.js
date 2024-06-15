@@ -20,6 +20,12 @@ import {
   CHECK_IS_BUY_REQUEST,
   CHECK_IS_BUY_SUCCESS,
   CHECK_IS_BUY_FAILED,
+  ADD_FAVORITE_FAILED,
+  ADD_FAVORITE_REQUEST,
+  ADD_FAVORITE_SUCCESS,
+  REMOVE_FAVORITE_REQUEST,
+  REMOVE_FAVORITE_SUCCESS,
+  REMOVE_FAVORITE_FAILED,
 } from '../constants/productConstants';
 import { apiURL } from '../apiURL';
 
@@ -144,6 +150,36 @@ export const getProductReviews = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_REVIEWS_FAILED,
+      payload: error.response.data.errMessage,
+    });
+  }
+};
+
+export const addFavoriteProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ADD_FAVORITE_REQUEST });
+
+    const { data } = await axios.post(`${apiURL}/product/${id}/favorite`);
+
+    dispatch({ type: ADD_FAVORITE_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({
+      type: ADD_FAVORITE_FAILED,
+      payload: error.response.data.errMessage,
+    });
+  }
+};
+
+export const removeFavoriteProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: REMOVE_FAVORITE_REQUEST });
+
+    const { data } = await axios.delete(`${apiURL}/product/${id}/favorite`);
+
+    dispatch({ type: REMOVE_FAVORITE_SUCCESS, payload: data.success });
+  } catch (error) {
+    dispatch({
+      type: REMOVE_FAVORITE_FAILED,
       payload: error.response.data.errMessage,
     });
   }

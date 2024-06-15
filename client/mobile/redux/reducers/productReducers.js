@@ -38,6 +38,14 @@ import {
   CHECK_IS_BUY_REQUEST,
   CHECK_IS_BUY_SUCCESS,
   CHECK_IS_BUY_FAILED,
+  ADD_FAVORITE_REQUEST,
+  ADD_FAVORITE_RESET,
+  ADD_FAVORITE_SUCCESS,
+  ADD_FAVORITE_FAILED,
+  REMOVE_FAVORITE_REQUEST,
+  REMOVE_FAVORITE_SUCCESS,
+  REMOVE_FAVORITE_FAILED,
+  REMOVE_FAVORITE_RESET,
 } from '../constants/productConstants';
 
 export const productReducer = (state = { products: [] }, action) => {
@@ -110,9 +118,19 @@ export const bestSellersReducer = (state = { bestSellers: [] }, action) => {
 export const productDetailsReducer = (state = { product: {} }, action) => {
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
+    case ADD_FAVORITE_REQUEST:
+    case REMOVE_FAVORITE_REQUEST:
       return {
         ...state,
         loading: true,
+      };
+
+    case REMOVE_FAVORITE_SUCCESS:
+    case ADD_FAVORITE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: action.payload,
       };
 
     case PRODUCT_DETAILS_SUCCESS:
@@ -120,11 +138,22 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
         loading: false,
         product: action.payload,
       };
+
+    case REMOVE_FAVORITE_FAILED:
+    case ADD_FAVORITE_FAILED:
     case PRODUCT_DETAILS_FAILED:
       return {
         ...state,
         error: action.payload,
       };
+
+    case ADD_FAVORITE_RESET:
+    case REMOVE_FAVORITE_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+
     case CLEAR_ERRORS:
       return {
         ...state,

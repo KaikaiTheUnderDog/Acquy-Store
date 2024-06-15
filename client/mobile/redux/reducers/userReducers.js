@@ -57,6 +57,9 @@ import {
   RESET_PASSWORD_VERIFY_SUCCESS,
   RESET_PASSWORD_VERIFY_RESET,
   NEW_PASSWORD_RESET,
+  GET_FAVORITE_PRODUCTS_REQUEST,
+  GET_FAVORITE_PRODUCTS_SUCCESS,
+  GET_FAVORITE_PRODUCTS_FAILED,
 } from '../constants/userConstants';
 
 export const authReducer = (state = { user: {} }, action) => {
@@ -364,6 +367,45 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        loading: false,
+
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const favoriteProductsReducer = (
+  state = { favoriteProducts: [] },
+  action
+) => {
+  switch (action.type) {
+    case GET_FAVORITE_PRODUCTS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case GET_FAVORITE_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        favoriteProducts: action.payload,
+      };
+
+    case GET_FAVORITE_PRODUCTS_FAILED:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        favoriteProducts: [],
       };
 
     case CLEAR_ERRORS:

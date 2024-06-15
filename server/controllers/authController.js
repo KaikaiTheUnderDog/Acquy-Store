@@ -103,10 +103,9 @@ exports.verifyEmail = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
+// Login user with email and password --> /api/v1/login
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   const { email, password, fcmToken } = req.body;
-
-  console.log(fcmToken);
 
   // Check if email and password is entered by user
   if (!email || !password) {
